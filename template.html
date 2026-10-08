@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="0LllTqODHak3-O57mtYNvww1cunA1HQ6XVre50s494w" />
+<title>Primora — Immobili in vendita e locazione a Mendrisio e in Ticino | Real Estate & Property Investments</title>
+<meta name="description" content="Primora, gruppo immobiliare del Mendrisiotto: promozione, sviluppo, vendita e locazione di immobili residenziali a Mendrisio e in Ticino. Consulenza in italiano, tedesco e inglese.">
+<meta name="keywords" content="immobiliare Mendrisio, immobili Ticino, appartamenti in vendita Mendrisiotto, case in vendita Ticino, terreni edificabili Ticino, locazione Ticino, promozione immobiliare, Primora">
+<meta name="author" content="PRIMORA SA">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#cbb79b">
+<link rel="canonical" href="https://primoragroup.ch/">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon.svg">
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Primora">
+<meta property="og:title" content="Primora — Immobili in vendita e locazione a Mendrisio e in Ticino">
+<meta property="og:description" content="Gruppo immobiliare del Mendrisiotto: promozione, sviluppo, vendita e locazione di immobili residenziali. Consulenza in italiano, tedesco e inglese.">
+<meta property="og:url" content="https://primoragroup.ch/">
+<meta property="og:image" content="https://primoragroup.ch/images/hero1.jpg">
+<meta property="og:locale" content="it_CH">
+<meta property="og:locale:alternate" content="de_CH">
+<meta property="og:locale:alternate" content="en">
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Primora — Immobili in vendita e locazione a Mendrisio e in Ticino">
+<meta name="twitter:description" content="Gruppo immobiliare del Mendrisiotto: promozione, sviluppo, vendita e locazione di immobili residenziali.">
+<meta name="twitter:image" content="https://primoragroup.ch/images/hero1.jpg">
+<!-- Dati strutturati Schema.org -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"RealEstateAgent",
+  "name":"Primora",
+  "legalName":"PRIMORA SA",
+  "url":"https://primoragroup.ch",
+  "email":"info@primoragroup.ch",
+  "telephone":"+41916460804",
+  "image":"https://primoragroup.ch/images/hero1.jpg",
+  "priceRange":"$$$",
+  "address":{"@type":"PostalAddress","streetAddress":"Via Carlo Pasta 5","postalCode":"6850","addressLocality":"Mendrisio","addressRegion":"Ticino","addressCountry":"CH"},
+  "geo":{"@type":"GeoCoordinates","latitude":45.87339,"longitude":8.98720},
+  "areaServed":{"@type":"AdministrativeArea","name":"Canton Ticino, Svizzera"},
+  "knowsLanguage":["it","de","en"],
+  "openingHoursSpecification":{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"08:30","closes":"18:00"}
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+
+<style>
+:root{
+  --sand:#cbb79b;--sand-soft:#e7ddce;--cream:#f6f1e9;--cream-2:#efe7d9;
+  --ink:#2c2823;--ink-soft:#5b554c;--bronze:#9c7b4e;
+  --line:rgba(44,40,35,.12);--shadow:0 24px 60px -28px rgba(44,40,35,.45);
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'Jost',-apple-system,Segoe UI,sans-serif;
+  --display:'Space Grotesk',var(--sans);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);color:var(--ink);background:var(--cream);line-height:1.65;font-weight:300;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3,h4{font-family:var(--display);font-weight:500;line-height:1.08;letter-spacing:-.01em}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+.eyebrow{font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;color:var(--bronze);font-weight:500}
+
+/* HEADER */
+header{position:fixed;top:0;left:0;right:0;z-index:1000;transition:.4s ease;padding:22px 0;background:transparent}
+header.scrolled{background:rgba(246,241,233,.92);backdrop-filter:blur(12px);padding:14px 0;box-shadow:0 1px 0 var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{display:flex;align-items:center;gap:14px;cursor:pointer}
+.logo-img{height:30px;width:auto;display:none;transition:.3s}
+header:not(.scrolled) .logo-img{height:38px}
+header.home:not(.scrolled) .logo-neutral.logo-light{display:block}
+header.home.scrolled .logo-neutral.logo-dark{display:block}
+header:not(.home) .logo-real.logo-dark{display:block}
+.menu{display:flex;gap:32px;align-items:center}
+.menu a{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;font-weight:400;position:relative;cursor:pointer;padding:4px 0}
+.menu a::after{content:"";position:absolute;left:0;bottom:-2px;width:0;height:1px;background:var(--bronze);transition:.3s}
+.menu a:hover::after,.menu a.active::after{width:100%}
+header.light .nav a{color:#fff}
+header.light.scrolled .nav a{color:var(--ink)}
+.lang-switch{display:flex;align-items:center;gap:3px;margin-left:6px}
+.lang-switch a{font-size:.72rem;letter-spacing:.1em;font-weight:500;cursor:pointer;padding:5px 8px;color:var(--ink-soft);transition:.25s;border-radius:3px}
+.lang-switch a:hover{color:var(--ink)}
+.lang-switch a.active{color:var(--ink);background:var(--sand-soft)}
+header.light:not(.scrolled) .lang-switch a{color:rgba(255,255,255,.7)}
+header.light:not(.scrolled) .lang-switch a:hover{color:#fff}
+header.light:not(.scrolled) .lang-switch a.active{color:#fff;background:rgba(255,255,255,.18)}
+.burger{display:none;position:fixed;top:22px;right:24px;z-index:2700;flex-direction:column;gap:6px;cursor:pointer;padding:4px}
+.burger span{display:block;width:26px;height:2px;background:var(--ink);border-radius:2px;transition:.35s ease}
+.burger.on-dark span{background:#fff}
+.burger.open span{background:var(--ink)}
+.burger.open span:nth-child(1){transform:translateY(8px) rotate(45deg)}
+.burger.open span:nth-child(2){opacity:0}
+.burger.open span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
+/* menu mobile esterno all'header */
+.mobile-nav{position:fixed;top:0;right:0;bottom:0;width:78%;max-width:330px;background:var(--cream);z-index:2600;display:none;flex-direction:column;justify-content:center;gap:30px;padding:0 44px;transform:translateX(100%);transition:transform .4s ease;box-shadow:var(--shadow)}
+.mobile-nav.open{transform:none}
+.mobile-nav a{font-size:1.05rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);cursor:pointer;font-weight:400}
+.mobile-nav-ov{position:fixed;inset:0;background:rgba(28,25,21,.5);z-index:2500;display:none;opacity:0;visibility:hidden;transition:opacity .4s ease,visibility .4s ease}
+.mobile-nav-ov.open{opacity:1;visibility:visible}
+
+/* PAGES */
+.page{display:none;animation:fade .7s ease}
+.page.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+/* HERO */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden}
+.hero-bg{position:absolute;inset:0;z-index:0}
+.hero-slide{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;transition:opacity 1.6s ease;transform:scale(1.05);animation:kenburns 12s ease infinite}
+.hero-slide.show{opacity:1}
+@keyframes kenburns{0%{transform:scale(1.05)}100%{transform:scale(1.16)}}
+.hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,rgba(36,32,28,.82) 0%,rgba(36,32,28,.45) 45%,rgba(36,32,28,.2) 100%)}
+.hero-inner{position:relative;z-index:2;color:#fff;padding-top:90px}
+.hero .group-mark{display:flex;align-items:center;gap:26px;margin-bottom:34px;flex-wrap:wrap}
+.hero-logo{height:46px;width:auto}
+.hero-div{width:1px;height:42px;background:rgba(255,255,255,.28)}
+.hero h1{font-size:clamp(2.8rem,6vw,5.2rem);color:#fff;margin-bottom:22px;font-weight:500}
+.hero h1 em{font-style:normal;color:var(--sand)}
+.hero p{max-width:560px;font-size:1.06rem;color:rgba(255,255,255,.86);font-weight:300;margin-bottom:38px}
+.btn{display:inline-flex;align-items:center;gap:12px;background:var(--sand);color:var(--ink);padding:15px 30px;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;font-weight:500;border:none;cursor:pointer;transition:.35s}
+.btn:hover{background:#fff;transform:translateY(-2px)}
+.btn.ghost{background:transparent;border:1px solid rgba(255,255,255,.5);color:#fff}
+.btn.ghost:hover{background:#fff;color:var(--ink);border-color:#fff}
+.hero-cta{display:flex;gap:16px;flex-wrap:wrap}
+.scroll-ind{position:absolute;bottom:34px;left:50%;transform:translateX(-50%);z-index:2;color:rgba(255,255,255,.7);font-size:.66rem;letter-spacing:.3em;text-transform:uppercase;text-align:center}
+.scroll-ind::before{content:"";display:block;width:1px;height:42px;background:rgba(255,255,255,.4);margin:0 auto 12px;animation:drop 1.8s ease infinite}
+@keyframes drop{0%,100%{transform:scaleY(.3);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}}
+
+/* SECTION */
+section{padding:110px 0}
+.section-head{max-width:640px;margin-bottom:60px}
+.section-head h2{font-size:clamp(2.1rem,4vw,3.2rem);margin:14px 0 18px}
+.section-head p{color:var(--ink-soft);font-size:1.04rem}
+.reveal{opacity:0;transform:translateY(36px);transition:.9s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+
+/* GRUPPO */
+.group{background:var(--cream-2)}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:30px}
+.soc-card{background:var(--cream);padding:48px 42px;position:relative;border-top:3px solid var(--sand);transition:.4s;box-shadow:0 10px 30px -22px rgba(44,40,35,.4)}
+.soc-card:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+.soc-card.primary{border-top-color:var(--bronze)}
+.soc-card .tag{font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;color:var(--bronze);font-weight:500}
+.soc-logo{height:30px;width:auto;margin-bottom:24px}
+.soc-name{font-size:1.5rem;margin:10px 0 6px;color:var(--ink)}
+.soc-card p{color:var(--ink-soft);margin-top:18px;font-size:.98rem}
+.soc-card ul{list-style:none;margin-top:22px}
+.soc-card li{padding:9px 0;border-bottom:1px solid var(--line);font-size:.9rem;display:flex;gap:12px;align-items:center}
+.soc-card li::before{content:"";width:6px;height:6px;background:var(--sand);transform:rotate(45deg);flex:none}
+.flow{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:54px;flex-wrap:wrap;color:var(--ink-soft);font-size:.82rem;letter-spacing:.1em}
+.flow b{font-family:var(--display);font-size:1rem;color:var(--ink);font-weight:600;letter-spacing:-.01em}
+.flow .arr{color:var(--bronze);font-size:1.3rem}
+
+/* PROGETTI */
+.proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.proj{position:relative;height:340px;overflow:hidden;cursor:pointer}
+.proj img{width:100%;height:100%;object-fit:cover;transition:1s ease}
+.proj:hover img{transform:scale(1.08)}
+.proj::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(36,32,28,.88),transparent 60%)}
+.proj-info{position:absolute;left:0;bottom:0;padding:26px;z-index:2;color:#fff}
+.proj-info .st{font-size:.64rem;letter-spacing:.22em;text-transform:uppercase;color:var(--sand);font-weight:500}
+.proj-info h4{font-size:1.5rem;color:#fff;margin-top:6px}
+.proj-info span{font-size:.84rem;opacity:.8}
+.proj.tall{grid-row:span 2;height:auto}
+
+/* BACHECA */
+.board{background:var(--ink);color:#fff;overflow:hidden}
+.board .section-head h2{color:#fff}
+.board .section-head p{color:rgba(255,255,255,.7)}
+.board .eyebrow{color:var(--sand)}
+.news{flex:none;width:360px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);padding:34px 30px;transition:.4s}
+.news:hover{background:rgba(203,183,155,.12);border-color:var(--sand)}
+.news .date{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--sand);font-weight:500}
+.news .badge{display:inline-block;font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;padding:4px 11px;border:1px solid rgba(255,255,255,.25);border-radius:40px;margin-left:10px;opacity:.85}
+.news h4{font-size:1.4rem;color:#fff;margin:16px 0 12px}
+.news p{color:rgba(255,255,255,.66);font-size:.92rem}
+.board-viewport{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.marquee{display:flex;gap:24px;width:max-content;animation:scrollx 40s linear infinite}
+.board-viewport:hover .marquee{animation-play-state:paused}
+@keyframes scrollx{to{transform:translateX(-50%)}}
+
+/* OGGETTI */
+.listings{background:var(--cream)}
+.obj-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:30px}
+.obj-grid.home3{grid-template-columns:repeat(3,1fr)}
+.obj{background:var(--cream);border:1px solid var(--line);overflow:hidden;transition:.4s;display:flex;flex-direction:column;cursor:pointer}
+.obj:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+.obj-img{position:relative;height:300px;overflow:hidden}
+.obj-img img{width:100%;height:100%;object-fit:cover;transition:1s}
+.obj:hover .obj-img img{transform:scale(1.07)}
+.obj-state{position:absolute;top:18px;left:18px;background:var(--cream);color:var(--ink);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;padding:7px 14px;font-weight:500}
+.obj-state.sale{background:var(--bronze);color:#fff}
+.obj-state.soon{background:var(--ink);color:#fff}
+.obj-state.rent{background:#4a7c6f;color:#fff}
+.obj-filter{display:flex;gap:12px;margin-bottom:34px;flex-wrap:wrap}
+.fbtn{font-family:var(--sans);font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;font-weight:500;padding:11px 24px;border:1px solid var(--line);background:transparent;color:var(--ink-soft);cursor:pointer;transition:.25s}
+.fbtn:hover{border-color:var(--bronze);color:var(--ink)}
+.fbtn.active{background:var(--ink);border-color:var(--ink);color:#fff}
+.obj-body{padding:30px 30px 34px}
+.obj-body .loc{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--bronze);font-weight:500}
+.obj-body h3{font-size:1.7rem;margin:8px 0 14px}
+.obj-body p{color:var(--ink-soft);font-size:.93rem;margin-bottom:22px}
+.obj-meta{display:flex;gap:24px;border-top:1px solid var(--line);padding-top:18px;margin-bottom:22px}
+.obj-meta div{font-size:.82rem;color:var(--ink-soft)}
+.obj-meta b{display:block;font-family:var(--display);font-size:1.2rem;color:var(--ink);font-weight:600}
+.obj-foot{display:flex;align-items:center;justify-content:space-between}
+.price{font-family:var(--display);font-size:1.5rem;color:var(--ink);font-weight:600;letter-spacing:-.01em}
+.obj-open{font-size:.74rem;letter-spacing:.14em;text-transform:uppercase;color:var(--bronze);font-weight:500;display:inline-flex;gap:8px;align-items:center;transition:.3s}
+.obj:hover .obj-open{gap:14px}
+
+/* MODAL */
+.modal{position:fixed;inset:0;z-index:3000;display:none}
+.modal.open{display:block}
+.modal-ov{position:absolute;inset:0;background:rgba(28,25,21,.6);backdrop-filter:blur(4px);animation:fade .3s ease}
+.modal-box{position:absolute;top:0;right:0;height:100%;width:min(760px,100%);background:var(--cream);box-shadow:var(--shadow);overflow-y:auto;animation:slideIn .45s cubic-bezier(.2,.7,.2,1)}
+@keyframes slideIn{from{transform:translateX(40px);opacity:.4}to{transform:none;opacity:1}}
+.modal-close{position:absolute;top:20px;right:22px;z-index:5;width:44px;height:44px;border:none;background:rgba(255,255,255,.9);cursor:pointer;font-size:1.2rem;color:var(--ink);border-radius:50%;box-shadow:0 6px 18px -8px rgba(0,0,0,.4);transition:.3s}
+.modal-close:hover{background:#fff;transform:rotate(90deg)}
+.m-gallery{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:180px;gap:6px}
+.m-gallery img{width:100%;height:100%;object-fit:cover}
+.m-gallery img:first-child{grid-column:span 2;grid-row:span 2}
+.m-body{padding:38px 44px 60px}
+.m-loc{font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--bronze);font-weight:500}
+.m-title{font-size:2.2rem;margin:8px 0 4px}
+.m-state{display:inline-block;font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;padding:6px 13px;background:var(--bronze);color:#fff;font-weight:500;margin-top:12px}
+.m-price{font-family:var(--display);font-size:2rem;color:var(--ink);font-weight:600;margin:22px 0;letter-spacing:-.01em}
+.m-desc{color:var(--ink-soft);font-size:1rem;margin-bottom:30px}
+.m-h{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink);font-weight:600;margin:30px 0 14px;font-family:var(--sans)}
+.m-info{display:grid;grid-template-columns:1fr 1fr;gap:0 40px}
+.m-info .row{display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-bottom:1px solid var(--line);font-size:.92rem}
+.m-info .row span{color:var(--ink-soft)}
+.m-info .row b{font-weight:500;color:var(--ink);text-align:right}
+.m-feats{display:flex;flex-wrap:wrap;gap:10px}
+.m-feats .f{font-size:.82rem;padding:9px 15px;background:var(--cream-2);color:var(--ink);display:flex;gap:9px;align-items:center}
+.m-feats .f::before{content:"✓";color:var(--bronze);font-weight:700}
+.m-cta{margin-top:36px}
+.m-cta .btn{background:var(--bronze);color:#fff}
+.m-cta .btn:hover{background:var(--ink)}
+
+/* LIGHTBOX GALLERIA */
+.m-gallery img{cursor:zoom-in}
+.lightbox{position:fixed;inset:0;z-index:3500;background:rgba(20,18,15,.94);display:none;align-items:center;justify-content:center;animation:fade .25s ease}
+.lightbox.open{display:flex}
+.lightbox img{max-width:92vw;max-height:86vh;object-fit:contain;box-shadow:0 20px 60px rgba(0,0,0,.5);user-select:none}
+.lb-close{position:absolute;top:18px;right:22px;color:#fff;font-size:1.7rem;line-height:1;cursor:pointer;background:none;border:none;z-index:2;opacity:.85}
+.lb-close:hover{opacity:1}
+.lb-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.14);color:#fff;border:none;width:52px;height:52px;border-radius:50%;font-size:1.4rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.3s;z-index:2}
+.lb-nav:hover{background:rgba(255,255,255,.3)}
+.lb-prev{left:18px}.lb-next{right:18px}
+.lb-count{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.85);font-size:.82rem;letter-spacing:.12em}
+@media(max-width:900px){.lb-nav{width:44px;height:44px}.lb-prev{left:8px}.lb-next{right:8px}}
+
+/* LINGUE */
+.langs{display:inline-flex;gap:8px;align-items:center;flex-wrap:wrap}
+.lang-chip{font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;font-weight:500;padding:6px 13px;border:1px solid var(--line);border-radius:40px;color:var(--ink-soft)}
+
+/* CONTATTI */
+.contact{background:var(--cream-2)}
+.contact-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:50px;align-items:start}
+.contact-info .blk{padding:26px 0;border-bottom:1px solid var(--line)}
+.contact-info .blk:first-child{padding-top:0}
+.contact-info .lab{font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;color:var(--bronze);font-weight:500;margin-bottom:8px}
+.contact-info h4{font-size:1.4rem;margin-bottom:6px}
+.contact-info p{color:var(--ink-soft);font-size:.95rem}
+.contact-info a:hover{color:var(--bronze)}
+#map{height:480px;width:100%;box-shadow:var(--shadow);filter:saturate(.85)}
+.leaflet-container{font-family:var(--sans)}
+/* FORM CONTATTI */
+.contact-form{margin-top:60px;max-width:840px}
+.cf-title{font-size:1.8rem;margin-bottom:26px}
+.cf-hp{position:absolute;left:-9999px}
+.cf-obj{margin-bottom:16px}
+.cf-lab{display:block;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--bronze);font-weight:500;margin-bottom:8px}
+#cfOggetto{background:var(--cream-2);cursor:default;font-weight:400}
+.cf-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+#contactForm input,#contactForm textarea{width:100%;font-family:var(--sans);font-size:.95rem;color:var(--ink);background:var(--cream);border:1px solid var(--line);padding:14px 16px;transition:.25s;font-weight:300}
+#contactForm textarea{margin-bottom:20px;resize:vertical}
+#contactForm input:focus,#contactForm textarea:focus{outline:none;border-color:var(--bronze)}
+#contactForm .btn{background:var(--bronze);color:#fff}
+#contactForm .btn:hover{background:var(--ink)}
+.cf-msg{margin-top:18px;font-size:.92rem;display:none}
+.cf-msg.show{display:block}
+.cf-msg.ok{color:#4a7c59}
+.cf-msg.err{color:#a3452f}
+
+/* TEAM */
+.team{background:var(--cream)}
+.team-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:56px;align-items:center}
+.team-photo{position:relative}
+.team-photo img{display:block;width:100%;aspect-ratio:1/1;height:auto;object-fit:cover;object-position:center top}
+.team-photo .badge-role{position:absolute;left:0;bottom:0;background:var(--ink);color:#fff;padding:16px 22px;font-size:.7rem;letter-spacing:.16em;text-transform:uppercase}
+.team-photo .badge-role b{color:var(--sand);font-weight:500}
+.team-name{font-size:2.6rem;margin-bottom:6px}
+.team-role{font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:var(--bronze);font-weight:500;margin-bottom:24px}
+.team-bio{color:var(--ink-soft);font-size:1.05rem;margin-bottom:26px}
+.team-note{margin-top:64px;padding:40px 44px;background:var(--cream-2);text-align:center}
+.team-note h3{font-size:1.7rem;margin-bottom:12px}
+.team-note p{color:var(--ink-soft);max-width:640px;margin:0 auto}
+
+/* FOOTER */
+footer{background:var(--ink);color:rgba(255,255,255,.7);padding:64px 0 30px}
+.foot-top{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,.12)}
+.foot-logo{height:30px;width:auto;margin-bottom:14px}
+.foot-logo-2{opacity:.85}
+.foot-brand p{max-width:360px;font-size:.88rem;margin-top:14px}
+.foot-cols{display:flex;gap:64px;flex-wrap:wrap}
+.foot-cols h5{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--sand);margin-bottom:16px;font-weight:500;font-family:var(--sans)}
+.foot-cols a{display:block;font-size:.88rem;padding:5px 0;cursor:pointer}
+.foot-cols a:hover{color:#fff}
+.foot-bot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;padding-top:24px;font-size:.76rem;opacity:.6}
+
+.ph{position:fixed;bottom:16px;right:16px;z-index:2000;background:var(--ink);color:#fff;font-size:.7rem;padding:9px 14px;letter-spacing:.04em;box-shadow:var(--shadow);opacity:.9;border-left:3px solid var(--sand)}
+.ph b{color:var(--sand)}
+
+@media(max-width:900px){
+  .menu{display:none}
+  #langSwitch{display:none}
+  .burger{display:flex}
+  .mobile-nav{display:flex}
+  .mobile-nav-ov{display:block}
+  .mobile-lang{margin-top:24px}
+  .mobile-lang a{font-size:.8rem}
+  .two-col,.proj-grid,.obj-grid,.obj-grid.home3,.contact-grid,.team-grid,.m-info{grid-template-columns:1fr}
+  .proj.tall{grid-row:auto;height:300px}
+  section{padding:74px 0}
+  .hero{min-height:92vh}
+  .m-body{padding:30px 26px 48px}
+  .m-gallery{grid-template-columns:repeat(2,1fr);grid-auto-rows:130px}
+  .team-photo img{aspect-ratio:1/1;height:auto}
+  .team-grid{gap:32px}
+  .cf-row{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header id="hdr" class="light home">
+  <div class="wrap nav">
+    <div class="brand" onclick="go('home')">
+      <img class="logo-img logo-neutral logo-light" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyBpZD0iTGl2ZWxsb18xIiBkYXRhLW5hbWU9IkxpdmVsbG8gMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgMTAwMCAyNTgiPgogIDxkZWZzPgogICAgPHN0eWxlPgogICAgICAuY2xzLTEgewogICAgICAgIGZpbGw6ICNmZmY7CiAgICAgIH0KICAgIDwvc3R5bGU+CiAgPC9kZWZzPgogIDxnPgogICAgPHBhdGggY2xhc3M9ImNscy0xIiBkPSJNMjQwLjIzLDE3NC44NXYtOTEuNjloNjMuOTdjNS44NiwwLDExLjA2LDEuMzMsMTUuNTksNCw0LjUzLDIuNjcsOC4wNiw2LjM1LDEwLjYsMTEuMDYsMi41Myw0LjcxLDMuOCwxMC4xOCwzLjgsMTYuMzlzLTEuMjksMTEuOTktMy44NywxNi43OS02LjEzLDguNTEtMTAuNjYsMTEuMTNjLTQuNTMsMi42Mi05LjY5LDMuOTMtMTUuNDYsMy45M2gtMzIuNzl2MjguMzloLTMxLjE5Wk0yNzEuNDIsMTI0LjM0aDIzLjE5YzMuMjksMCw1LjczLS44LDcuMzMtMi40czIuNC0zLjk1LDIuNC03LjA2YzAtMi4xMy0uMzgtMy44OS0xLjEzLTUuMjYtLjc2LTEuMzgtMS44Mi0yLjQyLTMuMi0zLjEzLTEuMzgtLjcxLTMuMTgtMS4wNy01LjQtMS4wN2gtMjMuMTl2MTguOTJaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTEiIGQ9Ik0zNDYuMDUsMTc0Ljg1di05MS42OWg2OC41YzYuODQsMCwxMi41NSwxLjQsMTcuMTIsNC4yLDQuNTcsMi44LDguMDIsNi40NiwxMC4zMywxMSwyLjMxLDQuNTMsMy40Niw5LjQyLDMuNDYsMTQuNjYsMCw1Ljk1LTEuMzgsMTEuMjYtNC4xMywxNS45My0yLjc1LDQuNjYtNi42Miw4LjQyLTExLjYsMTEuMjZsMTguMTMsMzQuNjVoLTM1LjE5bC0xMy44Ni0yOS43MmgtMjEuNTl2MjkuNzJoLTMxLjE5Wk0zNzcuMjQsMTIzLjU0aDI3Ljg1YzIuNCwwLDQuNDItLjg0LDYuMDYtMi41MywxLjY0LTEuNjksMi40Ny00LDIuNDctNi45MywwLTEuODctLjM4LTMuNDYtMS4xMy00LjgtLjc2LTEuMzMtMS43OC0yLjM4LTMuMDYtMy4xMy0xLjI5LS43NS0yLjczLTEuMTMtNC4zMy0xLjEzaC0yNy44NXYxOC41MloiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMSIgZD0iTTQ2MC44LDE3NC44NXYtOTEuNjloMzEuMTl2OTEuNjloLTMxLjE5WiIvPgogICAgPHBhdGggY2xhc3M9ImNscy0xIiBkPSJNNTExLjcxLDE3NC44NXYtOTEuNjloNDYuMzhsOS44NiwzMi45MmMuNTMsMS41MSwxLjE1LDMuNTMsMS44Nyw2LjA2LjcxLDIuNTMsMS40Miw1LjIsMi4xMyw4LC43MSwyLjgsMS4zMyw1LjMxLDEuODcsNy41M2guOTNjLjQ0LTEuODcsMS00LjA0LDEuNjctNi41My42Ny0yLjQ5LDEuMzgtNS4wOSwyLjEzLTcuOC43Ni0yLjcxLDEuNDQtNS4xMywyLjA3LTcuMjZsOS44Ni0zMi45Mmg0NC43OHY5MS42OWgtMzAuNTJ2LTM2LjUyYzAtMi45My4wMi02LC4wNy05LjIuMDQtMy4yLjExLTYuMjguMi05LjI2LjA5LTIuOTguMTMtNS40OC4xMy03LjUzaC0xLjA3Yy0uNDUsMS44Ny0xLDQuMDktMS42Niw2LjY2LS42NywyLjU4LTEuMzYsNS4xMS0yLjA3LDcuNi0uNzEsMi40OS0xLjM4LDQuNjItMiw2LjRsLTEzLjA2LDQxLjg1aC0yNS41OWwtMTMuMTktNDEuODVjLS43MS0yLjMxLTEuNDQtNC43NS0yLjItNy4zMy0uNzYtMi41OC0xLjQyLTUuMDQtMi03LjQtLjU4LTIuMzUtMS4wOS00LjMzLTEuNTMtNS45M2gtMS4wNmMuMDksMS44Ny4xOCw0LjIyLjI3LDcuMDYuMDksMi44NC4xNSw1LjkxLjIsOS4yLjA0LDMuMjkuMDcsNi41My4wNyw5LjczdjM2LjUyaC0yOC41MloiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMSIgZD0iTTcwNi40MiwxNzYuNDVjLTExLjQ2LDAtMjEuMzItMS44NC0yOS41OS01LjUzLTguMjYtMy42OS0xNC42Mi05LjA2LTE5LjA2LTE2LjEzcy02LjY2LTE1LjY2LTYuNjYtMjUuNzksMi4yMi0xOC44Niw2LjY2LTI1LjkyLDEwLjgtMTIuNDIsMTkuMDYtMTYuMDZjOC4yNi0zLjY0LDE4LjEyLTUuNDYsMjkuNTktNS40NnMyMS40NiwxLjgyLDI5LjcyLDUuNDZjOC4yNiwzLjY0LDE0LjYxLDksMTkuMDYsMTYuMDZzNi42NywxNS43MSw2LjY3LDI1LjkyLTIuMjIsMTguNzItNi42NywyNS43OS0xMC43OSwxMi40NC0xOS4wNiwxNi4xM2MtOC4yNiwzLjY5LTE4LjE3LDUuNTMtMjkuNzIsNS41M1pNNzA2LjQyLDE1NC4wNmMzLjczLDAsNy4wNC0uNTMsOS45My0xLjYsMi44OC0xLjA3LDUuMzUtMi42LDcuNC00LjYsMi4wNC0yLDMuNTgtNC4zNSw0LjYtNy4wNiwxLjAyLTIuNzEsMS41My01LjcxLDEuNTMtOXYtNS44NmMwLTMuMi0uNTEtNi4xNS0xLjUzLTguODYtMS4wMi0yLjcxLTIuNTYtNS4wNC00LjYtNy0yLjA0LTEuOTUtNC41MS0zLjQ2LTcuNC00LjUzLTIuODktMS4wNy02LjItMS42LTkuOTMtMS42cy02LjkzLjUzLTkuODYsMS42Yy0yLjkzLDEuMDctNS40LDIuNTgtNy4zOSw0LjUzLTIsMS45Ni0zLjUxLDQuMjktNC41Myw3LTEuMDIsMi43MS0xLjUzLDUuNjYtMS41Myw4Ljg2djUuODZjMCwzLjI5LjUxLDYuMjksMS41Myw5LDEuMDIsMi43MSwyLjUzLDUuMDYsNC41Myw3LjA2LDIsMiw0LjQ2LDMuNTMsNy4zOSw0LjYsMi45MywxLjA3LDYuMjIsMS42LDkuODYsMS42WiIvPgogICAgPHBhdGggY2xhc3M9ImNscy0xIiBkPSJNNzc3LjcxLDE3NC44NXYtOTEuNjloNjguNWM2Ljg0LDAsMTIuNTUsMS40LDE3LjEzLDQuMiw0LjU3LDIuOCw4LjAyLDYuNDYsMTAuMzMsMTEsMi4zMSw0LjUzLDMuNDYsOS40MiwzLjQ2LDE0LjY2LDAsNS45NS0xLjM4LDExLjI2LTQuMTMsMTUuOTMtMi43NSw0LjY2LTYuNjIsOC40Mi0xMS42LDExLjI2bDE4LjEyLDM0LjY1aC0zNS4xOGwtMTMuODYtMjkuNzJoLTIxLjU5djI5LjcyaC0zMS4xOVpNODA4LjksMTIzLjU0aDI3Ljg1YzIuNCwwLDQuNDItLjg0LDYuMDYtMi41MywxLjY0LTEuNjksMi40Ni00LDIuNDYtNi45MywwLTEuODctLjM4LTMuNDYtMS4xMy00LjgtLjc2LTEuMzMtMS43OC0yLjM4LTMuMDctMy4xMy0xLjI5LS43NS0yLjczLTEuMTMtNC4zMy0xLjEzaC0yNy44NXYxOC41MloiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMSIgZD0iTTg4My44LDE3NC44NWwzOC45Mi05MS42OWgzNS4zMmwzOC45MSw5MS42OWgtMzMuMzJsLTQuNjYtMTIuNTNoLTM4LjUybC00LjUzLDEyLjUzaC0zMi4xMlpNOTI4LjU4LDE0MC42aDIyLjM5bC01LjMzLTE1LjA2Yy0uMzUtLjg5LS43Ni0yLTEuMi0zLjMzLS40NS0xLjMzLS45MS0yLjgtMS40LTQuNC0uNDktMS42LS45NS0zLjItMS40LTQuOC0uNDUtMS42LS44OS0zLjAyLTEuMzMtNC4yNmgtLjkzYy0uNDUsMS42LTEsMy40LTEuNjcsNS40LS42NywyLTEuMzEsNC0xLjkzLDYtLjYyLDItMS4yNCwzLjgtMS44Nyw1LjRsLTUuMzMsMTUuMDZaIi8+CiAgPC9nPgogIDxnPgogICAgPHBhdGggY2xhc3M9ImNscy0xIiBkPSJNODUuMjUsMTMyLjI5SDMwLjI5TDEuNjUsMTYwLjgxcS0uNjUuNjUtLjY1LDE1LjUxdjgwLjY0czI3LjgxLTI3LjgsMjcuODEtMjcuOHYtNjkuMDZoMzIuOTljMjIuMjYsMCw0Mi43Mi0xMi4xNSw1My4zOS0zMS43MWwzLjU1LTYuNTEtNi41MSwzLjU1Yy04LjIzLDQuNDktMTcuNTYsNi44Ny0yNi45OSw2Ljg3WiIvPgogICAgPHBhdGggY2xhc3M9ImNscy0xIiBkPSJNOTguNjIsMS4wNEgzMC42TDEuMjgsMzAuMzZ2NzEuOTFsMjcuOC0yNy44VjI4Ljg1aDQ2LjA5YzMxLjEyLDAsNTYuNDMsMjUuMzIsNTYuNDMsNTYuNDMsMCw5LjM5LTIuMzYsMTguNy02Ljg1LDI2Ljk3bC0zLjY1LDYuNiw2LjY4LTMuNjZjMTkuNTEtMTAuNjksMzEuNjItMzEuMTMsMzEuNjItNTMuMzUsMC0zMy41Mi0yNy4yNy02MC43OS02MC43OS02MC43OVoiLz4KICA8L2c+Cjwvc3ZnPg==" alt="Primora">
+      <img class="logo-img logo-neutral logo-dark" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyBpZD0iTGl2ZWxsb18xIiBkYXRhLW5hbWU9IkxpdmVsbG8gMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgMTAwMCAyNTgiPgogIDxkZWZzPgogICAgPHN0eWxlPgogICAgICAuY2xzLTEgewogICAgICAgIGZpbGw6ICMyYzI4MjM7CiAgICAgIH0KICAgIDwvc3R5bGU+CiAgPC9kZWZzPgogIDxnPgogICAgPHBhdGggY2xhc3M9ImNscy0xIiBkPSJNMjQwLjIzLDE3NC44NXYtOTEuNjloNjMuOTdjNS44NiwwLDExLjA2LDEuMzMsMTUuNTksNCw0LjUzLDIuNjcsOC4wNiw2LjM1LDEwLjYsMTEuMDYsMi41Myw0LjcxLDMuOCwxMC4xOCwzLjgsMTYuMzlzLTEuMjksMTEuOTktMy44NywxNi43OS02LjEzLDguNTEtMTAuNjYsMTEuMTNjLTQuNTMsMi42Mi05LjY5LDMuOTMtMTUuNDYsMy45M2gtMzIuNzl2MjguMzloLTMxLjE5Wk0yNzEuNDIsMTI0LjM0aDIzLjE5YzMuMjksMCw1LjczLS44LDcuMzMtMi40czIuNC0zLjk1LDIuNC03LjA2YzAtMi4xMy0uMzgtMy44OS0xLjEzLTUuMjYtLjc2LTEuMzgtMS44Mi0yLjQyLTMuMi0zLjEzLTEuMzgtLjcxLTMuMTgtMS4wNy01LjQtMS4wN2gtMjMuMTl2MTguOTJaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTEiIGQ9Ik0zNDYuMDUsMTc0Ljg1di05MS42OWg2OC41YzYuODQsMCwxMi41NSwxLjQsMTcuMTIsNC4yLDQuNTcsMi44LDguMDIsNi40NiwxMC4zMywxMSwyLjMxLDQuNTMsMy40Niw5LjQyLDMuNDYsMTQuNjYsMCw1Ljk1LTEuMzgsMTEuMjYtNC4xMywxNS45My0yLjc1LDQuNjYtNi42Miw4LjQyLTExLjYsMTEuMjZsMTguMTMsMzQuNjVoLTM1LjE5bC0xMy44Ni0yOS43MmgtMjEuNTl2MjkuNzJoLTMxLjE5Wk0zNzcuMjQsMTIzLjU0aDI3Ljg1YzIuNCwwLDQuNDItLjg0LDYuMDYtMi41MywxLjY0LTEuNjksMi40Ny00LDIuNDctNi45MywwLTEuODctLjM4LTMuNDYtMS4xMy00LjgtLjc2LTEuMzMtMS43OC0yLjM4LTMuMDYtMy4xMy0xLjI5LS43NS0yLjczLTEuMTMtNC4zMy0xLjEzaC0yNy44NXYxOC41MloiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMSIgZD0iTTQ2MC44LDE3NC44NXYtOTEuNjloMzEuMTl2OTEuNjloLTMxLjE5WiIvPgogICAgPHBhdGggY2xhc3M9ImNscy0xIiBkPSJNNTExLjcxLDE3NC44NXYtOTEuNjloNDYuMzhsOS44NiwzMi45MmMuNTMsMS41MSwxLjE1LDMuNTMsMS44Nyw2LjA2LjcxLDIuNTMsMS40Miw1LjIsMi4xMyw4LC43MSwyLjgsMS4zMyw1LjMxLDEuODcsNy41M2guOTNjLjQ0LTEuODcsMS00LjA0LDEuNjctNi41My42Ny0yLjQ5LDEuMzgtNS4wOSwyLjEzLTcuOC43Ni0yLjcxLDEuNDQtNS4xMywyLjA3LTcuMjZsOS44Ni0zMi45Mmg0NC43OHY5MS42OWgtMzAuNTJ2LTM2LjUyYzAtMi45My4wMi02LC4wNy05LjIuMDQtMy4yLjExLTYuMjguMi05LjI2LjA5LTIuOTguMTMtNS40OC4xMy03LjUzaC0xLjA3Yy0uNDUsMS44Ny0xLDQuMDktMS42Niw2LjY2LS42NywyLjU4LTEuMzYsNS4xMS0yLjA3LDcuNi0uNzEsMi40OS0xLjM4LDQuNjItMiw2LjRsLTEzLjA2LDQxLjg1aC0yNS41OWwtMTMuMTktNDEuODVjLS43MS0yLjMxLTEuNDQtNC43NS0yLjItNy4zMy0uNzYtMi41OC0xLjQyLTUuMDQtMi03LjQtLjU4LTIuMzUtMS4wOS00LjMzLTEuNTMtNS45M2gtMS4wNmMuMDksMS44Ny4xOCw0LjIyLjI3LDcuMDYuMDksMi44NC4xNSw1LjkxLjIsOS4yLjA0LDMuMjkuMDcsNi41My4wNyw5LjczdjM2LjUyaC0yOC41MloiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMSIgZD0iTTcwNi40MiwxNzYuNDVjLTExLjQ2LDAtMjEuMzItMS44NC0yOS41OS01LjUzLTguMjYtMy42OS0xNC42Mi05LjA2LTE5LjA2LTE2LjEzcy02LjY2LTE1LjY2LTYuNjYtMjUuNzksMi4yMi0xOC44Niw2LjY2LTI1LjkyLDEwLjgtMTIuNDIsMTkuMDYtMTYuMDZjOC4yNi0zLjY0LDE4LjEyLTUuNDYsMjkuNTktNS40NnMyMS40NiwxLjgyLDI5LjcyLDUuNDZjOC4yNiwzLjY0LDE0LjYxLDksMTkuMDYsMTYuMDZzNi42NywxNS43MSw2LjY3LDI1LjkyLTIuMjIsMTguNzItNi42NywyNS43OS0xMC43OSwxMi40NC0xOS4wNiwxNi4xM2MtOC4yNiwzLjY5LTE4LjE3LDUuNTMtMjkuNzIsNS41M1pNNzA2LjQyLDE1NC4wNmMzLjczLDAsNy4wNC0uNTMsOS45My0xLjYsMi44OC0xLjA3LDUuMzUtMi42LDcuNC00LjYsMi4wNC0yLDMuNTgtNC4zNSw0LjYtNy4wNiwxLjAyLTIuNzEsMS41My01LjcxLDEuNTMtOXYtNS44NmMwLTMuMi0uNTEtNi4xNS0xLjUzLTguODYtMS4wMi0yLjcxLTIuNTYtNS4wNC00LjYtNy0yLjA0LTEuOTUtNC41MS0zLjQ2LTcuNC00LjUzLTIuODktMS4wNy02LjItMS42LTkuOTMtMS42cy02LjkzLjUzLTkuODYsMS42Yy0yLjkzLDEuMDctNS40LDIuNTgtNy4zOSw0LjUzLTIsMS45Ni0zLjUxLDQuMjktNC41Myw3LTEuMDIsMi43MS0xLjUzLDUuNjYtMS41Myw4Ljg2djUuODZjMCwzLjI5LjUxLDYuMjksMS41Myw5LDEuMDIsMi43MSwyLjUzLDUuMDYsNC41Myw3LjA2LDIsMiw0LjQ2LDMuNTMsNy4zOSw0LjYsMi45MywxLjA3LDYuMjIsMS42LDkuODYsMS42WiIvPgogICAgPHBhdGggY2xhc3M9ImNscy0xIiBkPSJNNzc3LjcxLDE3NC44NXYtOTEuNjloNjguNWM2Ljg0LDAsMTIuNTUsMS40LDE3LjEzLDQuMiw0LjU3LDIuOCw4LjAyLDYuNDYsMTAuMzMsMTEsMi4zMSw0LjUzLDMuNDYsOS40MiwzLjQ2LDE0LjY2LDAsNS45NS0xLjM4LDExLjI2LTQuMTMsMTUuOTMtMi43NSw0LjY2LTYuNjIsOC40Mi0xMS42LDExLjI2bDE4LjEyLDM0LjY1aC0zNS4xOGwtMTMuODYtMjkuNzJoLTIxLjU5djI5LjcyaC0zMS4xOVpNODA4LjksMTIzLjU0aDI3Ljg1YzIuNCwwLDQuNDItLjg0LDYuMDYtMi41MywxLjY0LTEuNjksMi40Ni00LDIuNDYtNi45MywwLTEuODctLjM4LTMuNDYtMS4xMy00LjgtLjc2LTEuMzMtMS43OC0yLjM4LTMuMDctMy4xMy0xLjI5LS43NS0yLjczLTEuMTMtNC4zMy0xLjEzaC0yNy44NXYxOC41MloiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMSIgZD0iTTg4My44LDE3NC44NWwzOC45Mi05MS42OWgzNS4zMmwzOC45MSw5MS42OWgtMzMuMzJsLTQuNjYtMTIuNTNoLTM4LjUybC00LjUzLDEyLjUzaC0zMi4xMlpNOTI4LjU4LDE0MC42aDIyLjM5bC01LjMzLTE1LjA2Yy0uMzUtLjg5LS43Ni0yLTEuMi0zLjMzLS40NS0xLjMzLS45MS0yLjgtMS40LTQuNC0uNDktMS42LS45NS0zLjItMS40LTQuOC0uNDUtMS42LS44OS0zLjAyLTEuMzMtNC4yNmgtLjkzYy0uNDUsMS42LTEsMy40LTEuNjcsNS40LS42NywyLTEuMzEsNC0xLjkzLDYtLjYyLDItMS4yNCwzLjgtMS44Nyw1LjRsLTUuMzMsMTUuMDZaIi8+CiAgPC9nPgogIDxnPgogICAgPHBhdGggY2xhc3M9ImNscy0xIiBkPSJNODUuMjUsMTMyLjI5SDMwLjI5TDEuNjUsMTYwLjgxcS0uNjUuNjUtLjY1LDE1LjUxdjgwLjY0czI3LjgxLTI3LjgsMjcuODEtMjcuOHYtNjkuMDZoMzIuOTljMjIuMjYsMCw0Mi43Mi0xMi4xNSw1My4zOS0zMS43MWwzLjU1LTYuNTEtNi41MSwzLjU1Yy04LjIzLDQuNDktMTcuNTYsNi44Ny0yNi45OSw2Ljg3WiIvPgogICAgPHBhdGggY2xhc3M9ImNscy0xIiBkPSJNOTguNjIsMS4wNEgzMC42TDEuMjgsMzAuMzZ2NzEuOTFsMjcuOC0yNy44VjI4Ljg1aDQ2LjA5YzMxLjEyLDAsNTYuNDMsMjUuMzIsNTYuNDMsNTYuNDMsMCw5LjM5LTIuMzYsMTguNy02Ljg1LDI2Ljk3bC0zLjY1LDYuNiw2LjY4LTMuNjZjMTkuNTEtMTAuNjksMzEuNjItMzEuMTMsMzEuNjItNTMuMzUsMC0zMy41Mi0yNy4yNy02MC43OS02MC43OS02MC43OVoiLz4KICA8L2c+Cjwvc3ZnPg==" alt="Primora">
+      <img class="logo-img logo-real logo-dark" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyBpZD0iTGl2ZWxsb18xIiBkYXRhLW5hbWU9IkxpdmVsbG8gMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgMTAwMCAyNTgiPgogIDxkZWZzPgogICAgPHN0eWxlPgogICAgICAuY2xzLTEgewogICAgICAgIGZpbGw6ICNiZjk4NmE7CiAgICAgIH0KCiAgICAgIC5jbHMtMiB7CiAgICAgICAgZmlsbDogIzJjMjgyMzsKICAgICAgfQogICAgPC9zdHlsZT4KICA8L2RlZnM+CiAgPGc+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0yNDAuNzMsMTMzLjE1VjQxLjI3aDY0LjFjNS44NywwLDExLjA4LDEuMzQsMTUuNjIsNC4wMXM4LjA4LDYuMzcsMTAuNjIsMTEuMDhjMi41NCw0LjcyLDMuODEsMTAuMiwzLjgxLDE2LjQzcy0xLjI5LDEyLjAyLTMuODcsMTYuODMtNi4xNCw4LjUzLTEwLjY4LDExLjE1Yy00LjU0LDIuNjMtOS43MSwzLjk0LTE1LjQ5LDMuOTRoLTMyLjg1djI4LjQ0aC0zMS4yNVpNMjcxLjk4LDgyLjU0aDIzLjI0YzMuMjksMCw1Ljc0LS44LDcuMzQtMi40czIuNC0zLjk2LDIuNC03LjA4YzAtMi4xNC0uMzgtMy44OS0xLjEzLTUuMjctLjc2LTEuMzgtMS44My0yLjQyLTMuMjEtMy4xNC0xLjM4LS43MS0zLjE5LTEuMDctNS40MS0xLjA3aC0yMy4yNHYxOC45NloiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTM0Ni43NiwxMzMuMTVWNDEuMjdoNjguNjRjNi44NSwwLDEyLjU3LDEuNCwxNy4xNiw0LjIxLDQuNTgsMi44MSw4LjAzLDYuNDgsMTAuMzUsMTEuMDIsMi4zMSw0LjU0LDMuNDcsOS40NCwzLjQ3LDE0LjY5LDAsNS45Ny0xLjM4LDExLjI4LTQuMTQsMTUuOTYtMi43Niw0LjY3LTYuNjMsOC40NC0xMS42MiwxMS4yOGwxOC4xNiwzNC43MmgtMzUuMjZsLTEzLjg5LTI5Ljc4aC0yMS42NHYyOS43OGgtMzEuMjVaTTM3OC4wMSw4MS43M2gyNy45MWMyLjQsMCw0LjQzLS44NCw2LjA4LTIuNTQsMS42NS0xLjY5LDIuNDctNC4wMSwyLjQ3LTYuOTQsMC0xLjg3LS4zOC0zLjQ3LTEuMTQtNC44MS0uNzYtMS4zNC0xLjc4LTIuMzgtMy4wNy0zLjE0LTEuMjktLjc2LTIuNzQtMS4xNC00LjM0LTEuMTRoLTI3LjkxdjE4LjU2WiIvPgogICAgPHBhdGggY2xhc3M9ImNscy0yIiBkPSJNNDYxLjc1LDEzMy4xNVY0MS4yN2gzMS4yNXY5MS44OGgtMzEuMjVaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik01MTIuNzYsMTMzLjE1VjQxLjI3aDQ2LjQ3bDkuODgsMzIuOTljLjU0LDEuNTEsMS4xNiwzLjU0LDEuODcsNi4wOC43MSwyLjU0LDEuNDIsNS4yMSwyLjE0LDguMDEuNzEsMi44LDEuMzQsNS4zMiwxLjg3LDcuNTRoLjkzYy40NC0xLjg3LDEtNC4wNSwxLjY3LTYuNTQuNjctMi40OSwxLjM4LTUuMSwyLjE0LTcuODEuNzYtMi43MiwxLjQ1LTUuMTQsMi4wNy03LjI4bDkuODgtMzIuOTloNDQuODd2OTEuODhoLTMwLjU4di0zNi41OWMwLTIuOTQuMDItNi4wMS4wNy05LjIxLjA0LTMuMjEuMTEtNi4zLjItOS4yOC4wOS0yLjk4LjEzLTUuNS4xMy03LjU1aC0xLjA3Yy0uNDUsMS44Ny0xLDQuMS0xLjY3LDYuNjhzLTEuMzYsNS4xMi0yLjA3LDcuNjFjLS43MSwyLjQ5LTEuMzgsNC42My0yLDYuNDFsLTEzLjA5LDQxLjkzaC0yNS42NGwtMTMuMjItNDEuOTNjLS43MS0yLjMxLTEuNDUtNC43Ni0yLjItNy4zNHMtMS40Mi01LjA1LTItNy40MWMtLjU4LTIuMzYtMS4wOS00LjM0LTEuNTQtNS45NGgtMS4wN2MuMDksMS44Ny4xOCw0LjIzLjI3LDcuMDguMDksMi44NS4xNSw1LjkyLjIsOS4yMi4wNCwzLjI5LjA3LDYuNTQuMDcsOS43NXYzNi41OWgtMjguNThaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik03MDcuODcsMTM0Ljc1Yy0xMS40OSwwLTIxLjM3LTEuODUtMjkuNjUtNS41NC04LjI4LTMuNy0xNC42NS05LjA4LTE5LjEtMTYuMTYtNC40NS03LjA4LTYuNjgtMTUuNjktNi42OC0yNS44NHMyLjIyLTE4LjksNi42OC0yNS45N2M0LjQ1LTcuMDgsMTAuODItMTIuNDQsMTkuMS0xNi4wOSw4LjI4LTMuNjUsMTguMTYtNS40OCwyOS42NS01LjQ4czIxLjUsMS44MywyOS43OCw1LjQ4YzguMjgsMy42NSwxNC42NCw5LjAxLDE5LjEsMTYuMDksNC40NSw3LjA4LDYuNjgsMTUuNzQsNi42OCwyNS45N3MtMi4yMywxOC43Ni02LjY4LDI1Ljg0Yy00LjQ1LDcuMDgtMTAuODIsMTIuNDYtMTkuMSwxNi4xNi04LjI4LDMuNy0xOC4yMSw1LjU0LTI5Ljc4LDUuNTRaTTcwNy44NywxMTIuMzJjMy43NCwwLDcuMDUtLjUzLDkuOTUtMS42LDIuODktMS4wNyw1LjM2LTIuNiw3LjQxLTQuNjEsMi4wNS0yLDMuNTgtNC4zNiw0LjYxLTcuMDhzMS41NC01LjcyLDEuNTQtOS4wMXYtNS44OGMwLTMuMjEtLjUxLTYuMTctMS41NC04Ljg4cy0yLjU2LTUuMDUtNC42MS03LjAxYy0yLjA1LTEuOTYtNC41Mi0zLjQ3LTcuNDEtNC41NC0yLjg5LTEuMDctNi4yMS0xLjYtOS45NS0xLjZzLTYuOTUuNTMtOS44OCwxLjZjLTIuOTQsMS4wNy01LjQxLDIuNTgtNy40MSw0LjU0LTIsMS45Ni0zLjUyLDQuMy00LjU0LDcuMDEtMS4wMywyLjcyLTEuNTQsNS42OC0xLjU0LDguODh2NS44OGMwLDMuMjkuNTEsNi4zLDEuNTQsOS4wMSwxLjAyLDIuNzIsMi41NCw1LjA3LDQuNTQsNy4wOCwyLDIsNC40NywzLjU0LDcuNDEsNC42MSwyLjk0LDEuMDcsNi4yMywxLjYsOS44OCwxLjZaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik03NzkuMzIsMTMzLjE1VjQxLjI3aDY4LjY0YzYuODUsMCwxMi41OCwxLjQsMTcuMTYsNC4yMSw0LjU4LDIuODEsOC4wMyw2LjQ4LDEwLjM1LDExLjAyLDIuMzEsNC41NCwzLjQ3LDkuNDQsMy40NywxNC42OSwwLDUuOTctMS4zOCwxMS4yOC00LjE0LDE1Ljk2LTIuNzYsNC42Ny02LjYzLDguNDQtMTEuNjIsMTEuMjhsMTguMTYsMzQuNzJoLTM1LjI2bC0xMy44OS0yOS43OGgtMjEuNjN2MjkuNzhoLTMxLjI1Wk04MTAuNTcsODEuNzNoMjcuOTFjMi40LDAsNC40My0uODQsNi4wOC0yLjU0LDEuNjUtMS42OSwyLjQ3LTQuMDEsMi40Ny02Ljk0LDAtMS44Ny0uMzgtMy40Ny0xLjEzLTQuODEtLjc2LTEuMzQtMS43OC0yLjM4LTMuMDctMy4xNHMtMi43NC0xLjE0LTQuMzQtMS4xNGgtMjcuOTF2MTguNTZaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik04ODUuNjIsMTMzLjE1bDM5LTkxLjg4aDM1LjM5bDM4Ljk5LDkxLjg4aC0zMy4zOWwtNC42Ny0xMi41NWgtMzguNmwtNC41NCwxMi41NWgtMzIuMTlaTTkzMC40OSw5OC44M2gyMi40NGwtNS4zNC0xNS4wOWMtLjM2LS44OS0uNzYtMi0xLjItMy4zNC0uNDUtMS4zNC0uOTEtMi44MS0xLjQtNC40MS0uNDktMS42LS45Ni0zLjIxLTEuNC00LjgxLS40NS0xLjYtLjg5LTMuMDMtMS4zNC00LjI3aC0uOTNjLS40NSwxLjYtMSwzLjQtMS42Nyw1LjQxLS42NywyLTEuMzEsNC4wMS0xLjk0LDYuMDEtLjYyLDItMS4yNSwzLjgxLTEuODcsNS40MWwtNS4zNCwxNS4wOVoiLz4KICA8L2c+CiAgPGc+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0yNDEuMDgsMjEwLjAxdi0zNi4xOWgyMy4xYzIuNDYsMCw0LjUuNDcsNi4xMiwxLjQsMS42Mi45MywyLjgzLDIuMjEsMy42NCwzLjgyLjgxLDEuNjIsMS4yMSwzLjQ1LDEuMjEsNS40OSwwLDIuMzktLjU3LDQuNDktMS43MSw2LjMtMS4xNCwxLjgxLTIuNzksMy4xMi00LjkzLDMuOTNsNy43NiwxNS4yNGgtNS45NmwtNy4xMi0xNC4zaC0xNi43MnYxNC4zaC01LjM4Wk0yNDYuNDYsMTkxLjE4aDE2LjgzYzIuMDQsMCwzLjYyLS42LDQuNzUtMS43OXMxLjY5LTIuOCwxLjY5LTQuOGMwLTEuMy0uMjUtMi40MS0uNzQtMy4zMi0uNDktLjkxLTEuMjItMS42Mi0yLjE5LTIuMTEtLjk3LS40OS0yLjE0LS43NC0zLjUxLS43NGgtMTYuODN2MTIuNzdaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0yODQuMDcsMjEwLjAxdi0zNi4xOWgzMS43NnY0LjU5aC0yNi4zOHYxMC43NmgyMy43NHY0LjU5aC0yMy43NHYxMS42NmgyNi43NXY0LjU5aC0zMi4xM1oiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTMyMC43MywyMTAuMDFsMTYuMzUtMzYuMTloNi42NWwxNi4zNSwzNi4xOWgtNS44NWwtMy45LTguNzZoLTIwLjE1bC0zLjg1LDguNzZoLTUuNTlaTTMzMi4xOCwxOTYuNzJoMTYuMDlsLTQuODUtMTEuMDJjLS4xOC0uMzUtLjQtLjg0LS42Ni0xLjQ4LS4yNi0uNjMtLjU0LTEuMy0uODItMi4wMS0uMjgtLjctLjU2LTEuMzktLjgyLTIuMDYtLjI2LS42Ny0uNDgtMS4yMy0uNjYtMS42OWgtLjQyYy0uMjguNzQtLjYyLDEuNTctMSwyLjUxcy0uNzYsMS44Mi0xLjExLDIuNjZjLS4zNS44NC0uNjMsMS41My0uODQsMi4wNmwtNC45MSwxMS4wMloiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTM2Ni4yLDIxMC4wMXYtMzYuMTloNS4zOHYzMS40OWgyMC4zNnY0LjdoLTI1Ljc0WiIvPgogICAgPHBhdGggY2xhc3M9ImNscy0yIiBkPSJNNDEyLjYyLDIxMC4wMXYtMzYuMTloMzEuNzZ2NC41OWgtMjYuMzh2MTAuNzZoMjMuNzR2NC41OWgtMjMuNzR2MTEuNjZoMjYuNzV2NC41OWgtMzIuMTNaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik00NjguNTksMjEwLjY0Yy0yLjI5LDAtNC40Ny0uMTgtNi41NC0uNTNzLTMuOS0uOTQtNS40OS0xLjc3Yy0xLjU4LS44My0yLjg0LTEuOTUtMy43Ny0zLjM4LS45My0xLjQyLTEuNC0zLjIxLTEuNC01LjM1LDAtLjIxLDAtLjQuMDMtLjU2LjAyLS4xNi4wMy0uMjkuMDMtLjRoNS4zOGMwLC4xNCwwLC4zMy0uMDMuNTUtLjAyLjIzLS4wMy40Ny0uMDMuNzEsMCwxLjM0LjQ4LDIuNDcsMS40MiwzLjQuOTUuOTMsMi4zMSwxLjYzLDQuMDksMi4wOCwxLjc3LjQ2LDMuODIuNjksNi4xNS42OSwxLjA2LDAsMi4xMy0uMDYsMy4yMi0uMTgsMS4wOS0uMTIsMi4xMi0uMzIsMy4wOS0uNTguOTctLjI2LDEuODMtLjYxLDIuNTgtMS4wNi43Ni0uNDQsMS4zNS0uOTgsMS43OS0xLjYzLjQ0LS42NS42Ni0xLjQxLjY2LTIuMywwLTEuMTktLjM4LTIuMTctMS4xMy0yLjkzLS43Ni0uNzYtMS43OS0xLjM3LTMuMDktMS44NS0xLjMtLjQ3LTIuNzctLjg5LTQuNC0xLjI0LTEuNjQtLjM1LTMuMzItLjctNS4wNC0xLjA2LTEuNzItLjM1LTMuNC0uNzctNS4wNC0xLjI2LTEuNjQtLjQ5LTMuMS0xLjExLTQuNC0xLjg1LTEuMy0uNzQtMi4zMy0xLjctMy4wOS0yLjg4LS43Ni0xLjE4LTEuMTMtMi42My0xLjEzLTQuMzUsMC0xLjQ4LjMzLTIuODEuOTgtNC4wMXMxLjY0LTIuMjIsMi45OC0zLjA5YzEuMzQtLjg2LDMuMDItMS41Miw1LjA0LTEuOTgsMi4wMi0uNDYsNC40Mi0uNjksNy4yLS42OSwyLjUzLDAsNC43Ni4yNCw2LjY3LjcxLDEuOTIuNDcsMy41MywxLjE1LDQuODMsMi4wMywxLjMuODgsMi4yOCwxLjkzLDIuOTMsMy4xN3MuOTgsMi42Ljk4LDQuMTF2Ljg0aC01LjMzdi0uOWMwLTEuMDYtLjQxLTEuOTktMS4yMS0yLjgtLjgxLS44MS0xLjk0LTEuNDUtMy40LTEuOTMtMS40Ni0uNDctMy4xOS0uNzEtNS4yLS43MS0yLjQ2LDAtNC41LjItNi4xMi42MS0xLjYyLjQxLTIuODMuOTgtMy42NCwxLjcyLS44MS43NC0xLjIxLDEuNi0xLjIxLDIuNTgsMCwxLjA5LjM4LDEuOTgsMS4xMywyLjY2Ljc1LjY5LDEuNzgsMS4yNSwzLjA4LDEuNjksMS4zLjQ0LDIuNzcuODMsNC40LDEuMTYsMS42NC4zNCwzLjMyLjY4LDUuMDQsMS4wM3MzLjQuNzcsNS4wNCwxLjI3YzEuNjQuNDksMy4xLDEuMTIsNC40LDEuOSwxLjMuNzcsMi4zNCwxLjc1LDMuMTEsMi45My43NywxLjE4LDEuMTYsMi42MywxLjE2LDQuMzUsMCwyLjY3LS43MSw0LjgyLTIuMTQsNi40NC0xLjQyLDEuNjItMy4zOSwyLjc5LTUuOTEsMy41MS0yLjUyLjcyLTUuNDEsMS4wOC04LjY4LDEuMDhaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik01MDMuOTksMjEwLjAxdi0zMS40OWgtMTQuNHYtNC43aDM0LjI0djQuN2gtMTQuNDV2MzEuNDloLTUuMzhaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik01MjAuMjksMjEwLjAxbDE2LjM1LTM2LjE5aDYuNjVsMTYuMzUsMzYuMTloLTUuODVsLTMuOS04Ljc2aC0yMC4xNWwtMy44NSw4Ljc2aC01LjU5Wk01MzEuNzMsMTk2LjcyaDE2LjA5bC00Ljg1LTExLjAyYy0uMTgtLjM1LS40LS44NC0uNjYtMS40OC0uMjYtLjYzLS41NC0xLjMtLjgyLTIuMDEtLjI4LS43LS41NS0xLjM5LS44Mi0yLjA2LS4yNi0uNjctLjQ4LTEuMjMtLjY2LTEuNjloLS40MmMtLjI4Ljc0LS42MSwxLjU3LTEsMi41MXMtLjc2LDEuODItMS4xMSwyLjY2LS42MywxLjUzLS44NCwyLjA2bC00LjkxLDExLjAyWiIvPgogICAgPHBhdGggY2xhc3M9ImNscy0yIiBkPSJNNTcwLjQ1LDIxMC4wMXYtMzEuNDloLTE0LjR2LTQuN2gzNC4yNHY0LjdoLTE0LjQ1djMxLjQ5aC01LjM4WiIvPgogICAgPHBhdGggY2xhc3M9ImNscy0yIiBkPSJNNTk2LjY3LDIxMC4wMXYtMzYuMTloMzEuNzZ2NC41OWgtMjYuMzh2MTAuNzZoMjMuNzR2NC41OWgtMjMuNzR2MTEuNjZoMjYuNzR2NC41OWgtMzIuMTJaIi8+CiAgPC9nPgogIDxnPgogICAgPHBhdGggY2xhc3M9ImNscy0xIiBkPSJNODUuNDIsMTMyLjNIMzAuMzVMMS42NSwxNjAuODdxLS42NS42NS0uNjUsMTUuNTR2ODAuODFzMjcuODctMjcuODYsMjcuODctMjcuODZ2LTY5LjJoMzMuMDZjMjIuMywwLDQyLjgtMTIuMTgsNTMuNS0zMS43OGwzLjU2LTYuNTItNi41MiwzLjU2Yy04LjI1LDQuNS0xNy42LDYuODgtMjcuMDUsNi44OFoiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMSIgZD0iTTk4LjgzLjc4SDMwLjY2TDEuMjgsMzAuMTZ2NzIuMDVsMjcuODYtMjcuODZWMjguNjRoNDYuMTljMzEuMTgsMCw1Ni41NSwyNS4zNyw1Ni41NSw1Ni41NSwwLDkuNDEtMi4zNiwxOC43My02Ljg3LDI3LjAybC0zLjY1LDYuNjEsNi43LTMuNjdjMTkuNTUtMTAuNzEsMzEuNjktMzEuMTksMzEuNjktNTMuNDZDMTU5Ljc0LDI4LjExLDEzMi40Mi43OCw5OC44My43OFoiLz4KICA8L2c+Cjwvc3ZnPg==" alt="Primora Real Estate">
+    </div>
+    <nav class="menu" id="menu">
+      <a class="nav-link active" onclick="go('home')" data-i18n="nav.home">Home</a>
+      <a class="nav-link" onclick="go('oggetti')" data-i18n="nav.listings">Vendita & Locazione</a>
+      <a class="nav-link" onclick="go('team')" data-i18n="nav.team">Team</a>
+      <a class="nav-link" onclick="go('contatti')" data-i18n="nav.contact">Contatti</a>
+    </nav>
+    <div class="lang-switch" id="langSwitch">
+      <a class="active" onclick="setLang('it')">IT</a>
+      <a onclick="setLang('de')">DE</a>
+      <a onclick="setLang('en')">EN</a>
+    </div>
+  </div>
+</header>
+
+<!-- MENU MOBILE (fuori dall'header per evitare bug iOS) -->
+<div class="mobile-nav-ov" id="mobileNavOv" onclick="toggleNav(false)"></div>
+<nav class="mobile-nav" id="mobileNav">
+  <a onclick="go('home')" data-i18n="nav.home">Home</a>
+  <a onclick="go('oggetti')" data-i18n="nav.listings">Vendita & Locazione</a>
+  <a onclick="go('team')" data-i18n="nav.team">Team</a>
+  <a onclick="go('contatti')" data-i18n="nav.contact">Contatti</a>
+  <div class="lang-switch mobile-lang">
+    <a class="active" onclick="setLang('it')">IT</a>
+    <a onclick="setLang('de')">DE</a>
+    <a onclick="setLang('en')">EN</a>
+  </div>
+</nav>
+<div class="burger" id="burger" onclick="toggleNav()"><span></span><span></span><span></span></div>
+
+<!-- HOME -->
+<div class="page active" id="home">
+  <div class="hero">
+    <div class="hero-bg">
+      <div class="hero-slide show" style="background-image:url('images/hero1.jpg')"></div>
+      <div class="hero-slide" style="background-image:url('images/hero2.jpg')"></div>
+      <div class="hero-slide" style="background-image:url('images/hero3.jpg')"></div>
+      <div class="hero-slide" style="background-image:url('images/hero4.jpg')"></div>
+      <div class="hero-slide" style="background-image:url('images/hero5.jpg')"></div>
+      <div class="hero-slide" style="background-image:url('images/hero6.jpg')"></div>
+    </div>
+    <div class="wrap hero-inner">
+      <div class="group-mark">
+        <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyBpZD0iTGl2ZWxsb18xIiBkYXRhLW5hbWU9IkxpdmVsbG8gMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgMTAwMCAyNTgiPgogIDxkZWZzPgogICAgPHN0eWxlPgogICAgICAuY2xzLTEgewogICAgICAgIGZpbGw6ICNhYjE4MzI7CiAgICAgIH0KCiAgICAgIC5jbHMtMiB7CiAgICAgICAgZmlsbDogI2ZmZjsKICAgICAgfQogICAgPC9zdHlsZT4KICA8L2RlZnM+CiAgPGc+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0yNDAuMjMsMTMzLjE0VjQxLjQ1aDYzLjk3YzUuODYsMCwxMS4wNiwxLjMzLDE1LjU5LDQsNC41MywyLjY3LDguMDYsNi4zNSwxMC42LDExLjA2LDIuNTMsNC43MSwzLjgsMTAuMTgsMy44LDE2LjM5cy0xLjI5LDExLjk5LTMuODcsMTYuNzktNi4xMyw4LjUxLTEwLjY2LDExLjEzYy00LjUzLDIuNjItOS42OSwzLjkzLTE1LjQ2LDMuOTNoLTMyLjc5djI4LjM5aC0zMS4xOVpNMjcxLjQyLDgyLjYzaDIzLjE5YzMuMjksMCw1LjczLS44LDcuMzMtMi40czIuNC0zLjk1LDIuNC03LjA2YzAtMi4xMy0uMzgtMy44OS0xLjEzLTUuMjYtLjc2LTEuMzgtMS44Mi0yLjQyLTMuMi0zLjEzLTEuMzgtLjcxLTMuMTgtMS4wNy01LjQtMS4wN2gtMjMuMTl2MTguOTJaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0zNDYuMDUsMTMzLjE0VjQxLjQ1aDY4LjVjNi44NCwwLDEyLjU1LDEuNCwxNy4xMiw0LjIsNC41NywyLjgsOC4wMiw2LjQ2LDEwLjMzLDExLDIuMzEsNC41MywzLjQ2LDkuNDIsMy40NiwxNC42NiwwLDUuOTUtMS4zOCwxMS4yNi00LjEzLDE1LjkzLTIuNzUsNC42Ni02LjYyLDguNDItMTEuNiwxMS4yNmwxOC4xMywzNC42NWgtMzUuMTlsLTEzLjg2LTI5LjcyaC0yMS41OXYyOS43MmgtMzEuMTlaTTM3Ny4yNCw4MS44M2gyNy44NWMyLjQsMCw0LjQyLS44NCw2LjA2LTIuNTMsMS42NC0xLjY5LDIuNDctNCwyLjQ3LTYuOTMsMC0xLjg3LS4zOC0zLjQ2LTEuMTMtNC44LS43Ni0xLjMzLTEuNzgtMi4zOC0zLjA2LTMuMTMtMS4yOS0uNzUtMi43My0xLjEzLTQuMzMtMS4xM2gtMjcuODV2MTguNTJaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik00NjAuOCwxMzMuMTRWNDEuNDVoMzEuMTl2OTEuNjloLTMxLjE5WiIvPgogICAgPHBhdGggY2xhc3M9ImNscy0yIiBkPSJNNTExLjcxLDEzMy4xNFY0MS40NWg0Ni4zOGw5Ljg2LDMyLjkyYy41MywxLjUxLDEuMTUsMy41MywxLjg3LDYuMDYuNzEsMi41MywxLjQyLDUuMiwyLjEzLDgsLjcxLDIuOCwxLjMzLDUuMzEsMS44Nyw3LjUzaC45M2MuNDQtMS44NywxLTQuMDQsMS42Ny02LjUzLjY3LTIuNDksMS4zOC01LjA5LDIuMTMtNy44Ljc2LTIuNzEsMS40NC01LjEzLDIuMDctNy4yNmw5Ljg2LTMyLjkyaDQ0Ljc4djkxLjY5aC0zMC41MnYtMzYuNTJjMC0yLjkzLjAyLTYsLjA3LTkuMi4wNC0zLjIuMTEtNi4yOC4yLTkuMjYuMDktMi45OC4xMy01LjQ4LjEzLTcuNTNoLTEuMDdjLS40NSwxLjg3LTEsNC4wOS0xLjY2LDYuNjYtLjY3LDIuNTgtMS4zNiw1LjExLTIuMDcsNy42LS43MSwyLjQ5LTEuMzgsNC42Mi0yLDYuNGwtMTMuMDYsNDEuODVoLTI1LjU5bC0xMy4xOS00MS44NWMtLjcxLTIuMzEtMS40NC00Ljc1LTIuMi03LjMzLS43Ni0yLjU4LTEuNDItNS4wNC0yLTcuNC0uNTgtMi4zNS0xLjA5LTQuMzMtMS41My01LjkzaC0xLjA2Yy4wOSwxLjg3LjE4LDQuMjIuMjcsNy4wNi4wOSwyLjg0LjE1LDUuOTEuMiw5LjIuMDQsMy4yOS4wNyw2LjUzLjA3LDkuNzN2MzYuNTJoLTI4LjUyWiIvPgogICAgPHBhdGggY2xhc3M9ImNscy0yIiBkPSJNNzA2LjQyLDEzNC43NGMtMTEuNDYsMC0yMS4zMi0xLjg0LTI5LjU5LTUuNTMtOC4yNi0zLjY5LTE0LjYyLTkuMDYtMTkuMDYtMTYuMTNzLTYuNjYtMTUuNjYtNi42Ni0yNS43OSwyLjIyLTE4Ljg2LDYuNjYtMjUuOTIsMTAuOC0xMi40MiwxOS4wNi0xNi4wNmM4LjI2LTMuNjQsMTguMTItNS40NiwyOS41OS01LjQ2czIxLjQ2LDEuODIsMjkuNzIsNS40NmM4LjI2LDMuNjQsMTQuNjEsOSwxOS4wNiwxNi4wNnM2LjY3LDE1LjcxLDYuNjcsMjUuOTItMi4yMiwxOC43Mi02LjY3LDI1Ljc5LTEwLjc5LDEyLjQ0LTE5LjA2LDE2LjEzYy04LjI2LDMuNjktMTguMTcsNS41My0yOS43Miw1LjUzWk03MDYuNDIsMTEyLjM1YzMuNzMsMCw3LjA0LS41Myw5LjkzLTEuNiwyLjg4LTEuMDcsNS4zNS0yLjYsNy40LTQuNiwyLjA0LTIsMy41OC00LjM1LDQuNi03LjA2LDEuMDItMi43MSwxLjUzLTUuNzEsMS41My05di01Ljg2YzAtMy4yLS41MS02LjE1LTEuNTMtOC44Ni0xLjAyLTIuNzEtMi41Ni01LjA0LTQuNi03LTIuMDQtMS45NS00LjUxLTMuNDYtNy40LTQuNTMtMi44OS0xLjA3LTYuMi0xLjYtOS45My0xLjZzLTYuOTMuNTMtOS44NiwxLjZjLTIuOTMsMS4wNy01LjQsMi41OC03LjM5LDQuNTMtMiwxLjk2LTMuNTEsNC4yOS00LjUzLDctMS4wMiwyLjcxLTEuNTMsNS42Ni0xLjUzLDguODZ2NS44NmMwLDMuMjkuNTEsNi4yOSwxLjUzLDksMS4wMiwyLjcxLDIuNTMsNS4wNiw0LjUzLDcuMDYsMiwyLDQuNDYsMy41Myw3LjM5LDQuNiwyLjkzLDEuMDcsNi4yMiwxLjYsOS44NiwxLjZaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik03NzcuNzEsMTMzLjE0VjQxLjQ1aDY4LjVjNi44NCwwLDEyLjU1LDEuNCwxNy4xMyw0LjIsNC41NywyLjgsOC4wMiw2LjQ2LDEwLjMzLDExLDIuMzEsNC41MywzLjQ2LDkuNDIsMy40NiwxNC42NiwwLDUuOTUtMS4zOCwxMS4yNi00LjEzLDE1LjkzLTIuNzUsNC42Ni02LjYyLDguNDItMTEuNiwxMS4yNmwxOC4xMiwzNC42NWgtMzUuMThsLTEzLjg2LTI5LjcyaC0yMS41OXYyOS43MmgtMzEuMTlaTTgwOC45LDgxLjgzaDI3Ljg1YzIuNCwwLDQuNDItLjg0LDYuMDYtMi41MywxLjY0LTEuNjksMi40Ni00LDIuNDYtNi45MywwLTEuODctLjM4LTMuNDYtMS4xMy00LjgtLjc2LTEuMzMtMS43OC0yLjM4LTMuMDctMy4xMy0xLjI5LS43NS0yLjczLTEuMTMtNC4zMy0xLjEzaC0yNy44NXYxOC41MloiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTg4My44LDEzMy4xNGwzOC45Mi05MS42OWgzNS4zMmwzOC45MSw5MS42OWgtMzMuMzJsLTQuNjYtMTIuNTNoLTM4LjUybC00LjUzLDEyLjUzaC0zMi4xMlpNOTI4LjU4LDk4Ljg5aDIyLjM5bC01LjMzLTE1LjA2Yy0uMzUtLjg5LS43Ni0yLTEuMi0zLjMzLS40NS0xLjMzLS45MS0yLjgtMS40LTQuNC0uNDktMS42LS45NS0zLjItMS40LTQuOC0uNDUtMS42LS44OS0zLjAyLTEuMzMtNC4yNmgtLjkzYy0uNDUsMS42LTEsMy40LTEuNjcsNS40LS42NywyLTEuMzEsNC0xLjkzLDYtLjYyLDItMS4yNCwzLjgtMS44Nyw1LjRsLTUuMzMsMTUuMDZaIi8+CiAgPC9nPgogIDxnPgogICAgPHBhdGggY2xhc3M9ImNscy0yIiBkPSJNMjQwLjU4LDIwOS43MXYtMzYuMTFoMjEuNzRjMi4zOSwwLDQuNC40Nyw2LjA1LDEuNDIsMS42NS45NSwyLjksMi4yNiwzLjc2LDMuOTIuODYsMS42NywxLjI5LDMuNTksMS4yOSw1Ljc2cy0uNDYsNC4xNy0xLjM3LDUuODdjLS45MSwxLjctMi4yLDMuMDMtMy44NywzLjk3LTEuNjcuOTUtMy42NiwxLjQyLTUuOTcsMS40MmgtMTYuMjZ2MTMuNzRoLTUuMzdaTTI0NS45NiwxOTEuMzloMTUuNDJjMi4xLDAsMy43My0uNiw0Ljg5LTEuNzksMS4xNi0xLjE5LDEuNzQtMi44MSwxLjc0LTQuODQsMC0xLjM3LS4yNS0yLjU0LS43Ni0zLjUzLS41MS0uOTgtMS4yNS0xLjc0LTIuMjQtMi4yNi0uOTgtLjUzLTIuMTktLjc5LTMuNjMtLjc5aC0xNS40MnYxMy4yMVoiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTI4MC4yOCwyMDkuNzF2LTM2LjExaDIzLjA2YzIuNDYsMCw0LjQ5LjQ3LDYuMTEsMS40LDEuNjIuOTMsMi44MywyLjIsMy42MywzLjgyLjgxLDEuNjIsMS4yMSwzLjQ0LDEuMjEsNS40OCwwLDIuMzktLjU3LDQuNDgtMS43MSw2LjI5LTEuMTQsMS44MS0yLjc4LDMuMTEtNC45MiwzLjkybDcuNzQsMTUuMjFoLTUuOTVsLTcuMTEtMTQuMjdoLTE2LjY5djE0LjI3aC01LjM3Wk0yODUuNjUsMTkwLjkxaDE2Ljc5YzIuMDQsMCwzLjYxLS42LDQuNzQtMS43OXMxLjY4LTIuNzksMS42OC00Ljc5YzAtMS4zLS4yNC0yLjQtLjc0LTMuMzItLjQ5LS45MS0xLjIyLTEuNjEtMi4xOC0yLjExLS45Ni0uNDktMi4xMy0uNzQtMy41LS43NGgtMTYuNzl2MTIuNzRaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0zNDEuNTUsMjEwLjM0Yy00LjIxLDAtNy44NS0uNy0xMC45Mi0yLjExLTMuMDctMS40LTUuNDItMy40OS03LjA2LTYuMjYtMS42My0yLjc3LTIuNDUtNi4yMS0yLjQ1LTEwLjMycy44Mi03LjU5LDIuNDUtMTAuMzRjMS42My0yLjc1LDMuOTgtNC44Myw3LjA2LTYuMjQsMy4wNy0xLjQsNi43MS0yLjExLDEwLjkyLTIuMTFzNy45LjcsMTAuOTUsMi4xMWMzLjA1LDEuNDEsNS40LDMuNDgsNy4wMyw2LjI0LDEuNjMsMi43NiwyLjQ1LDYuMiwyLjQ1LDEwLjM0cy0uODEsNy41NS0yLjQ1LDEwLjMyYy0xLjYzLDIuNzctMy45Nyw0Ljg2LTcuMDMsNi4yNi0zLjA1LDEuNC02LjcsMi4xMS0xMC45NSwyLjExWk0zNDEuNTUsMjA1Ljc2YzIuMjEsMCw0LjIyLS4yNiw2LjAzLS43OSwxLjgxLS41MywzLjM4LTEuMzQsNC43MS0yLjQ1czIuMzYtMi41MSwzLjA4LTQuMjFjLjcyLTEuNywxLjA4LTMuNzMsMS4wOC02LjA4di0xLjE2YzAtMi4zNS0uMzYtNC4zOS0xLjA4LTYuMTEtLjcyLTEuNzItMS43NS0zLjEyLTMuMDgtNC4yMXMtMi45LTEuOS00LjcxLTIuNDJjLTEuODEtLjUzLTMuODItLjc5LTYuMDMtLjc5cy00LjIyLjI2LTYuMDMuNzljLTEuODEuNTMtMy4zOCwxLjMzLTQuNzEsMi40Mi0xLjMzLDEuMDktMi4zNiwyLjQ5LTMuMDgsNC4yMXMtMS4wOCwzLjc2LTEuMDgsNi4xMXYxLjE2YzAsMi4zNS4zNiw0LjM4LDEuMDgsNi4wOC43MiwxLjcsMS43NSwzLjExLDMuMDgsNC4yMSwxLjM0LDEuMTEsMi45LDEuOTIsNC43MSwyLjQ1LDEuODEuNTMsMy44Mi43OSw2LjAzLjc5WiIvPgogICAgPHBhdGggY2xhc3M9ImNscy0yIiBkPSJNMzcwLjUxLDIwOS43MXYtMzYuMTFoMjEuNzRjMi4zOSwwLDQuNDEuNDcsNi4wNSwxLjQyczIuOSwyLjI2LDMuNzYsMy45MmMuODYsMS42NywxLjI5LDMuNTksMS4yOSw1Ljc2cy0uNDYsNC4xNy0xLjM3LDUuODdjLS45MSwxLjctMi4yLDMuMDMtMy44NywzLjk3cy0zLjY2LDEuNDItNS45NywxLjQyaC0xNi4yN3YxMy43NGgtNS4zN1pNMzc1Ljg4LDE5MS4zOWgxNS40MmMyLjExLDAsMy43NC0uNiw0Ljg5LTEuNzksMS4xNi0xLjE5LDEuNzQtMi44MSwxLjc0LTQuODQsMC0xLjM3LS4yNi0yLjU0LS43Ny0zLjUzLS41MS0uOTgtMS4yNS0xLjc0LTIuMjQtMi4yNi0uOTgtLjUzLTIuMTktLjc5LTMuNjMtLjc5aC0xNS40MnYxMy4yMVoiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTQxMC4yLDIwOS43MXYtMzYuMTFoMzEuNjl2NC41OGgtMjYuMzJ2MTAuNzRoMjMuNjl2NC41OGgtMjMuNjl2MTEuNjNoMjYuNjl2NC41OGgtMzIuMDZaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik00NTAuODksMjA5Ljcxdi0zNi4xMWgyMy4wNmMyLjQ2LDAsNC40OS40Nyw2LjExLDEuNCwxLjYyLjkzLDIuODMsMi4yLDMuNjMsMy44Mi44MSwxLjYyLDEuMjEsMy40NCwxLjIxLDUuNDgsMCwyLjM5LS41Nyw0LjQ4LTEuNzEsNi4yOS0xLjE0LDEuODEtMi43OCwzLjExLTQuOTIsMy45Mmw3Ljc0LDE1LjIxaC01Ljk1bC03LjExLTE0LjI3aC0xNi42OXYxNC4yN2gtNS4zN1pNNDU2LjI2LDE5MC45MWgxNi43OWMyLjA0LDAsMy42MS0uNiw0Ljc0LTEuNzksMS4xMi0xLjE5LDEuNjgtMi43OSwxLjY4LTQuNzksMC0xLjMtLjI1LTIuNC0uNzQtMy4zMi0uNDktLjkxLTEuMjItMS42MS0yLjE4LTIuMTEtLjk3LS40OS0yLjEzLS43NC0zLjUtLjc0aC0xNi43OXYxMi43NFoiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTUwMy4zNywyMDkuNzF2LTMxLjQzaC0xNC4zN3YtNC42OWgzNC4xN3Y0LjY5aC0xNC40MnYzMS40M2gtNS4zN1oiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTU0MC4xNywyMDkuNzF2LTE0Ljk1bC0xNi4xMS0yMS4xNmg2LjM3bDEyLjM3LDE2LjU4aC40MmwxMi4zNy0xNi41OGg2LjA1bC0xNi4xMSwyMS4xNnYxNC45NWgtNS4zN1oiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTU3OC42NSwyMDkuNzF2LTM2LjExaDUuMzd2MzYuMTFoLTUuMzdaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik01OTQuMjMsMjA5Ljcxdi0zNi4xMWg1LjIxbDIwLjA2LDIzLjM3Yy4zMi4yOC42OC42NywxLjA4LDEuMTYuNC40OS44MS45OCwxLjIxLDEuNDcuNC40OS43NS45MywxLjAzLDEuMzJoLjMyYzAtLjYzLDAtMS4zMy0uMDMtMi4xMS0uMDItLjc3LS4wMy0xLjQ3LS4wMy0yLjExdi0yMy4xMWg1LjIxdjM2LjExaC00LjlsLTIwLjI3LTIzLjY5Yy0uNTYtLjYtMS4xOC0xLjMxLTEuODQtMi4xM3MtMS4xOS0xLjQ4LTEuNTgtMS45N2gtLjMyYzAsLjU2LDAsMS4yNi4wMywyLjA4LjAyLjgzLjAzLDEuNjguMDMsMi41NXYyMy4xNmgtNS4yMVoiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTY0OS42MSwyMDkuNzFsLTE1LjQ4LTM2LjExaDUuOTVsMTAuMDUsMjQuMjdjLjI4LjYuNTgsMS4yOS45LDIuMDhzLjYzLDEuNTYuOTUsMi4zMmMuMzIuNzYuNiwxLjQzLjg0LDIuMDNoLjQyYy4yMS0uNTYuNDYtMS4yMi43Ni0xLjk3LjMtLjc1LjYxLTEuNTIuOTUtMi4yOS4zNC0uNzcuNjQtMS40Ny45Mi0yLjExbDEwLTI0LjMyaDUuNjlsLTE1LjQ4LDM2LjExaC02LjQ3WiIvPgogICAgPHBhdGggY2xhc3M9ImNscy0yIiBkPSJNNjc3LjQxLDIwOS43MXYtMzYuMTFoMzEuNjl2NC41OGgtMjYuMzJ2MTAuNzRoMjMuNjl2NC41OGgtMjMuNjl2MTEuNjNoMjYuNjl2NC41OGgtMzIuMDZaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik03MzMuMjYsMjEwLjM0Yy0yLjI4LDAtNC40Ni0uMTgtNi41My0uNTMtMi4wNy0uMzUtMy45LS45NC01LjQ4LTEuNzYtMS41OC0uODItMi44My0xLjk1LTMuNzYtMy4zNy0uOTMtMS40Mi0xLjM5LTMuMi0xLjM5LTUuMzQsMC0uMjEsMC0uNC4wMy0uNTVzLjAzLS4yOS4wMy0uMzloNS4zN2MwLC4xNCwwLC4zMi0uMDIuNTUtLjAyLjIzLS4wMy40Ny0uMDMuNzEsMCwxLjMzLjQ3LDIuNDcsMS40MiwzLjQuOTUuOTMsMi4zMSwxLjYyLDQuMDgsMi4wOCwxLjc3LjQ2LDMuODIuNjgsNi4xMy42OCwxLjA1LDAsMi4xMi0uMDYsMy4yMS0uMTgsMS4wOS0uMTIsMi4xMS0uMzIsMy4wOC0uNTguOTYtLjI2LDEuODItLjYxLDIuNTgtMS4wNS43NS0uNDQsMS4zNS0uOTgsMS43OS0xLjYzLjQ0LS42NS42Ni0xLjQxLjY2LTIuMjksMC0xLjE5LS4zOC0yLjE3LTEuMTMtMi45Mi0uNzYtLjc1LTEuNzgtMS4zNy0zLjA4LTEuODQtMS4zLS40Ny0yLjc2LS44OS00LjQtMS4yNC0xLjYzLS4zNS0zLjMxLS43LTUuMDMtMS4wNS0xLjcyLS4zNS0zLjM5LS43Ny01LjAzLTEuMjYtMS42My0uNDktMy4xLTEuMTEtNC40LTEuODQtMS4zLS43NC0yLjMyLTEuNjktMy4wOC0yLjg3LS43Ni0xLjE4LTEuMTMtMi42Mi0xLjEzLTQuMzQsMC0xLjQ3LjMzLTIuODEuOTctNCwuNjUtMS4xOSwxLjY0LTIuMjIsMi45Ny0zLjA4LDEuMzQtLjg2LDMuMDEtMS41Miw1LjAzLTEuOTcsMi4wMi0uNDYsNC40MS0uNjgsNy4xOS0uNjgsMi41MywwLDQuNzUuMjQsNi42Ni43MSwxLjkxLjQ3LDMuNTIsMS4xNSw0LjgyLDIuMDMsMS4zLjg4LDIuMjcsMS45MywyLjkyLDMuMTYuNjUsMS4yMy45NywyLjYuOTcsNC4xMXYuODRoLTUuMzJ2LS44OWMwLTEuMDUtLjQxLTEuOTgtMS4yMS0yLjc5LS44MS0uODEtMS45NC0xLjQ1LTMuNC0xLjkyLTEuNDYtLjQ3LTMuMTktLjcxLTUuMTktLjcxLTIuNDYsMC00LjQ5LjItNi4xMS42MS0xLjYyLjQtMi44My45Ny0zLjYzLDEuNzEtLjgxLjc0LTEuMjEsMS42LTEuMjEsMi41OCwwLDEuMDkuMzcsMS45NywxLjEzLDIuNjYuNzUuNjgsMS43OCwxLjI1LDMuMDgsMS42OSwxLjMuNDQsMi43Ni44Miw0LjQsMS4xNiwxLjYzLjMzLDMuMzEuNjgsNS4wMywxLjAzLDEuNzIuMzUsMy40Ljc3LDUuMDMsMS4yNiwxLjYzLjQ5LDMuMSwxLjEyLDQuNCwxLjlzMi4zMywxLjc1LDMuMTEsMi45MmMuNzcsMS4xOCwxLjE2LDIuNjIsMS4xNiw0LjM0LDAsMi42Ny0uNzEsNC44MS0yLjEzLDYuNDJzLTMuMzksMi43OC01Ljg5LDMuNWMtMi41MS43Mi01LjQsMS4wOC04LjY2LDEuMDhaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik03NjguNTgsMjA5Ljcxdi0zMS40M2gtMTQuMzd2LTQuNjloMzQuMTd2NC42OWgtMTQuNDJ2MzEuNDNoLTUuMzdaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik03OTQuNzUsMjA5Ljcxdi0zNi4xMWg4LjIxbDkuNTgsMjMuMDFjLjI0LjU2LjUxLDEuMjUuNzksMi4wNXMuNTcsMS42MS44NywyLjM5Yy4zLjc5LjU1LDEuNDguNzcsMi4wOGguMzJjLjIxLS41Ni40NS0xLjIzLjcxLTIsLjI2LS43Ny41NC0xLjU2Ljg0LTIuMzcuMy0uODEuNTUtMS41MS43Ni0yLjExbDkuNTgtMjMuMDZoOC4xNnYzNi4xMWgtNS4zN3YtMjIuMjFjMC0uODQsMC0xLjc5LjAzLTIuODQuMDItMS4wNS4wNC0yLjA0LjA4LTIuOTcuMDMtLjkzLjA1LTEuNjYuMDUtMi4xOGgtLjQyYy0uMTQuNDYtLjM0LDEuMDYtLjYsMS44Mi0uMjYuNzYtLjUzLDEuNTMtLjc5LDIuMzItLjI2Ljc5LS41MiwxLjQ4LS43NiwyLjA4bC0xMC4xMSwyNGgtNC45NWwtMTAuMTEtMjRjLS4yOC0uNjMtLjU1LTEuMzItLjgyLTIuMDUtLjI2LS43NC0uNTItMS40Ny0uNzctMi4yMS0uMjQtLjc0LS40Ni0xLjM5LS42My0xLjk1aC0uNDJjLjA0LjY3LjA2LDEuNDcuMDgsMi40Mi4wMi45NS4wNCwxLjkxLjA2LDIuOS4wMi45OC4wMiwxLjg4LjAyLDIuNjh2MjIuMjFoLTUuMTZaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik04NDUuNTUsMjA5Ljcxdi0zNi4xMWgzMS42OXY0LjU4aC0yNi4zMnYxMC43NGgyMy42OXY0LjU4aC0yMy42OXYxMS42M2gyNi42OXY0LjU4aC0zMi4wNloiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTg4Ni4yNCwyMDkuNzF2LTM2LjExaDUuMjFsMjAuMDYsMjMuMzdjLjMyLjI4LjY4LjY3LDEuMDgsMS4xNi40LjQ5LjgxLjk4LDEuMjEsMS40Ny40LjQ5Ljc1LjkzLDEuMDMsMS4zMmguMzJjMC0uNjMsMC0xLjMzLS4wMy0yLjExLS4wMi0uNzctLjAzLTEuNDctLjAzLTIuMTF2LTIzLjExaDUuMjF2MzYuMTFoLTQuOWwtMjAuMjctMjMuNjljLS41Ni0uNi0xLjE4LTEuMzEtMS44NC0yLjEzcy0xLjE5LTEuNDgtMS41OC0xLjk3aC0uMzJjMCwuNTYsMCwxLjI2LjAzLDIuMDguMDIuODMuMDMsMS42OC4wMywyLjU1djIzLjE2aC01LjIxWiIvPgogICAgPHBhdGggY2xhc3M9ImNscy0yIiBkPSJNOTQwLjk5LDIwOS43MXYtMzEuNDNoLTE0LjM3di00LjY5aDM0LjE3djQuNjloLTE0LjQydjMxLjQzaC01LjM3WiIvPgogICAgPHBhdGggY2xhc3M9ImNscy0yIiBkPSJNOTgyLjMxLDIxMC4zNGMtMi4yOCwwLTQuNDYtLjE4LTYuNTMtLjUzLTIuMDctLjM1LTMuOS0uOTQtNS40Ny0xLjc2LTEuNTgtLjgyLTIuODQtMS45NS0zLjc2LTMuMzctLjkzLTEuNDItMS4zOS0zLjItMS4zOS01LjM0LDAtLjIxLDAtLjQuMDMtLjU1cy4wMy0uMjkuMDMtLjM5aDUuMzdjMCwuMTQsMCwuMzItLjAzLjU1LS4wMi4yMy0uMDMuNDctLjAzLjcxLDAsMS4zMy40OCwyLjQ3LDEuNDIsMy40Ljk1LjkzLDIuMzEsMS42Miw0LjA4LDIuMDgsMS43Ny40NiwzLjgyLjY4LDYuMTMuNjgsMS4wNSwwLDIuMTItLjA2LDMuMjEtLjE4LDEuMDktLjEyLDIuMTEtLjMyLDMuMDgtLjU4czEuODMtLjYxLDIuNTgtMS4wNWMuNzYtLjQ0LDEuMzUtLjk4LDEuNzktMS42My40NC0uNjUuNjYtMS40MS42Ni0yLjI5LDAtMS4xOS0uMzgtMi4xNy0xLjEzLTIuOTItLjc2LS43NS0xLjc4LTEuMzctMy4wOC0xLjg0LTEuMy0uNDctMi43Ni0uODktNC40LTEuMjRzLTMuMzEtLjctNS4wMy0xLjA1Yy0xLjcyLS4zNS0zLjQtLjc3LTUuMDMtMS4yNi0xLjYzLS40OS0zLjEtMS4xMS00LjQtMS44NC0xLjMtLjc0LTIuMzItMS42OS0zLjA4LTIuODctLjc2LTEuMTgtMS4xMy0yLjYyLTEuMTMtNC4zNCwwLTEuNDcuMzItMi44MS45Ny00LC42NS0xLjE5LDEuNjQtMi4yMiwyLjk3LTMuMDgsMS4zMy0uODYsMy4wMS0xLjUyLDUuMDMtMS45NywyLjAyLS40Niw0LjQxLS42OCw3LjE5LS42OCwyLjUzLDAsNC43NS4yNCw2LjY2LjcxLDEuOTEuNDcsMy41MiwxLjE1LDQuODIsMi4wMywxLjMuODgsMi4yNywxLjkzLDIuOTIsMy4xNi42NSwxLjIzLjk3LDIuNi45Nyw0LjExdi44NGgtNS4zMnYtLjg5YzAtMS4wNS0uNC0xLjk4LTEuMjEtMi43OS0uODEtLjgxLTEuOTQtMS40NS0zLjQtMS45Mi0xLjQ2LS40Ny0zLjE4LS43MS01LjE5LS43MS0yLjQ2LDAtNC40OS4yLTYuMTEuNjEtMS42Mi40LTIuODMuOTctMy42MywxLjcxLS44MS43NC0xLjIxLDEuNi0xLjIxLDIuNTgsMCwxLjA5LjM4LDEuOTcsMS4xMywyLjY2Ljc1LjY4LDEuNzgsMS4yNSwzLjA4LDEuNjksMS4zLjQ0LDIuNzYuODIsNC4zOSwxLjE2LDEuNjMuMzMsMy4zMS42OCw1LjAzLDEuMDMsMS43Mi4zNSwzLjQuNzcsNS4wMywxLjI2LDEuNjMuNDksMy4xLDEuMTIsNC4zOSwxLjlzMi4zMywxLjc1LDMuMTEsMi45MmMuNzcsMS4xOCwxLjE2LDIuNjIsMS4xNiw0LjM0LDAsMi42Ny0uNzEsNC44MS0yLjEzLDYuNDItMS40MiwxLjYxLTMuMzksMi43OC01LjksMy41LTIuNTEuNzItNS40LDEuMDgtOC42NiwxLjA4WiIvPgogIDwvZz4KICA8Zz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMSIgZD0iTTg1LjI1LDEzMi4yOUgzMC4yOUwxLjY1LDE2MC44MXEtLjY1LjY1LS42NSwxNS41MXY4MC42NHMyNy44MS0yNy44LDI3LjgxLTI3Ljh2LTY5LjA2aDMyLjk5YzIyLjI2LDAsNDIuNzItMTIuMTUsNTMuMzktMzEuNzFsMy41NS02LjUxLTYuNTEsMy41NWMtOC4yMyw0LjQ5LTE3LjU2LDYuODctMjYuOTksNi44N1oiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMSIgZD0iTTk4LjYyLDEuMDRIMzAuNkwxLjI4LDMwLjM2djcxLjkxbDI3LjgtMjcuOFYyOC44NWg0Ni4wOWMzMS4xMiwwLDU2LjQzLDI1LjMyLDU2LjQzLDU2LjQzLDAsOS4zOS0yLjM2LDE4LjctNi44NSwyNi45N2wtMy42NSw2LjYsNi42OC0zLjY2YzE5LjUxLTEwLjY5LDMxLjYyLTMxLjEzLDMxLjYyLTUzLjM1LDAtMzMuNTItMjcuMjctNjAuNzktNjAuNzktNjAuNzlaIi8+CiAgPC9nPgo8L3N2Zz4=" class="hero-logo" alt="Primora Property Investments">
+        <span class="hero-div"></span>
+        <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyBpZD0iTGl2ZWxsb18xIiBkYXRhLW5hbWU9IkxpdmVsbG8gMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgMTAwMCAyNTgiPgogIDxkZWZzPgogICAgPHN0eWxlPgogICAgICAuY2xzLTEgewogICAgICAgIGZpbGw6ICNiZjk4NmE7CiAgICAgIH0KCiAgICAgIC5jbHMtMiB7CiAgICAgICAgZmlsbDogI2ZmZjsKICAgICAgfQogICAgPC9zdHlsZT4KICA8L2RlZnM+CiAgPGc+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0yNDAuNzMsMTMzLjE1VjQxLjI3aDY0LjFjNS44NywwLDExLjA4LDEuMzQsMTUuNjIsNC4wMXM4LjA4LDYuMzcsMTAuNjIsMTEuMDhjMi41NCw0LjcyLDMuODEsMTAuMiwzLjgxLDE2LjQzcy0xLjI5LDEyLjAyLTMuODcsMTYuODMtNi4xNCw4LjUzLTEwLjY4LDExLjE1Yy00LjU0LDIuNjMtOS43MSwzLjk0LTE1LjQ5LDMuOTRoLTMyLjg1djI4LjQ0aC0zMS4yNVpNMjcxLjk4LDgyLjU0aDIzLjI0YzMuMjksMCw1Ljc0LS44LDcuMzQtMi40czIuNC0zLjk2LDIuNC03LjA4YzAtMi4xNC0uMzgtMy44OS0xLjEzLTUuMjctLjc2LTEuMzgtMS44My0yLjQyLTMuMjEtMy4xNC0xLjM4LS43MS0zLjE5LTEuMDctNS40MS0xLjA3aC0yMy4yNHYxOC45NloiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTM0Ni43NiwxMzMuMTVWNDEuMjdoNjguNjRjNi44NSwwLDEyLjU3LDEuNCwxNy4xNiw0LjIxLDQuNTgsMi44MSw4LjAzLDYuNDgsMTAuMzUsMTEuMDIsMi4zMSw0LjU0LDMuNDcsOS40NCwzLjQ3LDE0LjY5LDAsNS45Ny0xLjM4LDExLjI4LTQuMTQsMTUuOTYtMi43Niw0LjY3LTYuNjMsOC40NC0xMS42MiwxMS4yOGwxOC4xNiwzNC43MmgtMzUuMjZsLTEzLjg5LTI5Ljc4aC0yMS42NHYyOS43OGgtMzEuMjVaTTM3OC4wMSw4MS43M2gyNy45MWMyLjQsMCw0LjQzLS44NCw2LjA4LTIuNTQsMS42NS0xLjY5LDIuNDctNC4wMSwyLjQ3LTYuOTQsMC0xLjg3LS4zOC0zLjQ3LTEuMTQtNC44MS0uNzYtMS4zNC0xLjc4LTIuMzgtMy4wNy0zLjE0LTEuMjktLjc2LTIuNzQtMS4xNC00LjM0LTEuMTRoLTI3LjkxdjE4LjU2WiIvPgogICAgPHBhdGggY2xhc3M9ImNscy0yIiBkPSJNNDYxLjc1LDEzMy4xNVY0MS4yN2gzMS4yNXY5MS44OGgtMzEuMjVaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik01MTIuNzYsMTMzLjE1VjQxLjI3aDQ2LjQ3bDkuODgsMzIuOTljLjU0LDEuNTEsMS4xNiwzLjU0LDEuODcsNi4wOC43MSwyLjU0LDEuNDIsNS4yMSwyLjE0LDguMDEuNzEsMi44LDEuMzQsNS4zMiwxLjg3LDcuNTRoLjkzYy40NC0xLjg3LDEtNC4wNSwxLjY3LTYuNTQuNjctMi40OSwxLjM4LTUuMSwyLjE0LTcuODEuNzYtMi43MiwxLjQ1LTUuMTQsMi4wNy03LjI4bDkuODgtMzIuOTloNDQuODd2OTEuODhoLTMwLjU4di0zNi41OWMwLTIuOTQuMDItNi4wMS4wNy05LjIxLjA0LTMuMjEuMTEtNi4zLjItOS4yOC4wOS0yLjk4LjEzLTUuNS4xMy03LjU1aC0xLjA3Yy0uNDUsMS44Ny0xLDQuMS0xLjY3LDYuNjhzLTEuMzYsNS4xMi0yLjA3LDcuNjFjLS43MSwyLjQ5LTEuMzgsNC42My0yLDYuNDFsLTEzLjA5LDQxLjkzaC0yNS42NGwtMTMuMjItNDEuOTNjLS43MS0yLjMxLTEuNDUtNC43Ni0yLjItNy4zNHMtMS40Mi01LjA1LTItNy40MWMtLjU4LTIuMzYtMS4wOS00LjM0LTEuNTQtNS45NGgtMS4wN2MuMDksMS44Ny4xOCw0LjIzLjI3LDcuMDguMDksMi44NS4xNSw1LjkyLjIsOS4yMi4wNCwzLjI5LjA3LDYuNTQuMDcsOS43NXYzNi41OWgtMjguNThaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik03MDcuODcsMTM0Ljc1Yy0xMS40OSwwLTIxLjM3LTEuODUtMjkuNjUtNS41NC04LjI4LTMuNy0xNC42NS05LjA4LTE5LjEtMTYuMTYtNC40NS03LjA4LTYuNjgtMTUuNjktNi42OC0yNS44NHMyLjIyLTE4LjksNi42OC0yNS45N2M0LjQ1LTcuMDgsMTAuODItMTIuNDQsMTkuMS0xNi4wOSw4LjI4LTMuNjUsMTguMTYtNS40OCwyOS42NS01LjQ4czIxLjUsMS44MywyOS43OCw1LjQ4YzguMjgsMy42NSwxNC42NCw5LjAxLDE5LjEsMTYuMDksNC40NSw3LjA4LDYuNjgsMTUuNzQsNi42OCwyNS45N3MtMi4yMywxOC43Ni02LjY4LDI1Ljg0Yy00LjQ1LDcuMDgtMTAuODIsMTIuNDYtMTkuMSwxNi4xNi04LjI4LDMuNy0xOC4yMSw1LjU0LTI5Ljc4LDUuNTRaTTcwNy44NywxMTIuMzJjMy43NCwwLDcuMDUtLjUzLDkuOTUtMS42LDIuODktMS4wNyw1LjM2LTIuNiw3LjQxLTQuNjEsMi4wNS0yLDMuNTgtNC4zNiw0LjYxLTcuMDhzMS41NC01LjcyLDEuNTQtOS4wMXYtNS44OGMwLTMuMjEtLjUxLTYuMTctMS41NC04Ljg4cy0yLjU2LTUuMDUtNC42MS03LjAxYy0yLjA1LTEuOTYtNC41Mi0zLjQ3LTcuNDEtNC41NC0yLjg5LTEuMDctNi4yMS0xLjYtOS45NS0xLjZzLTYuOTUuNTMtOS44OCwxLjZjLTIuOTQsMS4wNy01LjQxLDIuNTgtNy40MSw0LjU0LTIsMS45Ni0zLjUyLDQuMy00LjU0LDcuMDEtMS4wMywyLjcyLTEuNTQsNS42OC0xLjU0LDguODh2NS44OGMwLDMuMjkuNTEsNi4zLDEuNTQsOS4wMSwxLjAyLDIuNzIsMi41NCw1LjA3LDQuNTQsNy4wOCwyLDIsNC40NywzLjU0LDcuNDEsNC42MSwyLjk0LDEuMDcsNi4yMywxLjYsOS44OCwxLjZaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik03NzkuMzIsMTMzLjE1VjQxLjI3aDY4LjY0YzYuODUsMCwxMi41OCwxLjQsMTcuMTYsNC4yMSw0LjU4LDIuODEsOC4wMyw2LjQ4LDEwLjM1LDExLjAyLDIuMzEsNC41NCwzLjQ3LDkuNDQsMy40NywxNC42OSwwLDUuOTctMS4zOCwxMS4yOC00LjE0LDE1Ljk2LTIuNzYsNC42Ny02LjYzLDguNDQtMTEuNjIsMTEuMjhsMTguMTYsMzQuNzJoLTM1LjI2bC0xMy44OS0yOS43OGgtMjEuNjN2MjkuNzhoLTMxLjI1Wk04MTAuNTcsODEuNzNoMjcuOTFjMi40LDAsNC40My0uODQsNi4wOC0yLjU0LDEuNjUtMS42OSwyLjQ3LTQuMDEsMi40Ny02Ljk0LDAtMS44Ny0uMzgtMy40Ny0xLjEzLTQuODEtLjc2LTEuMzQtMS43OC0yLjM4LTMuMDctMy4xNHMtMi43NC0xLjE0LTQuMzQtMS4xNGgtMjcuOTF2MTguNTZaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik04ODUuNjIsMTMzLjE1bDM5LTkxLjg4aDM1LjM5bDM4Ljk5LDkxLjg4aC0zMy4zOWwtNC42Ny0xMi41NWgtMzguNmwtNC41NCwxMi41NWgtMzIuMTlaTTkzMC40OSw5OC44M2gyMi40NGwtNS4zNC0xNS4wOWMtLjM2LS44OS0uNzYtMi0xLjItMy4zNC0uNDUtMS4zNC0uOTEtMi44MS0xLjQtNC40MS0uNDktMS42LS45Ni0zLjIxLTEuNC00LjgxLS40NS0xLjYtLjg5LTMuMDMtMS4zNC00LjI3aC0uOTNjLS40NSwxLjYtMSwzLjQtMS42Nyw1LjQxLS42NywyLTEuMzEsNC4wMS0xLjk0LDYuMDEtLjYyLDItMS4yNSwzLjgxLTEuODcsNS40MWwtNS4zNCwxNS4wOVoiLz4KICA8L2c+CiAgPGc+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0yNDEuMDgsMjEwLjAxdi0zNi4xOWgyMy4xYzIuNDYsMCw0LjUuNDcsNi4xMiwxLjQsMS42Mi45MywyLjgzLDIuMjEsMy42NCwzLjgyLjgxLDEuNjIsMS4yMSwzLjQ1LDEuMjEsNS40OSwwLDIuMzktLjU3LDQuNDktMS43MSw2LjMtMS4xNCwxLjgxLTIuNzksMy4xMi00LjkzLDMuOTNsNy43NiwxNS4yNGgtNS45NmwtNy4xMi0xNC4zaC0xNi43MnYxNC4zaC01LjM4Wk0yNDYuNDYsMTkxLjE4aDE2LjgzYzIuMDQsMCwzLjYyLS42LDQuNzUtMS43OXMxLjY5LTIuOCwxLjY5LTQuOGMwLTEuMy0uMjUtMi40MS0uNzQtMy4zMi0uNDktLjkxLTEuMjItMS42Mi0yLjE5LTIuMTEtLjk3LS40OS0yLjE0LS43NC0zLjUxLS43NGgtMTYuODN2MTIuNzdaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0yODQuMDcsMjEwLjAxdi0zNi4xOWgzMS43NnY0LjU5aC0yNi4zOHYxMC43NmgyMy43NHY0LjU5aC0yMy43NHYxMS42NmgyNi43NXY0LjU5aC0zMi4xM1oiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTMyMC43MywyMTAuMDFsMTYuMzUtMzYuMTloNi42NWwxNi4zNSwzNi4xOWgtNS44NWwtMy45LTguNzZoLTIwLjE1bC0zLjg1LDguNzZoLTUuNTlaTTMzMi4xOCwxOTYuNzJoMTYuMDlsLTQuODUtMTEuMDJjLS4xOC0uMzUtLjQtLjg0LS42Ni0xLjQ4LS4yNi0uNjMtLjU0LTEuMy0uODItMi4wMS0uMjgtLjctLjU2LTEuMzktLjgyLTIuMDYtLjI2LS42Ny0uNDgtMS4yMy0uNjYtMS42OWgtLjQyYy0uMjguNzQtLjYyLDEuNTctMSwyLjUxcy0uNzYsMS44Mi0xLjExLDIuNjZjLS4zNS44NC0uNjMsMS41My0uODQsMi4wNmwtNC45MSwxMS4wMloiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTM2Ni4yLDIxMC4wMXYtMzYuMTloNS4zOHYzMS40OWgyMC4zNnY0LjdoLTI1Ljc0WiIvPgogICAgPHBhdGggY2xhc3M9ImNscy0yIiBkPSJNNDEyLjYyLDIxMC4wMXYtMzYuMTloMzEuNzZ2NC41OWgtMjYuMzh2MTAuNzZoMjMuNzR2NC41OWgtMjMuNzR2MTEuNjZoMjYuNzV2NC41OWgtMzIuMTNaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik00NjguNTksMjEwLjY0Yy0yLjI5LDAtNC40Ny0uMTgtNi41NC0uNTNzLTMuOS0uOTQtNS40OS0xLjc3Yy0xLjU4LS44My0yLjg0LTEuOTUtMy43Ny0zLjM4LS45My0xLjQyLTEuNC0zLjIxLTEuNC01LjM1LDAtLjIxLDAtLjQuMDMtLjU2LjAyLS4xNi4wMy0uMjkuMDMtLjRoNS4zOGMwLC4xNCwwLC4zMy0uMDMuNTUtLjAyLjIzLS4wMy40Ny0uMDMuNzEsMCwxLjM0LjQ4LDIuNDcsMS40MiwzLjQuOTUuOTMsMi4zMSwxLjYzLDQuMDksMi4wOCwxLjc3LjQ2LDMuODIuNjksNi4xNS42OSwxLjA2LDAsMi4xMy0uMDYsMy4yMi0uMTgsMS4wOS0uMTIsMi4xMi0uMzIsMy4wOS0uNTguOTctLjI2LDEuODMtLjYxLDIuNTgtMS4wNi43Ni0uNDQsMS4zNS0uOTgsMS43OS0xLjYzLjQ0LS42NS42Ni0xLjQxLjY2LTIuMywwLTEuMTktLjM4LTIuMTctMS4xMy0yLjkzLS43Ni0uNzYtMS43OS0xLjM3LTMuMDktMS44NS0xLjMtLjQ3LTIuNzctLjg5LTQuNC0xLjI0LTEuNjQtLjM1LTMuMzItLjctNS4wNC0xLjA2LTEuNzItLjM1LTMuNC0uNzctNS4wNC0xLjI2LTEuNjQtLjQ5LTMuMS0xLjExLTQuNC0xLjg1LTEuMy0uNzQtMi4zMy0xLjctMy4wOS0yLjg4LS43Ni0xLjE4LTEuMTMtMi42My0xLjEzLTQuMzUsMC0xLjQ4LjMzLTIuODEuOTgtNC4wMXMxLjY0LTIuMjIsMi45OC0zLjA5YzEuMzQtLjg2LDMuMDItMS41Miw1LjA0LTEuOTgsMi4wMi0uNDYsNC40Mi0uNjksNy4yLS42OSwyLjUzLDAsNC43Ni4yNCw2LjY3LjcxLDEuOTIuNDcsMy41MywxLjE1LDQuODMsMi4wMywxLjMuODgsMi4yOCwxLjkzLDIuOTMsMy4xN3MuOTgsMi42Ljk4LDQuMTF2Ljg0aC01LjMzdi0uOWMwLTEuMDYtLjQxLTEuOTktMS4yMS0yLjgtLjgxLS44MS0xLjk0LTEuNDUtMy40LTEuOTMtMS40Ni0uNDctMy4xOS0uNzEtNS4yLS43MS0yLjQ2LDAtNC41LjItNi4xMi42MS0xLjYyLjQxLTIuODMuOTgtMy42NCwxLjcyLS44MS43NC0xLjIxLDEuNi0xLjIxLDIuNTgsMCwxLjA5LjM4LDEuOTgsMS4xMywyLjY2Ljc1LjY5LDEuNzgsMS4yNSwzLjA4LDEuNjksMS4zLjQ0LDIuNzcuODMsNC40LDEuMTYsMS42NC4zNCwzLjMyLjY4LDUuMDQsMS4wM3MzLjQuNzcsNS4wNCwxLjI3YzEuNjQuNDksMy4xLDEuMTIsNC40LDEuOSwxLjMuNzcsMi4zNCwxLjc1LDMuMTEsMi45My43NywxLjE4LDEuMTYsMi42MywxLjE2LDQuMzUsMCwyLjY3LS43MSw0LjgyLTIuMTQsNi40NC0xLjQyLDEuNjItMy4zOSwyLjc5LTUuOTEsMy41MS0yLjUyLjcyLTUuNDEsMS4wOC04LjY4LDEuMDhaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik01MDMuOTksMjEwLjAxdi0zMS40OWgtMTQuNHYtNC43aDM0LjI0djQuN2gtMTQuNDV2MzEuNDloLTUuMzhaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik01MjAuMjksMjEwLjAxbDE2LjM1LTM2LjE5aDYuNjVsMTYuMzUsMzYuMTloLTUuODVsLTMuOS04Ljc2aC0yMC4xNWwtMy44NSw4Ljc2aC01LjU5Wk01MzEuNzMsMTk2LjcyaDE2LjA5bC00Ljg1LTExLjAyYy0uMTgtLjM1LS40LS44NC0uNjYtMS40OC0uMjYtLjYzLS41NC0xLjMtLjgyLTIuMDEtLjI4LS43LS41NS0xLjM5LS44Mi0yLjA2LS4yNi0uNjctLjQ4LTEuMjMtLjY2LTEuNjloLS40MmMtLjI4Ljc0LS42MSwxLjU3LTEsMi41MXMtLjc2LDEuODItMS4xMSwyLjY2LS42MywxLjUzLS44NCwyLjA2bC00LjkxLDExLjAyWiIvPgogICAgPHBhdGggY2xhc3M9ImNscy0yIiBkPSJNNTcwLjQ1LDIxMC4wMXYtMzEuNDloLTE0LjR2LTQuN2gzNC4yNHY0LjdoLTE0LjQ1djMxLjQ5aC01LjM4WiIvPgogICAgPHBhdGggY2xhc3M9ImNscy0yIiBkPSJNNTk2LjY3LDIxMC4wMXYtMzYuMTloMzEuNzZ2NC41OWgtMjYuMzh2MTAuNzZoMjMuNzR2NC41OWgtMjMuNzR2MTEuNjZoMjYuNzR2NC41OWgtMzIuMTJaIi8+CiAgPC9nPgogIDxnPgogICAgPHBhdGggY2xhc3M9ImNscy0xIiBkPSJNODUuNDIsMTMyLjNIMzAuMzVMMS42NSwxNjAuODdxLS42NS42NS0uNjUsMTUuNTR2ODAuODFzMjcuODctMjcuODYsMjcuODctMjcuODZ2LTY5LjJoMzMuMDZjMjIuMywwLDQyLjgtMTIuMTgsNTMuNS0zMS43OGwzLjU2LTYuNTItNi41MiwzLjU2Yy04LjI1LDQuNS0xNy42LDYuODgtMjcuMDUsNi44OFoiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMSIgZD0iTTk4LjgzLjc4SDMwLjY2TDEuMjgsMzAuMTZ2NzIuMDVsMjcuODYtMjcuODZWMjguNjRoNDYuMTljMzEuMTgsMCw1Ni41NSwyNS4zNyw1Ni41NSw1Ni41NSwwLDkuNDEtMi4zNiwxOC43My02Ljg3LDI3LjAybC0zLjY1LDYuNjEsNi43LTMuNjdjMTkuNTUtMTAuNzEsMzEuNjktMzEuMTksMzEuNjktNTMuNDZDMTU5Ljc0LDI4LjExLDEzMi40Mi43OCw5OC44My43OFoiLz4KICA8L2c+Cjwvc3ZnPg==" class="hero-logo" alt="Primora Real Estate">
+      </div>
+      <h1 data-i18n="hero.h1">Immobili che nascono <em>e si realizzano</em><br>all'interno di un unico gruppo.</h1>
+      <p data-i18n="hero.p">Dalla promozione immobiliare alla vendita: Primora segue ogni oggetto dall'idea progettuale al cantiere, fino alla consegna delle chiavi al cliente, con un'attenzione costante alla qualità e al dettaglio.</p>
+      <div class="hero-cta">
+        <button class="btn" onclick="go('oggetti')" data-i18n="hero.cta1">Scopri gli oggetti →</button>
+        <button class="btn ghost" onclick="scrollToId('gruppo')" data-i18n="hero.cta2">Il gruppo</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- GRUPPO -->
+  <section class="group" id="gruppo">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow" data-i18n="group.eyebrow">Chi siamo</div>
+        <h2 data-i18n="group.h2">Un gruppo, due competenze complementari.</h2>
+        <p data-i18n="group.p">Primora riunisce due società che lavorano in continuità: chi realizza gli immobili e chi li porta sul mercato. Due ruoli distinti, un'unica visione.</p>
+      </div>
+      <div class="two-col">
+        <div class="soc-card reveal">
+          <img class="soc-logo" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyBpZD0iTGl2ZWxsb18xIiBkYXRhLW5hbWU9IkxpdmVsbG8gMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgMTAwMCAyNTgiPgogIDxkZWZzPgogICAgPHN0eWxlPgogICAgICAuY2xzLTEgewogICAgICAgIGZpbGw6ICNhYjE4MzI7CiAgICAgIH0KCiAgICAgIC5jbHMtMiB7CiAgICAgICAgZmlsbDogIzJjMjgyMzsKICAgICAgfQogICAgPC9zdHlsZT4KICA8L2RlZnM+CiAgPGc+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0yNDAuMjMsMTMzLjE0VjQxLjQ1aDYzLjk3YzUuODYsMCwxMS4wNiwxLjMzLDE1LjU5LDQsNC41MywyLjY3LDguMDYsNi4zNSwxMC42LDExLjA2LDIuNTMsNC43MSwzLjgsMTAuMTgsMy44LDE2LjM5cy0xLjI5LDExLjk5LTMuODcsMTYuNzktNi4xMyw4LjUxLTEwLjY2LDExLjEzYy00LjUzLDIuNjItOS42OSwzLjkzLTE1LjQ2LDMuOTNoLTMyLjc5djI4LjM5aC0zMS4xOVpNMjcxLjQyLDgyLjYzaDIzLjE5YzMuMjksMCw1LjczLS44LDcuMzMtMi40czIuNC0zLjk1LDIuNC03LjA2YzAtMi4xMy0uMzgtMy44OS0xLjEzLTUuMjYtLjc2LTEuMzgtMS44Mi0yLjQyLTMuMi0zLjEzLTEuMzgtLjcxLTMuMTgtMS4wNy01LjQtMS4wN2gtMjMuMTl2MTguOTJaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0zNDYuMDUsMTMzLjE0VjQxLjQ1aDY4LjVjNi44NCwwLDEyLjU1LDEuNCwxNy4xMiw0LjIsNC41NywyLjgsOC4wMiw2LjQ2LDEwLjMzLDExLDIuMzEsNC41MywzLjQ2LDkuNDIsMy40NiwxNC42NiwwLDUuOTUtMS4zOCwxMS4yNi00LjEzLDE1LjkzLTIuNzUsNC42Ni02LjYyLDguNDItMTEuNiwxMS4yNmwxOC4xMywzNC42NWgtMzUuMTlsLTEzLjg2LTI5LjcyaC0yMS41OXYyOS43MmgtMzEuMTlaTTM3Ny4yNCw4MS44M2gyNy44NWMyLjQsMCw0LjQyLS44NCw2LjA2LTIuNTMsMS42NC0xLjY5LDIuNDctNCwyLjQ3LTYuOTMsMC0xLjg3LS4zOC0zLjQ2LTEuMTMtNC44LS43Ni0xLjMzLTEuNzgtMi4zOC0zLjA2LTMuMTMtMS4yOS0uNzUtMi43My0xLjEzLTQuMzMtMS4xM2gtMjcuODV2MTguNTJaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik00NjAuOCwxMzMuMTRWNDEuNDVoMzEuMTl2OTEuNjloLTMxLjE5WiIvPgogICAgPHBhdGggY2xhc3M9ImNscy0yIiBkPSJNNTExLjcxLDEzMy4xNFY0MS40NWg0Ni4zOGw5Ljg2LDMyLjkyYy41MywxLjUxLDEuMTUsMy41MywxLjg3LDYuMDYuNzEsMi41MywxLjQyLDUuMiwyLjEzLDgsLjcxLDIuOCwxLjMzLDUuMzEsMS44Nyw3LjUzaC45M2MuNDQtMS44NywxLTQuMDQsMS42Ny02LjUzLjY3LTIuNDksMS4zOC01LjA5LDIuMTMtNy44Ljc2LTIuNzEsMS40NC01LjEzLDIuMDctNy4yNmw5Ljg2LTMyLjkyaDQ0Ljc4djkxLjY5aC0zMC41MnYtMzYuNTJjMC0yLjkzLjAyLTYsLjA3LTkuMi4wNC0zLjIuMTEtNi4yOC4yLTkuMjYuMDktMi45OC4xMy01LjQ4LjEzLTcuNTNoLTEuMDdjLS40NSwxLjg3LTEsNC4wOS0xLjY2LDYuNjYtLjY3LDIuNTgtMS4zNiw1LjExLTIuMDcsNy42LS43MSwyLjQ5LTEuMzgsNC42Mi0yLDYuNGwtMTMuMDYsNDEuODVoLTI1LjU5bC0xMy4xOS00MS44NWMtLjcxLTIuMzEtMS40NC00Ljc1LTIuMi03LjMzLS43Ni0yLjU4LTEuNDItNS4wNC0yLTcuNC0uNTgtMi4zNS0xLjA5LTQuMzMtMS41My01LjkzaC0xLjA2Yy4wOSwxLjg3LjE4LDQuMjIuMjcsNy4wNi4wOSwyLjg0LjE1LDUuOTEuMiw5LjIuMDQsMy4yOS4wNyw2LjUzLjA3LDkuNzN2MzYuNTJoLTI4LjUyWiIvPgogICAgPHBhdGggY2xhc3M9ImNscy0yIiBkPSJNNzA2LjQyLDEzNC43NGMtMTEuNDYsMC0yMS4zMi0xLjg0LTI5LjU5LTUuNTMtOC4yNi0zLjY5LTE0LjYyLTkuMDYtMTkuMDYtMTYuMTNzLTYuNjYtMTUuNjYtNi42Ni0yNS43OSwyLjIyLTE4Ljg2LDYuNjYtMjUuOTIsMTAuOC0xMi40MiwxOS4wNi0xNi4wNmM4LjI2LTMuNjQsMTguMTItNS40NiwyOS41OS01LjQ2czIxLjQ2LDEuODIsMjkuNzIsNS40NmM4LjI2LDMuNjQsMTQuNjEsOSwxOS4wNiwxNi4wNnM2LjY3LDE1LjcxLDYuNjcsMjUuOTItMi4yMiwxOC43Mi02LjY3LDI1Ljc5LTEwLjc5LDEyLjQ0LTE5LjA2LDE2LjEzYy04LjI2LDMuNjktMTguMTcsNS41My0yOS43Miw1LjUzWk03MDYuNDIsMTEyLjM1YzMuNzMsMCw3LjA0LS41Myw5LjkzLTEuNiwyLjg4LTEuMDcsNS4zNS0yLjYsNy40LTQuNiwyLjA0LTIsMy41OC00LjM1LDQuNi03LjA2LDEuMDItMi43MSwxLjUzLTUuNzEsMS41My05di01Ljg2YzAtMy4yLS41MS02LjE1LTEuNTMtOC44Ni0xLjAyLTIuNzEtMi41Ni01LjA0LTQuNi03LTIuMDQtMS45NS00LjUxLTMuNDYtNy40LTQuNTMtMi44OS0xLjA3LTYuMi0xLjYtOS45My0xLjZzLTYuOTMuNTMtOS44NiwxLjZjLTIuOTMsMS4wNy01LjQsMi41OC03LjM5LDQuNTMtMiwxLjk2LTMuNTEsNC4yOS00LjUzLDctMS4wMiwyLjcxLTEuNTMsNS42Ni0xLjUzLDguODZ2NS44NmMwLDMuMjkuNTEsNi4yOSwxLjUzLDksMS4wMiwyLjcxLDIuNTMsNS4wNiw0LjUzLDcuMDYsMiwyLDQuNDYsMy41Myw3LjM5LDQuNiwyLjkzLDEuMDcsNi4yMiwxLjYsOS44NiwxLjZaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik03NzcuNzEsMTMzLjE0VjQxLjQ1aDY4LjVjNi44NCwwLDEyLjU1LDEuNCwxNy4xMyw0LjIsNC41NywyLjgsOC4wMiw2LjQ2LDEwLjMzLDExLDIuMzEsNC41MywzLjQ2LDkuNDIsMy40NiwxNC42NiwwLDUuOTUtMS4zOCwxMS4yNi00LjEzLDE1LjkzLTIuNzUsNC42Ni02LjYyLDguNDItMTEuNiwxMS4yNmwxOC4xMiwzNC42NWgtMzUuMThsLTEzLjg2LTI5LjcyaC0yMS41OXYyOS43MmgtMzEuMTlaTTgwOC45LDgxLjgzaDI3Ljg1YzIuNCwwLDQuNDItLjg0LDYuMDYtMi41MywxLjY0LTEuNjksMi40Ni00LDIuNDYtNi45MywwLTEuODctLjM4LTMuNDYtMS4xMy00LjgtLjc2LTEuMzMtMS43OC0yLjM4LTMuMDctMy4xMy0xLjI5LS43NS0yLjczLTEuMTMtNC4zMy0xLjEzaC0yNy44NXYxOC41MloiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTg4My44LDEzMy4xNGwzOC45Mi05MS42OWgzNS4zMmwzOC45MSw5MS42OWgtMzMuMzJsLTQuNjYtMTIuNTNoLTM4LjUybC00LjUzLDEyLjUzaC0zMi4xMlpNOTI4LjU4LDk4Ljg5aDIyLjM5bC01LjMzLTE1LjA2Yy0uMzUtLjg5LS43Ni0yLTEuMi0zLjMzLS40NS0xLjMzLS45MS0yLjgtMS40LTQuNC0uNDktMS42LS45NS0zLjItMS40LTQuOC0uNDUtMS42LS44OS0zLjAyLTEuMzMtNC4yNmgtLjkzYy0uNDUsMS42LTEsMy40LTEuNjcsNS40LS42NywyLTEuMzEsNC0xLjkzLDYtLjYyLDItMS4yNCwzLjgtMS44Nyw1LjRsLTUuMzMsMTUuMDZaIi8+CiAgPC9nPgogIDxnPgogICAgPHBhdGggY2xhc3M9ImNscy0yIiBkPSJNMjQwLjU4LDIwOS43MXYtMzYuMTFoMjEuNzRjMi4zOSwwLDQuNC40Nyw2LjA1LDEuNDIsMS42NS45NSwyLjksMi4yNiwzLjc2LDMuOTIuODYsMS42NywxLjI5LDMuNTksMS4yOSw1Ljc2cy0uNDYsNC4xNy0xLjM3LDUuODdjLS45MSwxLjctMi4yLDMuMDMtMy44NywzLjk3LTEuNjcuOTUtMy42NiwxLjQyLTUuOTcsMS40MmgtMTYuMjZ2MTMuNzRoLTUuMzdaTTI0NS45NiwxOTEuMzloMTUuNDJjMi4xLDAsMy43My0uNiw0Ljg5LTEuNzksMS4xNi0xLjE5LDEuNzQtMi44MSwxLjc0LTQuODQsMC0xLjM3LS4yNS0yLjU0LS43Ni0zLjUzLS41MS0uOTgtMS4yNS0xLjc0LTIuMjQtMi4yNi0uOTgtLjUzLTIuMTktLjc5LTMuNjMtLjc5aC0xNS40MnYxMy4yMVoiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTI4MC4yOCwyMDkuNzF2LTM2LjExaDIzLjA2YzIuNDYsMCw0LjQ5LjQ3LDYuMTEsMS40LDEuNjIuOTMsMi44MywyLjIsMy42MywzLjgyLjgxLDEuNjIsMS4yMSwzLjQ0LDEuMjEsNS40OCwwLDIuMzktLjU3LDQuNDgtMS43MSw2LjI5LTEuMTQsMS44MS0yLjc4LDMuMTEtNC45MiwzLjkybDcuNzQsMTUuMjFoLTUuOTVsLTcuMTEtMTQuMjdoLTE2LjY5djE0LjI3aC01LjM3Wk0yODUuNjUsMTkwLjkxaDE2Ljc5YzIuMDQsMCwzLjYxLS42LDQuNzQtMS43OXMxLjY4LTIuNzksMS42OC00Ljc5YzAtMS4zLS4yNC0yLjQtLjc0LTMuMzItLjQ5LS45MS0xLjIyLTEuNjEtMi4xOC0yLjExLS45Ni0uNDktMi4xMy0uNzQtMy41LS43NGgtMTYuNzl2MTIuNzRaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0zNDEuNTUsMjEwLjM0Yy00LjIxLDAtNy44NS0uNy0xMC45Mi0yLjExLTMuMDctMS40LTUuNDItMy40OS03LjA2LTYuMjYtMS42My0yLjc3LTIuNDUtNi4yMS0yLjQ1LTEwLjMycy44Mi03LjU5LDIuNDUtMTAuMzRjMS42My0yLjc1LDMuOTgtNC44Myw3LjA2LTYuMjQsMy4wNy0xLjQsNi43MS0yLjExLDEwLjkyLTIuMTFzNy45LjcsMTAuOTUsMi4xMWMzLjA1LDEuNDEsNS40LDMuNDgsNy4wMyw2LjI0LDEuNjMsMi43NiwyLjQ1LDYuMiwyLjQ1LDEwLjM0cy0uODEsNy41NS0yLjQ1LDEwLjMyYy0xLjYzLDIuNzctMy45Nyw0Ljg2LTcuMDMsNi4yNi0zLjA1LDEuNC02LjcsMi4xMS0xMC45NSwyLjExWk0zNDEuNTUsMjA1Ljc2YzIuMjEsMCw0LjIyLS4yNiw2LjAzLS43OSwxLjgxLS41MywzLjM4LTEuMzQsNC43MS0yLjQ1czIuMzYtMi41MSwzLjA4LTQuMjFjLjcyLTEuNywxLjA4LTMuNzMsMS4wOC02LjA4di0xLjE2YzAtMi4zNS0uMzYtNC4zOS0xLjA4LTYuMTEtLjcyLTEuNzItMS43NS0zLjEyLTMuMDgtNC4yMXMtMi45LTEuOS00LjcxLTIuNDJjLTEuODEtLjUzLTMuODItLjc5LTYuMDMtLjc5cy00LjIyLjI2LTYuMDMuNzljLTEuODEuNTMtMy4zOCwxLjMzLTQuNzEsMi40Mi0xLjMzLDEuMDktMi4zNiwyLjQ5LTMuMDgsNC4yMXMtMS4wOCwzLjc2LTEuMDgsNi4xMXYxLjE2YzAsMi4zNS4zNiw0LjM4LDEuMDgsNi4wOC43MiwxLjcsMS43NSwzLjExLDMuMDgsNC4yMSwxLjM0LDEuMTEsMi45LDEuOTIsNC43MSwyLjQ1LDEuODEuNTMsMy44Mi43OSw2LjAzLjc5WiIvPgogICAgPHBhdGggY2xhc3M9ImNscy0yIiBkPSJNMzcwLjUxLDIwOS43MXYtMzYuMTFoMjEuNzRjMi4zOSwwLDQuNDEuNDcsNi4wNSwxLjQyczIuOSwyLjI2LDMuNzYsMy45MmMuODYsMS42NywxLjI5LDMuNTksMS4yOSw1Ljc2cy0uNDYsNC4xNy0xLjM3LDUuODdjLS45MSwxLjctMi4yLDMuMDMtMy44NywzLjk3cy0zLjY2LDEuNDItNS45NywxLjQyaC0xNi4yN3YxMy43NGgtNS4zN1pNMzc1Ljg4LDE5MS4zOWgxNS40MmMyLjExLDAsMy43NC0uNiw0Ljg5LTEuNzksMS4xNi0xLjE5LDEuNzQtMi44MSwxLjc0LTQuODQsMC0xLjM3LS4yNi0yLjU0LS43Ny0zLjUzLS41MS0uOTgtMS4yNS0xLjc0LTIuMjQtMi4yNi0uOTgtLjUzLTIuMTktLjc5LTMuNjMtLjc5aC0xNS40MnYxMy4yMVoiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTQxMC4yLDIwOS43MXYtMzYuMTFoMzEuNjl2NC41OGgtMjYuMzJ2MTAuNzRoMjMuNjl2NC41OGgtMjMuNjl2MTEuNjNoMjYuNjl2NC41OGgtMzIuMDZaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik00NTAuODksMjA5Ljcxdi0zNi4xMWgyMy4wNmMyLjQ2LDAsNC40OS40Nyw2LjExLDEuNCwxLjYyLjkzLDIuODMsMi4yLDMuNjMsMy44Mi44MSwxLjYyLDEuMjEsMy40NCwxLjIxLDUuNDgsMCwyLjM5LS41Nyw0LjQ4LTEuNzEsNi4yOS0xLjE0LDEuODEtMi43OCwzLjExLTQuOTIsMy45Mmw3Ljc0LDE1LjIxaC01Ljk1bC03LjExLTE0LjI3aC0xNi42OXYxNC4yN2gtNS4zN1pNNDU2LjI2LDE5MC45MWgxNi43OWMyLjA0LDAsMy42MS0uNiw0Ljc0LTEuNzksMS4xMi0xLjE5LDEuNjgtMi43OSwxLjY4LTQuNzksMC0xLjMtLjI1LTIuNC0uNzQtMy4zMi0uNDktLjkxLTEuMjItMS42MS0yLjE4LTIuMTEtLjk3LS40OS0yLjEzLS43NC0zLjUtLjc0aC0xNi43OXYxMi43NFoiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTUwMy4zNywyMDkuNzF2LTMxLjQzaC0xNC4zN3YtNC42OWgzNC4xN3Y0LjY5aC0xNC40MnYzMS40M2gtNS4zN1oiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTU0MC4xNywyMDkuNzF2LTE0Ljk1bC0xNi4xMS0yMS4xNmg2LjM3bDEyLjM3LDE2LjU4aC40MmwxMi4zNy0xNi41OGg2LjA1bC0xNi4xMSwyMS4xNnYxNC45NWgtNS4zN1oiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTU3OC42NSwyMDkuNzF2LTM2LjExaDUuMzd2MzYuMTFoLTUuMzdaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik01OTQuMjMsMjA5Ljcxdi0zNi4xMWg1LjIxbDIwLjA2LDIzLjM3Yy4zMi4yOC42OC42NywxLjA4LDEuMTYuNC40OS44MS45OCwxLjIxLDEuNDcuNC40OS43NS45MywxLjAzLDEuMzJoLjMyYzAtLjYzLDAtMS4zMy0uMDMtMi4xMS0uMDItLjc3LS4wMy0xLjQ3LS4wMy0yLjExdi0yMy4xMWg1LjIxdjM2LjExaC00LjlsLTIwLjI3LTIzLjY5Yy0uNTYtLjYtMS4xOC0xLjMxLTEuODQtMi4xM3MtMS4xOS0xLjQ4LTEuNTgtMS45N2gtLjMyYzAsLjU2LDAsMS4yNi4wMywyLjA4LjAyLjgzLjAzLDEuNjguMDMsMi41NXYyMy4xNmgtNS4yMVoiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTY0OS42MSwyMDkuNzFsLTE1LjQ4LTM2LjExaDUuOTVsMTAuMDUsMjQuMjdjLjI4LjYuNTgsMS4yOS45LDIuMDhzLjYzLDEuNTYuOTUsMi4zMmMuMzIuNzYuNiwxLjQzLjg0LDIuMDNoLjQyYy4yMS0uNTYuNDYtMS4yMi43Ni0xLjk3LjMtLjc1LjYxLTEuNTIuOTUtMi4yOS4zNC0uNzcuNjQtMS40Ny45Mi0yLjExbDEwLTI0LjMyaDUuNjlsLTE1LjQ4LDM2LjExaC02LjQ3WiIvPgogICAgPHBhdGggY2xhc3M9ImNscy0yIiBkPSJNNjc3LjQxLDIwOS43MXYtMzYuMTFoMzEuNjl2NC41OGgtMjYuMzJ2MTAuNzRoMjMuNjl2NC41OGgtMjMuNjl2MTEuNjNoMjYuNjl2NC41OGgtMzIuMDZaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik03MzMuMjYsMjEwLjM0Yy0yLjI4LDAtNC40Ni0uMTgtNi41My0uNTMtMi4wNy0uMzUtMy45LS45NC01LjQ4LTEuNzYtMS41OC0uODItMi44My0xLjk1LTMuNzYtMy4zNy0uOTMtMS40Mi0xLjM5LTMuMi0xLjM5LTUuMzQsMC0uMjEsMC0uNC4wMy0uNTVzLjAzLS4yOS4wMy0uMzloNS4zN2MwLC4xNCwwLC4zMi0uMDIuNTUtLjAyLjIzLS4wMy40Ny0uMDMuNzEsMCwxLjMzLjQ3LDIuNDcsMS40MiwzLjQuOTUuOTMsMi4zMSwxLjYyLDQuMDgsMi4wOCwxLjc3LjQ2LDMuODIuNjgsNi4xMy42OCwxLjA1LDAsMi4xMi0uMDYsMy4yMS0uMTgsMS4wOS0uMTIsMi4xMS0uMzIsMy4wOC0uNTguOTYtLjI2LDEuODItLjYxLDIuNTgtMS4wNS43NS0uNDQsMS4zNS0uOTgsMS43OS0xLjYzLjQ0LS42NS42Ni0xLjQxLjY2LTIuMjksMC0xLjE5LS4zOC0yLjE3LTEuMTMtMi45Mi0uNzYtLjc1LTEuNzgtMS4zNy0zLjA4LTEuODQtMS4zLS40Ny0yLjc2LS44OS00LjQtMS4yNC0xLjYzLS4zNS0zLjMxLS43LTUuMDMtMS4wNS0xLjcyLS4zNS0zLjM5LS43Ny01LjAzLTEuMjYtMS42My0uNDktMy4xLTEuMTEtNC40LTEuODQtMS4zLS43NC0yLjMyLTEuNjktMy4wOC0yLjg3LS43Ni0xLjE4LTEuMTMtMi42Mi0xLjEzLTQuMzQsMC0xLjQ3LjMzLTIuODEuOTctNCwuNjUtMS4xOSwxLjY0LTIuMjIsMi45Ny0zLjA4LDEuMzQtLjg2LDMuMDEtMS41Miw1LjAzLTEuOTcsMi4wMi0uNDYsNC40MS0uNjgsNy4xOS0uNjgsMi41MywwLDQuNzUuMjQsNi42Ni43MSwxLjkxLjQ3LDMuNTIsMS4xNSw0LjgyLDIuMDMsMS4zLjg4LDIuMjcsMS45MywyLjkyLDMuMTYuNjUsMS4yMy45NywyLjYuOTcsNC4xMXYuODRoLTUuMzJ2LS44OWMwLTEuMDUtLjQxLTEuOTgtMS4yMS0yLjc5LS44MS0uODEtMS45NC0xLjQ1LTMuNC0xLjkyLTEuNDYtLjQ3LTMuMTktLjcxLTUuMTktLjcxLTIuNDYsMC00LjQ5LjItNi4xMS42MS0xLjYyLjQtMi44My45Ny0zLjYzLDEuNzEtLjgxLjc0LTEuMjEsMS42LTEuMjEsMi41OCwwLDEuMDkuMzcsMS45NywxLjEzLDIuNjYuNzUuNjgsMS43OCwxLjI1LDMuMDgsMS42OSwxLjMuNDQsMi43Ni44Miw0LjQsMS4xNiwxLjYzLjMzLDMuMzEuNjgsNS4wMywxLjAzLDEuNzIuMzUsMy40Ljc3LDUuMDMsMS4yNiwxLjYzLjQ5LDMuMSwxLjEyLDQuNCwxLjlzMi4zMywxLjc1LDMuMTEsMi45MmMuNzcsMS4xOCwxLjE2LDIuNjIsMS4xNiw0LjM0LDAsMi42Ny0uNzEsNC44MS0yLjEzLDYuNDJzLTMuMzksMi43OC01Ljg5LDMuNWMtMi41MS43Mi01LjQsMS4wOC04LjY2LDEuMDhaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik03NjguNTgsMjA5Ljcxdi0zMS40M2gtMTQuMzd2LTQuNjloMzQuMTd2NC42OWgtMTQuNDJ2MzEuNDNoLTUuMzdaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik03OTQuNzUsMjA5Ljcxdi0zNi4xMWg4LjIxbDkuNTgsMjMuMDFjLjI0LjU2LjUxLDEuMjUuNzksMi4wNXMuNTcsMS42MS44NywyLjM5Yy4zLjc5LjU1LDEuNDguNzcsMi4wOGguMzJjLjIxLS41Ni40NS0xLjIzLjcxLTIsLjI2LS43Ny41NC0xLjU2Ljg0LTIuMzcuMy0uODEuNTUtMS41MS43Ni0yLjExbDkuNTgtMjMuMDZoOC4xNnYzNi4xMWgtNS4zN3YtMjIuMjFjMC0uODQsMC0xLjc5LjAzLTIuODQuMDItMS4wNS4wNC0yLjA0LjA4LTIuOTcuMDMtLjkzLjA1LTEuNjYuMDUtMi4xOGgtLjQyYy0uMTQuNDYtLjM0LDEuMDYtLjYsMS44Mi0uMjYuNzYtLjUzLDEuNTMtLjc5LDIuMzItLjI2Ljc5LS41MiwxLjQ4LS43NiwyLjA4bC0xMC4xMSwyNGgtNC45NWwtMTAuMTEtMjRjLS4yOC0uNjMtLjU1LTEuMzItLjgyLTIuMDUtLjI2LS43NC0uNTItMS40Ny0uNzctMi4yMS0uMjQtLjc0LS40Ni0xLjM5LS42My0xLjk1aC0uNDJjLjA0LjY3LjA2LDEuNDcuMDgsMi40Mi4wMi45NS4wNCwxLjkxLjA2LDIuOS4wMi45OC4wMiwxLjg4LjAyLDIuNjh2MjIuMjFoLTUuMTZaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik04NDUuNTUsMjA5Ljcxdi0zNi4xMWgzMS42OXY0LjU4aC0yNi4zMnYxMC43NGgyMy42OXY0LjU4aC0yMy42OXYxMS42M2gyNi42OXY0LjU4aC0zMi4wNloiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTg4Ni4yNCwyMDkuNzF2LTM2LjExaDUuMjFsMjAuMDYsMjMuMzdjLjMyLjI4LjY4LjY3LDEuMDgsMS4xNi40LjQ5LjgxLjk4LDEuMjEsMS40Ny40LjQ5Ljc1LjkzLDEuMDMsMS4zMmguMzJjMC0uNjMsMC0xLjMzLS4wMy0yLjExLS4wMi0uNzctLjAzLTEuNDctLjAzLTIuMTF2LTIzLjExaDUuMjF2MzYuMTFoLTQuOWwtMjAuMjctMjMuNjljLS41Ni0uNi0xLjE4LTEuMzEtMS44NC0yLjEzcy0xLjE5LTEuNDgtMS41OC0xLjk3aC0uMzJjMCwuNTYsMCwxLjI2LjAzLDIuMDguMDIuODMuMDMsMS42OC4wMywyLjU1djIzLjE2aC01LjIxWiIvPgogICAgPHBhdGggY2xhc3M9ImNscy0yIiBkPSJNOTQwLjk5LDIwOS43MXYtMzEuNDNoLTE0LjM3di00LjY5aDM0LjE3djQuNjloLTE0LjQydjMxLjQzaC01LjM3WiIvPgogICAgPHBhdGggY2xhc3M9ImNscy0yIiBkPSJNOTgyLjMxLDIxMC4zNGMtMi4yOCwwLTQuNDYtLjE4LTYuNTMtLjUzLTIuMDctLjM1LTMuOS0uOTQtNS40Ny0xLjc2LTEuNTgtLjgyLTIuODQtMS45NS0zLjc2LTMuMzctLjkzLTEuNDItMS4zOS0zLjItMS4zOS01LjM0LDAtLjIxLDAtLjQuMDMtLjU1cy4wMy0uMjkuMDMtLjM5aDUuMzdjMCwuMTQsMCwuMzItLjAzLjU1LS4wMi4yMy0uMDMuNDctLjAzLjcxLDAsMS4zMy40OCwyLjQ3LDEuNDIsMy40Ljk1LjkzLDIuMzEsMS42Miw0LjA4LDIuMDgsMS43Ny40NiwzLjgyLjY4LDYuMTMuNjgsMS4wNSwwLDIuMTItLjA2LDMuMjEtLjE4LDEuMDktLjEyLDIuMTEtLjMyLDMuMDgtLjU4czEuODMtLjYxLDIuNTgtMS4wNWMuNzYtLjQ0LDEuMzUtLjk4LDEuNzktMS42My40NC0uNjUuNjYtMS40MS42Ni0yLjI5LDAtMS4xOS0uMzgtMi4xNy0xLjEzLTIuOTItLjc2LS43NS0xLjc4LTEuMzctMy4wOC0xLjg0LTEuMy0uNDctMi43Ni0uODktNC40LTEuMjRzLTMuMzEtLjctNS4wMy0xLjA1Yy0xLjcyLS4zNS0zLjQtLjc3LTUuMDMtMS4yNi0xLjYzLS40OS0zLjEtMS4xMS00LjQtMS44NC0xLjMtLjc0LTIuMzItMS42OS0zLjA4LTIuODctLjc2LTEuMTgtMS4xMy0yLjYyLTEuMTMtNC4zNCwwLTEuNDcuMzItMi44MS45Ny00LC42NS0xLjE5LDEuNjQtMi4yMiwyLjk3LTMuMDgsMS4zMy0uODYsMy4wMS0xLjUyLDUuMDMtMS45NywyLjAyLS40Niw0LjQxLS42OCw3LjE5LS42OCwyLjUzLDAsNC43NS4yNCw2LjY2LjcxLDEuOTEuNDcsMy41MiwxLjE1LDQuODIsMi4wMywxLjMuODgsMi4yNywxLjkzLDIuOTIsMy4xNi42NSwxLjIzLjk3LDIuNi45Nyw0LjExdi44NGgtNS4zMnYtLjg5YzAtMS4wNS0uNC0xLjk4LTEuMjEtMi43OS0uODEtLjgxLTEuOTQtMS40NS0zLjQtMS45Mi0xLjQ2LS40Ny0zLjE4LS43MS01LjE5LS43MS0yLjQ2LDAtNC40OS4yLTYuMTEuNjEtMS42Mi40LTIuODMuOTctMy42MywxLjcxLS44MS43NC0xLjIxLDEuNi0xLjIxLDIuNTgsMCwxLjA5LjM4LDEuOTcsMS4xMywyLjY2Ljc1LjY4LDEuNzgsMS4yNSwzLjA4LDEuNjksMS4zLjQ0LDIuNzYuODIsNC4zOSwxLjE2LDEuNjMuMzMsMy4zMS42OCw1LjAzLDEuMDMsMS43Mi4zNSwzLjQuNzcsNS4wMywxLjI2LDEuNjMuNDksMy4xLDEuMTIsNC4zOSwxLjlzMi4zMywxLjc1LDMuMTEsMi45MmMuNzcsMS4xOCwxLjE2LDIuNjIsMS4xNiw0LjM0LDAsMi42Ny0uNzEsNC44MS0yLjEzLDYuNDItMS40MiwxLjYxLTMuMzksMi43OC01LjksMy41LTIuNTEuNzItNS40LDEuMDgtOC42NiwxLjA4WiIvPgogIDwvZz4KICA8Zz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMSIgZD0iTTg1LjI1LDEzMi4yOUgzMC4yOUwxLjY1LDE2MC44MXEtLjY1LjY1LS42NSwxNS41MXY4MC42NHMyNy44MS0yNy44LDI3LjgxLTI3Ljh2LTY5LjA2aDMyLjk5YzIyLjI2LDAsNDIuNzItMTIuMTUsNTMuMzktMzEuNzFsMy41NS02LjUxLTYuNTEsMy41NWMtOC4yMyw0LjQ5LTE3LjU2LDYuODctMjYuOTksNi44N1oiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMSIgZD0iTTk4LjYyLDEuMDRIMzAuNkwxLjI4LDMwLjM2djcxLjkxbDI3LjgtMjcuOFYyOC44NWg0Ni4wOWMzMS4xMiwwLDU2LjQzLDI1LjMyLDU2LjQzLDU2LjQzLDAsOS4zOS0yLjM2LDE4LjctNi44NSwyNi45N2wtMy42NSw2LjYsNi42OC0zLjY2YzE5LjUxLTEwLjY5LDMxLjYyLTMxLjEzLDMxLjYyLTUzLjM1LDAtMzMuNTItMjcuMjctNjAuNzktNjAuNzktNjAuNzlaIi8+CiAgPC9nPgo8L3N2Zz4=" alt="Primora Property Investments">
+          <div class="tag" data-i18n="soc1.tag">La regia immobiliare</div>
+          <h3 class="soc-name" data-i18n="soc1.name">Promozione &amp; Sviluppo</h3>
+          <p data-i18n="soc1.p">Si occupa di sviluppare promozioni immobiliari seguendo ogni progetto dalla concezione alla consegna delle chiavi, garantendo qualità, professionalità e cura dei dettagli in ogni fase della realizzazione.</p>
+          <ul>
+            <li data-i18n="soc1.li1">Sviluppo di promozioni immobiliari proprie</li>
+            <li data-i18n="soc1.li2">Partecipazione a promozioni immobiliari</li>
+            <li data-i18n="soc1.li3">Sviluppo e realizzazione dei progetti</li>
+          </ul>
+        </div>
+        <div class="soc-card primary reveal">
+          <img class="soc-logo" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyBpZD0iTGl2ZWxsb18xIiBkYXRhLW5hbWU9IkxpdmVsbG8gMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgMTAwMCAyNTgiPgogIDxkZWZzPgogICAgPHN0eWxlPgogICAgICAuY2xzLTEgewogICAgICAgIGZpbGw6ICNiZjk4NmE7CiAgICAgIH0KCiAgICAgIC5jbHMtMiB7CiAgICAgICAgZmlsbDogIzJjMjgyMzsKICAgICAgfQogICAgPC9zdHlsZT4KICA8L2RlZnM+CiAgPGc+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0yNDAuNzMsMTMzLjE1VjQxLjI3aDY0LjFjNS44NywwLDExLjA4LDEuMzQsMTUuNjIsNC4wMXM4LjA4LDYuMzcsMTAuNjIsMTEuMDhjMi41NCw0LjcyLDMuODEsMTAuMiwzLjgxLDE2LjQzcy0xLjI5LDEyLjAyLTMuODcsMTYuODMtNi4xNCw4LjUzLTEwLjY4LDExLjE1Yy00LjU0LDIuNjMtOS43MSwzLjk0LTE1LjQ5LDMuOTRoLTMyLjg1djI4LjQ0aC0zMS4yNVpNMjcxLjk4LDgyLjU0aDIzLjI0YzMuMjksMCw1Ljc0LS44LDcuMzQtMi40czIuNC0zLjk2LDIuNC03LjA4YzAtMi4xNC0uMzgtMy44OS0xLjEzLTUuMjctLjc2LTEuMzgtMS44My0yLjQyLTMuMjEtMy4xNC0xLjM4LS43MS0zLjE5LTEuMDctNS40MS0xLjA3aC0yMy4yNHYxOC45NloiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTM0Ni43NiwxMzMuMTVWNDEuMjdoNjguNjRjNi44NSwwLDEyLjU3LDEuNCwxNy4xNiw0LjIxLDQuNTgsMi44MSw4LjAzLDYuNDgsMTAuMzUsMTEuMDIsMi4zMSw0LjU0LDMuNDcsOS40NCwzLjQ3LDE0LjY5LDAsNS45Ny0xLjM4LDExLjI4LTQuMTQsMTUuOTYtMi43Niw0LjY3LTYuNjMsOC40NC0xMS42MiwxMS4yOGwxOC4xNiwzNC43MmgtMzUuMjZsLTEzLjg5LTI5Ljc4aC0yMS42NHYyOS43OGgtMzEuMjVaTTM3OC4wMSw4MS43M2gyNy45MWMyLjQsMCw0LjQzLS44NCw2LjA4LTIuNTQsMS42NS0xLjY5LDIuNDctNC4wMSwyLjQ3LTYuOTQsMC0xLjg3LS4zOC0zLjQ3LTEuMTQtNC44MS0uNzYtMS4zNC0xLjc4LTIuMzgtMy4wNy0zLjE0LTEuMjktLjc2LTIuNzQtMS4xNC00LjM0LTEuMTRoLTI3LjkxdjE4LjU2WiIvPgogICAgPHBhdGggY2xhc3M9ImNscy0yIiBkPSJNNDYxLjc1LDEzMy4xNVY0MS4yN2gzMS4yNXY5MS44OGgtMzEuMjVaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik01MTIuNzYsMTMzLjE1VjQxLjI3aDQ2LjQ3bDkuODgsMzIuOTljLjU0LDEuNTEsMS4xNiwzLjU0LDEuODcsNi4wOC43MSwyLjU0LDEuNDIsNS4yMSwyLjE0LDguMDEuNzEsMi44LDEuMzQsNS4zMiwxLjg3LDcuNTRoLjkzYy40NC0xLjg3LDEtNC4wNSwxLjY3LTYuNTQuNjctMi40OSwxLjM4LTUuMSwyLjE0LTcuODEuNzYtMi43MiwxLjQ1LTUuMTQsMi4wNy03LjI4bDkuODgtMzIuOTloNDQuODd2OTEuODhoLTMwLjU4di0zNi41OWMwLTIuOTQuMDItNi4wMS4wNy05LjIxLjA0LTMuMjEuMTEtNi4zLjItOS4yOC4wOS0yLjk4LjEzLTUuNS4xMy03LjU1aC0xLjA3Yy0uNDUsMS44Ny0xLDQuMS0xLjY3LDYuNjhzLTEuMzYsNS4xMi0yLjA3LDcuNjFjLS43MSwyLjQ5LTEuMzgsNC42My0yLDYuNDFsLTEzLjA5LDQxLjkzaC0yNS42NGwtMTMuMjItNDEuOTNjLS43MS0yLjMxLTEuNDUtNC43Ni0yLjItNy4zNHMtMS40Mi01LjA1LTItNy40MWMtLjU4LTIuMzYtMS4wOS00LjM0LTEuNTQtNS45NGgtMS4wN2MuMDksMS44Ny4xOCw0LjIzLjI3LDcuMDguMDksMi44NS4xNSw1LjkyLjIsOS4yMi4wNCwzLjI5LjA3LDYuNTQuMDcsOS43NXYzNi41OWgtMjguNThaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik03MDcuODcsMTM0Ljc1Yy0xMS40OSwwLTIxLjM3LTEuODUtMjkuNjUtNS41NC04LjI4LTMuNy0xNC42NS05LjA4LTE5LjEtMTYuMTYtNC40NS03LjA4LTYuNjgtMTUuNjktNi42OC0yNS44NHMyLjIyLTE4LjksNi42OC0yNS45N2M0LjQ1LTcuMDgsMTAuODItMTIuNDQsMTkuMS0xNi4wOSw4LjI4LTMuNjUsMTguMTYtNS40OCwyOS42NS01LjQ4czIxLjUsMS44MywyOS43OCw1LjQ4YzguMjgsMy42NSwxNC42NCw5LjAxLDE5LjEsMTYuMDksNC40NSw3LjA4LDYuNjgsMTUuNzQsNi42OCwyNS45N3MtMi4yMywxOC43Ni02LjY4LDI1Ljg0Yy00LjQ1LDcuMDgtMTAuODIsMTIuNDYtMTkuMSwxNi4xNi04LjI4LDMuNy0xOC4yMSw1LjU0LTI5Ljc4LDUuNTRaTTcwNy44NywxMTIuMzJjMy43NCwwLDcuMDUtLjUzLDkuOTUtMS42LDIuODktMS4wNyw1LjM2LTIuNiw3LjQxLTQuNjEsMi4wNS0yLDMuNTgtNC4zNiw0LjYxLTcuMDhzMS41NC01LjcyLDEuNTQtOS4wMXYtNS44OGMwLTMuMjEtLjUxLTYuMTctMS41NC04Ljg4cy0yLjU2LTUuMDUtNC42MS03LjAxYy0yLjA1LTEuOTYtNC41Mi0zLjQ3LTcuNDEtNC41NC0yLjg5LTEuMDctNi4yMS0xLjYtOS45NS0xLjZzLTYuOTUuNTMtOS44OCwxLjZjLTIuOTQsMS4wNy01LjQxLDIuNTgtNy40MSw0LjU0LTIsMS45Ni0zLjUyLDQuMy00LjU0LDcuMDEtMS4wMywyLjcyLTEuNTQsNS42OC0xLjU0LDguODh2NS44OGMwLDMuMjkuNTEsNi4zLDEuNTQsOS4wMSwxLjAyLDIuNzIsMi41NCw1LjA3LDQuNTQsNy4wOCwyLDIsNC40NywzLjU0LDcuNDEsNC42MSwyLjk0LDEuMDcsNi4yMywxLjYsOS44OCwxLjZaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik03NzkuMzIsMTMzLjE1VjQxLjI3aDY4LjY0YzYuODUsMCwxMi41OCwxLjQsMTcuMTYsNC4yMSw0LjU4LDIuODEsOC4wMyw2LjQ4LDEwLjM1LDExLjAyLDIuMzEsNC41NCwzLjQ3LDkuNDQsMy40NywxNC42OSwwLDUuOTctMS4zOCwxMS4yOC00LjE0LDE1Ljk2LTIuNzYsNC42Ny02LjYzLDguNDQtMTEuNjIsMTEuMjhsMTguMTYsMzQuNzJoLTM1LjI2bC0xMy44OS0yOS43OGgtMjEuNjN2MjkuNzhoLTMxLjI1Wk04MTAuNTcsODEuNzNoMjcuOTFjMi40LDAsNC40My0uODQsNi4wOC0yLjU0LDEuNjUtMS42OSwyLjQ3LTQuMDEsMi40Ny02Ljk0LDAtMS44Ny0uMzgtMy40Ny0xLjEzLTQuODEtLjc2LTEuMzQtMS43OC0yLjM4LTMuMDctMy4xNHMtMi43NC0xLjE0LTQuMzQtMS4xNGgtMjcuOTF2MTguNTZaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik04ODUuNjIsMTMzLjE1bDM5LTkxLjg4aDM1LjM5bDM4Ljk5LDkxLjg4aC0zMy4zOWwtNC42Ny0xMi41NWgtMzguNmwtNC41NCwxMi41NWgtMzIuMTlaTTkzMC40OSw5OC44M2gyMi40NGwtNS4zNC0xNS4wOWMtLjM2LS44OS0uNzYtMi0xLjItMy4zNC0uNDUtMS4zNC0uOTEtMi44MS0xLjQtNC40MS0uNDktMS42LS45Ni0zLjIxLTEuNC00LjgxLS40NS0xLjYtLjg5LTMuMDMtMS4zNC00LjI3aC0uOTNjLS40NSwxLjYtMSwzLjQtMS42Nyw1LjQxLS42NywyLTEuMzEsNC4wMS0xLjk0LDYuMDEtLjYyLDItMS4yNSwzLjgxLTEuODcsNS40MWwtNS4zNCwxNS4wOVoiLz4KICA8L2c+CiAgPGc+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0yNDEuMDgsMjEwLjAxdi0zNi4xOWgyMy4xYzIuNDYsMCw0LjUuNDcsNi4xMiwxLjQsMS42Mi45MywyLjgzLDIuMjEsMy42NCwzLjgyLjgxLDEuNjIsMS4yMSwzLjQ1LDEuMjEsNS40OSwwLDIuMzktLjU3LDQuNDktMS43MSw2LjMtMS4xNCwxLjgxLTIuNzksMy4xMi00LjkzLDMuOTNsNy43NiwxNS4yNGgtNS45NmwtNy4xMi0xNC4zaC0xNi43MnYxNC4zaC01LjM4Wk0yNDYuNDYsMTkxLjE4aDE2LjgzYzIuMDQsMCwzLjYyLS42LDQuNzUtMS43OXMxLjY5LTIuOCwxLjY5LTQuOGMwLTEuMy0uMjUtMi40MS0uNzQtMy4zMi0uNDktLjkxLTEuMjItMS42Mi0yLjE5LTIuMTEtLjk3LS40OS0yLjE0LS43NC0zLjUxLS43NGgtMTYuODN2MTIuNzdaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0yODQuMDcsMjEwLjAxdi0zNi4xOWgzMS43NnY0LjU5aC0yNi4zOHYxMC43NmgyMy43NHY0LjU5aC0yMy43NHYxMS42NmgyNi43NXY0LjU5aC0zMi4xM1oiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTMyMC43MywyMTAuMDFsMTYuMzUtMzYuMTloNi42NWwxNi4zNSwzNi4xOWgtNS44NWwtMy45LTguNzZoLTIwLjE1bC0zLjg1LDguNzZoLTUuNTlaTTMzMi4xOCwxOTYuNzJoMTYuMDlsLTQuODUtMTEuMDJjLS4xOC0uMzUtLjQtLjg0LS42Ni0xLjQ4LS4yNi0uNjMtLjU0LTEuMy0uODItMi4wMS0uMjgtLjctLjU2LTEuMzktLjgyLTIuMDYtLjI2LS42Ny0uNDgtMS4yMy0uNjYtMS42OWgtLjQyYy0uMjguNzQtLjYyLDEuNTctMSwyLjUxcy0uNzYsMS44Mi0xLjExLDIuNjZjLS4zNS44NC0uNjMsMS41My0uODQsMi4wNmwtNC45MSwxMS4wMloiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTM2Ni4yLDIxMC4wMXYtMzYuMTloNS4zOHYzMS40OWgyMC4zNnY0LjdoLTI1Ljc0WiIvPgogICAgPHBhdGggY2xhc3M9ImNscy0yIiBkPSJNNDEyLjYyLDIxMC4wMXYtMzYuMTloMzEuNzZ2NC41OWgtMjYuMzh2MTAuNzZoMjMuNzR2NC41OWgtMjMuNzR2MTEuNjZoMjYuNzV2NC41OWgtMzIuMTNaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik00NjguNTksMjEwLjY0Yy0yLjI5LDAtNC40Ny0uMTgtNi41NC0uNTNzLTMuOS0uOTQtNS40OS0xLjc3Yy0xLjU4LS44My0yLjg0LTEuOTUtMy43Ny0zLjM4LS45My0xLjQyLTEuNC0zLjIxLTEuNC01LjM1LDAtLjIxLDAtLjQuMDMtLjU2LjAyLS4xNi4wMy0uMjkuMDMtLjRoNS4zOGMwLC4xNCwwLC4zMy0uMDMuNTUtLjAyLjIzLS4wMy40Ny0uMDMuNzEsMCwxLjM0LjQ4LDIuNDcsMS40MiwzLjQuOTUuOTMsMi4zMSwxLjYzLDQuMDksMi4wOCwxLjc3LjQ2LDMuODIuNjksNi4xNS42OSwxLjA2LDAsMi4xMy0uMDYsMy4yMi0uMTgsMS4wOS0uMTIsMi4xMi0uMzIsMy4wOS0uNTguOTctLjI2LDEuODMtLjYxLDIuNTgtMS4wNi43Ni0uNDQsMS4zNS0uOTgsMS43OS0xLjYzLjQ0LS42NS42Ni0xLjQxLjY2LTIuMywwLTEuMTktLjM4LTIuMTctMS4xMy0yLjkzLS43Ni0uNzYtMS43OS0xLjM3LTMuMDktMS44NS0xLjMtLjQ3LTIuNzctLjg5LTQuNC0xLjI0LTEuNjQtLjM1LTMuMzItLjctNS4wNC0xLjA2LTEuNzItLjM1LTMuNC0uNzctNS4wNC0xLjI2LTEuNjQtLjQ5LTMuMS0xLjExLTQuNC0xLjg1LTEuMy0uNzQtMi4zMy0xLjctMy4wOS0yLjg4LS43Ni0xLjE4LTEuMTMtMi42My0xLjEzLTQuMzUsMC0xLjQ4LjMzLTIuODEuOTgtNC4wMXMxLjY0LTIuMjIsMi45OC0zLjA5YzEuMzQtLjg2LDMuMDItMS41Miw1LjA0LTEuOTgsMi4wMi0uNDYsNC40Mi0uNjksNy4yLS42OSwyLjUzLDAsNC43Ni4yNCw2LjY3LjcxLDEuOTIuNDcsMy41MywxLjE1LDQuODMsMi4wMywxLjMuODgsMi4yOCwxLjkzLDIuOTMsMy4xN3MuOTgsMi42Ljk4LDQuMTF2Ljg0aC01LjMzdi0uOWMwLTEuMDYtLjQxLTEuOTktMS4yMS0yLjgtLjgxLS44MS0xLjk0LTEuNDUtMy40LTEuOTMtMS40Ni0uNDctMy4xOS0uNzEtNS4yLS43MS0yLjQ2LDAtNC41LjItNi4xMi42MS0xLjYyLjQxLTIuODMuOTgtMy42NCwxLjcyLS44MS43NC0xLjIxLDEuNi0xLjIxLDIuNTgsMCwxLjA5LjM4LDEuOTgsMS4xMywyLjY2Ljc1LjY5LDEuNzgsMS4yNSwzLjA4LDEuNjksMS4zLjQ0LDIuNzcuODMsNC40LDEuMTYsMS42NC4zNCwzLjMyLjY4LDUuMDQsMS4wM3MzLjQuNzcsNS4wNCwxLjI3YzEuNjQuNDksMy4xLDEuMTIsNC40LDEuOSwxLjMuNzcsMi4zNCwxLjc1LDMuMTEsMi45My43NywxLjE4LDEuMTYsMi42MywxLjE2LDQuMzUsMCwyLjY3LS43MSw0LjgyLTIuMTQsNi40NC0xLjQyLDEuNjItMy4zOSwyLjc5LTUuOTEsMy41MS0yLjUyLjcyLTUuNDEsMS4wOC04LjY4LDEuMDhaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik01MDMuOTksMjEwLjAxdi0zMS40OWgtMTQuNHYtNC43aDM0LjI0djQuN2gtMTQuNDV2MzEuNDloLTUuMzhaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik01MjAuMjksMjEwLjAxbDE2LjM1LTM2LjE5aDYuNjVsMTYuMzUsMzYuMTloLTUuODVsLTMuOS04Ljc2aC0yMC4xNWwtMy44NSw4Ljc2aC01LjU5Wk01MzEuNzMsMTk2LjcyaDE2LjA5bC00Ljg1LTExLjAyYy0uMTgtLjM1LS40LS44NC0uNjYtMS40OC0uMjYtLjYzLS41NC0xLjMtLjgyLTIuMDEtLjI4LS43LS41NS0xLjM5LS44Mi0yLjA2LS4yNi0uNjctLjQ4LTEuMjMtLjY2LTEuNjloLS40MmMtLjI4Ljc0LS42MSwxLjU3LTEsMi41MXMtLjc2LDEuODItMS4xMSwyLjY2LS42MywxLjUzLS44NCwyLjA2bC00LjkxLDExLjAyWiIvPgogICAgPHBhdGggY2xhc3M9ImNscy0yIiBkPSJNNTcwLjQ1LDIxMC4wMXYtMzEuNDloLTE0LjR2LTQuN2gzNC4yNHY0LjdoLTE0LjQ1djMxLjQ5aC01LjM4WiIvPgogICAgPHBhdGggY2xhc3M9ImNscy0yIiBkPSJNNTk2LjY3LDIxMC4wMXYtMzYuMTloMzEuNzZ2NC41OWgtMjYuMzh2MTAuNzZoMjMuNzR2NC41OWgtMjMuNzR2MTEuNjZoMjYuNzR2NC41OWgtMzIuMTJaIi8+CiAgPC9nPgogIDxnPgogICAgPHBhdGggY2xhc3M9ImNscy0xIiBkPSJNODUuNDIsMTMyLjNIMzAuMzVMMS42NSwxNjAuODdxLS42NS42NS0uNjUsMTUuNTR2ODAuODFzMjcuODctMjcuODYsMjcuODctMjcuODZ2LTY5LjJoMzMuMDZjMjIuMywwLDQyLjgtMTIuMTgsNTMuNS0zMS43OGwzLjU2LTYuNTItNi41MiwzLjU2Yy04LjI1LDQuNS0xNy42LDYuODgtMjcuMDUsNi44OFoiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMSIgZD0iTTk4LjgzLjc4SDMwLjY2TDEuMjgsMzAuMTZ2NzIuMDVsMjcuODYtMjcuODZWMjguNjRoNDYuMTljMzEuMTgsMCw1Ni41NSwyNS4zNyw1Ni41NSw1Ni41NSwwLDkuNDEtMi4zNiwxOC43My02Ljg3LDI3LjAybC0zLjY1LDYuNjEsNi43LTMuNjdjMTkuNTUtMTAuNzEsMzEuNjktMzEuMTksMzEuNjktNTMuNDZDMTU5Ljc0LDI4LjExLDEzMi40Mi43OCw5OC44My43OFoiLz4KICA8L2c+Cjwvc3ZnPg==" alt="Primora Real Estate">
+          <div class="tag" data-i18n="soc2.tag">Il vostro partner immobiliare</div>
+          <h3 class="soc-name" data-i18n="soc2.name">Gestione Vendita &amp; Locazione</h3>
+          <p data-i18n="soc2.p">Si occupa della vendita e della locazione degli immobili del gruppo, offrendo un servizio professionale, personalizzato e orientato alle esigenze di ogni cliente.</p>
+          <ul>
+            <li data-i18n="soc2.li1">Vendita e locazione di appartamenti, case o stabili plurifamiliari</li>
+            <li data-i18n="soc2.li2">Commercializzazione degli oggetti del gruppo</li>
+            <li data-i18n="soc2.li3">Relazione diretta con il cliente finale</li>
+          </ul>
+        </div>
+      </div>
+      <div class="flow reveal">
+        <b>Property Investments</b><span data-i18n="flow.a">realizza</span><span class="arr">→</span><b>Real Estate</b><span data-i18n="flow.b">vende · affitta</span><span class="arr">→</span><b data-i18n="flow.client">Cliente</b>
+      </div>
+    </div>
+  </section>
+
+  <!-- OGGETTI IN VENDITA (anteprima) -->
+  <section id="home-listings">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow" data-i18n="home.eyebrow">In vendita</div>
+        <h2 data-i18n="home.h2">Oggetti in vendita</h2>
+        <p data-i18n="home.p">Una selezione degli immobili proposti dal gruppo, tutti realizzati o di proprietà di Primora.</p>
+      </div>
+      <div class="obj-grid home3" id="homeObj"></div>
+      <div style="text-align:center;margin-top:46px">
+        <button class="btn" onclick="go('oggetti')" style="background:var(--bronze);color:#fff" data-i18n="home.cta">Vedi tutti gli oggetti →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- BACHECA -->
+  <section class="board">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow" data-i18n="board.eyebrow">Bacheca</div>
+        <h2 data-i18n="board.h2">Le novità del gruppo, sempre aggiornate.</h2>
+        <p data-i18n="board.p">Avanzamento cantieri, nuove operazioni e oggetti in arrivo: qui raccontiamo cosa stiamo facendo.</p>
+      </div>
+    </div>
+    <div class="board-viewport"><div class="marquee" id="marquee"></div></div>
+  </section>
+</div>
+
+<!-- OGGETTI -->
+<div class="page" id="oggetti">
+  <section class="listings" style="padding-top:160px">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">Primora Real Estate</div>
+        <h2 data-i18n="list.h2">Vendita & Locazione</h2>
+        <p data-i18n="list.p">Tutti gli oggetti proposti sono realizzati o di proprietà del gruppo. Una selezione curata, seguita direttamente da Primora Real Estate.</p>
+      </div>
+      <div class="obj-filter reveal">
+        <button class="fbtn active" onclick="filterObj('all',this)" data-i18n="filter.all">Tutti</button>
+        <button class="fbtn" onclick="filterObj('sale',this)" data-i18n="filter.sale">Vendita</button>
+        <button class="fbtn" onclick="filterObj('rent',this)" data-i18n="filter.rent">Affitto</button>
+      </div>
+      <div class="obj-grid" id="objGrid"></div>
+    </div>
+  </section>
+</div>
+
+<!-- TEAM -->
+<div class="page" id="team">
+  <section class="team" style="padding-top:160px">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow" data-i18n="team.eyebrow">Il team</div>
+        <h2 data-i18n="team.h2">Le persone dietro Primora</h2>
+        <p data-i18n="team.p">Un gruppo affiatato di professionisti del settore immobiliare, coordinato da chi segue in prima persona ogni cliente e ogni trattativa.</p>
+      </div>
+      <div class="team-grid">
+        <div class="team-photo reveal">
+          <img src="images/alessandra.jpg" alt="Alessandra Gotti">
+          <div class="badge-role"><span data-i18n="team.roleTop">Responsabile</span><br><b data-i18n="team.roleBottom">Vendite &amp; Affitti</b></div>
+        </div>
+        <div class="reveal">
+          <h3 class="team-name">Alessandra Gotti</h3>
+          <div class="team-role" data-i18n="team.role">Responsabile Vendite e Affitti · Real Estate Risk Analyst</div>
+          <p class="team-bio" data-i18n="team.bio1">Con una consolidata esperienza maturata nei settori immobiliare e assicurativo, Alessandra Gotti coordina l'area commerciale e supervisiona le attività di vendita e locazione, garantendo un servizio attento, competente e orientato al cliente. La sua capacità di analisi, unita a una profonda conoscenza del mercato e alla gestione del rischio, rappresenta un valore aggiunto in ogni trattativa.</p>
+          <p class="team-bio" data-i18n="team.bio2">Grazie alla perfetta padronanza dell'italiano, del tedesco e dell'inglese, è il punto di riferimento per una clientela locale e internazionale, coordinando il lavoro del team con professionalità, precisione e una visione strategica.</p>
+          <div class="langs"><span class="lang-chip">Italiano</span><span class="lang-chip">Deutsch</span><span class="lang-chip">English</span></div>
+        </div>
+      </div>
+      <div class="team-note reveal">
+        <h3 data-i18n="team.noteH">Un team competente al vostro fianco</h3>
+        <p data-i18n="team.noteP">Dietro Alessandra opera una squadra di specialisti che segue ogni fase del percorso immobiliare — dalla valutazione alla commercializzazione, fino alla consegna — per offrirvi un servizio completo e affidabile.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- CONTATTI -->
+<div class="page" id="contatti">
+  <section class="contact" style="padding-top:160px">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow" data-i18n="contact.eyebrow">Contatti</div>
+        <h2 data-i18n="contact.h2">Parliamo del tuo prossimo immobile.</h2>
+        <p data-i18n="contact.p">Le società del gruppo Primora hanno sede a Mendrisio, nello stesso indirizzo. Scrivici o passa a trovarci.</p>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-info reveal">
+          <div class="blk">
+            <div class="lab" data-i18n="contact.lab1">Contatto generale</div>
+            <h4>Gruppo Primora</h4>
+            <p><a href="mailto:info@primoragroup.ch">info@primoragroup.ch</a><br><a href="tel:+41916460804">091 646 08 04</a></p>
+          </div>
+          <div class="blk">
+            <div class="lab">Primora Real Estate</div>
+            <h4 data-i18n="soc2.name">Gestione Vendita &amp; Locazione</h4>
+            <p data-i18n="contact.re">Vendita e locazione degli immobili del gruppo, con un servizio personalizzato e diretto.</p>
+          </div>
+          <div class="blk">
+            <div class="lab">Primora Property Investments</div>
+            <h4 data-i18n="soc1.name">Promozione &amp; Sviluppo</h4>
+            <p data-i18n="contact.pi">Sviluppo e realizzazione delle promozioni immobiliari, dalla concezione alla consegna.</p>
+          </div>
+          <div class="blk">
+            <div class="lab" data-i18n="contact.lab2">Sede</div>
+            <h4>Mendrisio</h4>
+            <p>PRIMORA SA<br>Via Carlo Pasta 5<br>6850 Mendrisio · <span data-i18n="contact.country">Svizzera</span></p>
+          </div>
+          <div class="blk">
+            <div class="lab" data-i18n="contact.lab3">Lingue</div>
+            <h4 data-i18n="contact.langH">Consulenza in 3 lingue</h4>
+            <p style="margin-bottom:12px" data-i18n="contact.langP">Vi seguiamo in italiano, tedesco e inglese.</p>
+            <div class="langs"><span class="lang-chip">Italiano</span><span class="lang-chip">Deutsch</span><span class="lang-chip">English</span></div>
+          </div>
+          <div class="blk" style="border:none">
+            <div class="lab" data-i18n="contact.lab4">Orari</div>
+            <p data-i18n="contact.hours">Lun – Ven · 08:30 – 18:00<br>Su appuntamento il sabato</p>
+          </div>
+        </div>
+        <div class="reveal"><div id="map"></div></div>
+      </div>
+      <div class="contact-form reveal">
+        <h3 class="cf-title" data-i18n="form.title">Scrivici un messaggio</h3>
+        <form name="contatti" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="contactForm">
+          <input type="hidden" name="form-name" value="contatti">
+          <p class="cf-hp"><label>Non compilare se sei umano: <input name="bot-field"></label></p>
+          <div class="cf-obj" id="cfOggettoWrap" style="display:none">
+            <label class="cf-lab" data-i18n="form.object">Oggetto di interesse</label>
+            <input type="text" name="oggetto" id="cfOggetto" readonly>
+          </div>
+          <div class="cf-row">
+            <input type="text" name="nome" required placeholder="Nome" data-i18n-ph="form.name">
+            <input type="text" name="cognome" required placeholder="Cognome" data-i18n-ph="form.surname">
+          </div>
+          <div class="cf-row">
+            <input type="email" name="email" required placeholder="Email" data-i18n-ph="form.email">
+            <input type="tel" name="telefono" placeholder="Telefono" data-i18n-ph="form.phone">
+          </div>
+          <textarea name="messaggio" rows="5" required placeholder="Messaggio" data-i18n-ph="form.message"></textarea>
+          <button type="submit" class="btn" data-i18n="form.send">Invia messaggio →</button>
+          <div class="cf-msg" id="cfMsg"></div>
+        </form>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- MODAL -->
+<div class="modal" id="modal">
+  <div class="modal-ov" onclick="closeObj()"></div>
+  <div class="modal-box" id="modalBox">
+    <button class="modal-close" onclick="closeObj()">✕</button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lb-close" onclick="closeLightbox()">✕</button>
+  <button class="lb-nav lb-prev" onclick="lbNav(-1)">‹</button>
+  <img id="lbImg" src="" alt="">
+  <button class="lb-nav lb-next" onclick="lbNav(1)">›</button>
+  <div class="lb-count" id="lbCount"></div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyBpZD0iTGl2ZWxsb18xIiBkYXRhLW5hbWU9IkxpdmVsbG8gMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgMTAwMCAyNTgiPgogIDxkZWZzPgogICAgPHN0eWxlPgogICAgICAuY2xzLTEgewogICAgICAgIGZpbGw6ICNiZjk4NmE7CiAgICAgIH0KCiAgICAgIC5jbHMtMiB7CiAgICAgICAgZmlsbDogI2ZmZjsKICAgICAgfQogICAgPC9zdHlsZT4KICA8L2RlZnM+CiAgPGc+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0yNDAuNzMsMTMzLjE1VjQxLjI3aDY0LjFjNS44NywwLDExLjA4LDEuMzQsMTUuNjIsNC4wMXM4LjA4LDYuMzcsMTAuNjIsMTEuMDhjMi41NCw0LjcyLDMuODEsMTAuMiwzLjgxLDE2LjQzcy0xLjI5LDEyLjAyLTMuODcsMTYuODMtNi4xNCw4LjUzLTEwLjY4LDExLjE1Yy00LjU0LDIuNjMtOS43MSwzLjk0LTE1LjQ5LDMuOTRoLTMyLjg1djI4LjQ0aC0zMS4yNVpNMjcxLjk4LDgyLjU0aDIzLjI0YzMuMjksMCw1Ljc0LS44LDcuMzQtMi40czIuNC0zLjk2LDIuNC03LjA4YzAtMi4xNC0uMzgtMy44OS0xLjEzLTUuMjctLjc2LTEuMzgtMS44My0yLjQyLTMuMjEtMy4xNC0xLjM4LS43MS0zLjE5LTEuMDctNS40MS0xLjA3aC0yMy4yNHYxOC45NloiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTM0Ni43NiwxMzMuMTVWNDEuMjdoNjguNjRjNi44NSwwLDEyLjU3LDEuNCwxNy4xNiw0LjIxLDQuNTgsMi44MSw4LjAzLDYuNDgsMTAuMzUsMTEuMDIsMi4zMSw0LjU0LDMuNDcsOS40NCwzLjQ3LDE0LjY5LDAsNS45Ny0xLjM4LDExLjI4LTQuMTQsMTUuOTYtMi43Niw0LjY3LTYuNjMsOC40NC0xMS42MiwxMS4yOGwxOC4xNiwzNC43MmgtMzUuMjZsLTEzLjg5LTI5Ljc4aC0yMS42NHYyOS43OGgtMzEuMjVaTTM3OC4wMSw4MS43M2gyNy45MWMyLjQsMCw0LjQzLS44NCw2LjA4LTIuNTQsMS42NS0xLjY5LDIuNDctNC4wMSwyLjQ3LTYuOTQsMC0xLjg3LS4zOC0zLjQ3LTEuMTQtNC44MS0uNzYtMS4zNC0xLjc4LTIuMzgtMy4wNy0zLjE0LTEuMjktLjc2LTIuNzQtMS4xNC00LjM0LTEuMTRoLTI3LjkxdjE4LjU2WiIvPgogICAgPHBhdGggY2xhc3M9ImNscy0yIiBkPSJNNDYxLjc1LDEzMy4xNVY0MS4yN2gzMS4yNXY5MS44OGgtMzEuMjVaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik01MTIuNzYsMTMzLjE1VjQxLjI3aDQ2LjQ3bDkuODgsMzIuOTljLjU0LDEuNTEsMS4xNiwzLjU0LDEuODcsNi4wOC43MSwyLjU0LDEuNDIsNS4yMSwyLjE0LDguMDEuNzEsMi44LDEuMzQsNS4zMiwxLjg3LDcuNTRoLjkzYy40NC0xLjg3LDEtNC4wNSwxLjY3LTYuNTQuNjctMi40OSwxLjM4LTUuMSwyLjE0LTcuODEuNzYtMi43MiwxLjQ1LTUuMTQsMi4wNy03LjI4bDkuODgtMzIuOTloNDQuODd2OTEuODhoLTMwLjU4di0zNi41OWMwLTIuOTQuMDItNi4wMS4wNy05LjIxLjA0LTMuMjEuMTEtNi4zLjItOS4yOC4wOS0yLjk4LjEzLTUuNS4xMy03LjU1aC0xLjA3Yy0uNDUsMS44Ny0xLDQuMS0xLjY3LDYuNjhzLTEuMzYsNS4xMi0yLjA3LDcuNjFjLS43MSwyLjQ5LTEuMzgsNC42My0yLDYuNDFsLTEzLjA5LDQxLjkzaC0yNS42NGwtMTMuMjItNDEuOTNjLS43MS0yLjMxLTEuNDUtNC43Ni0yLjItNy4zNHMtMS40Mi01LjA1LTItNy40MWMtLjU4LTIuMzYtMS4wOS00LjM0LTEuNTQtNS45NGgtMS4wN2MuMDksMS44Ny4xOCw0LjIzLjI3LDcuMDguMDksMi44NS4xNSw1LjkyLjIsOS4yMi4wNCwzLjI5LjA3LDYuNTQuMDcsOS43NXYzNi41OWgtMjguNThaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik03MDcuODcsMTM0Ljc1Yy0xMS40OSwwLTIxLjM3LTEuODUtMjkuNjUtNS41NC04LjI4LTMuNy0xNC42NS05LjA4LTE5LjEtMTYuMTYtNC40NS03LjA4LTYuNjgtMTUuNjktNi42OC0yNS44NHMyLjIyLTE4LjksNi42OC0yNS45N2M0LjQ1LTcuMDgsMTAuODItMTIuNDQsMTkuMS0xNi4wOSw4LjI4LTMuNjUsMTguMTYtNS40OCwyOS42NS01LjQ4czIxLjUsMS44MywyOS43OCw1LjQ4YzguMjgsMy42NSwxNC42NCw5LjAxLDE5LjEsMTYuMDksNC40NSw3LjA4LDYuNjgsMTUuNzQsNi42OCwyNS45N3MtMi4yMywxOC43Ni02LjY4LDI1Ljg0Yy00LjQ1LDcuMDgtMTAuODIsMTIuNDYtMTkuMSwxNi4xNi04LjI4LDMuNy0xOC4yMSw1LjU0LTI5Ljc4LDUuNTRaTTcwNy44NywxMTIuMzJjMy43NCwwLDcuMDUtLjUzLDkuOTUtMS42LDIuODktMS4wNyw1LjM2LTIuNiw3LjQxLTQuNjEsMi4wNS0yLDMuNTgtNC4zNiw0LjYxLTcuMDhzMS41NC01LjcyLDEuNTQtOS4wMXYtNS44OGMwLTMuMjEtLjUxLTYuMTctMS41NC04Ljg4cy0yLjU2LTUuMDUtNC42MS03LjAxYy0yLjA1LTEuOTYtNC41Mi0zLjQ3LTcuNDEtNC41NC0yLjg5LTEuMDctNi4yMS0xLjYtOS45NS0xLjZzLTYuOTUuNTMtOS44OCwxLjZjLTIuOTQsMS4wNy01LjQxLDIuNTgtNy40MSw0LjU0LTIsMS45Ni0zLjUyLDQuMy00LjU0LDcuMDEtMS4wMywyLjcyLTEuNTQsNS42OC0xLjU0LDguODh2NS44OGMwLDMuMjkuNTEsNi4zLDEuNTQsOS4wMSwxLjAyLDIuNzIsMi41NCw1LjA3LDQuNTQsNy4wOCwyLDIsNC40NywzLjU0LDcuNDEsNC42MSwyLjk0LDEuMDcsNi4yMywxLjYsOS44OCwxLjZaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik03NzkuMzIsMTMzLjE1VjQxLjI3aDY4LjY0YzYuODUsMCwxMi41OCwxLjQsMTcuMTYsNC4yMSw0LjU4LDIuODEsOC4wMyw2LjQ4LDEwLjM1LDExLjAyLDIuMzEsNC41NCwzLjQ3LDkuNDQsMy40NywxNC42OSwwLDUuOTctMS4zOCwxMS4yOC00LjE0LDE1Ljk2LTIuNzYsNC42Ny02LjYzLDguNDQtMTEuNjIsMTEuMjhsMTguMTYsMzQuNzJoLTM1LjI2bC0xMy44OS0yOS43OGgtMjEuNjN2MjkuNzhoLTMxLjI1Wk04MTAuNTcsODEuNzNoMjcuOTFjMi40LDAsNC40My0uODQsNi4wOC0yLjU0LDEuNjUtMS42OSwyLjQ3LTQuMDEsMi40Ny02Ljk0LDAtMS44Ny0uMzgtMy40Ny0xLjEzLTQuODEtLjc2LTEuMzQtMS43OC0yLjM4LTMuMDctMy4xNHMtMi43NC0xLjE0LTQuMzQtMS4xNGgtMjcuOTF2MTguNTZaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik04ODUuNjIsMTMzLjE1bDM5LTkxLjg4aDM1LjM5bDM4Ljk5LDkxLjg4aC0zMy4zOWwtNC42Ny0xMi41NWgtMzguNmwtNC41NCwxMi41NWgtMzIuMTlaTTkzMC40OSw5OC44M2gyMi40NGwtNS4zNC0xNS4wOWMtLjM2LS44OS0uNzYtMi0xLjItMy4zNC0uNDUtMS4zNC0uOTEtMi44MS0xLjQtNC40MS0uNDktMS42LS45Ni0zLjIxLTEuNC00LjgxLS40NS0xLjYtLjg5LTMuMDMtMS4zNC00LjI3aC0uOTNjLS40NSwxLjYtMSwzLjQtMS42Nyw1LjQxLS42NywyLTEuMzEsNC4wMS0xLjk0LDYuMDEtLjYyLDItMS4yNSwzLjgxLTEuODcsNS40MWwtNS4zNCwxNS4wOVoiLz4KICA8L2c+CiAgPGc+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0yNDEuMDgsMjEwLjAxdi0zNi4xOWgyMy4xYzIuNDYsMCw0LjUuNDcsNi4xMiwxLjQsMS42Mi45MywyLjgzLDIuMjEsMy42NCwzLjgyLjgxLDEuNjIsMS4yMSwzLjQ1LDEuMjEsNS40OSwwLDIuMzktLjU3LDQuNDktMS43MSw2LjMtMS4xNCwxLjgxLTIuNzksMy4xMi00LjkzLDMuOTNsNy43NiwxNS4yNGgtNS45NmwtNy4xMi0xNC4zaC0xNi43MnYxNC4zaC01LjM4Wk0yNDYuNDYsMTkxLjE4aDE2LjgzYzIuMDQsMCwzLjYyLS42LDQuNzUtMS43OXMxLjY5LTIuOCwxLjY5LTQuOGMwLTEuMy0uMjUtMi40MS0uNzQtMy4zMi0uNDktLjkxLTEuMjItMS42Mi0yLjE5LTIuMTEtLjk3LS40OS0yLjE0LS43NC0zLjUxLS43NGgtMTYuODN2MTIuNzdaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0yODQuMDcsMjEwLjAxdi0zNi4xOWgzMS43NnY0LjU5aC0yNi4zOHYxMC43NmgyMy43NHY0LjU5aC0yMy43NHYxMS42NmgyNi43NXY0LjU5aC0zMi4xM1oiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTMyMC43MywyMTAuMDFsMTYuMzUtMzYuMTloNi42NWwxNi4zNSwzNi4xOWgtNS44NWwtMy45LTguNzZoLTIwLjE1bC0zLjg1LDguNzZoLTUuNTlaTTMzMi4xOCwxOTYuNzJoMTYuMDlsLTQuODUtMTEuMDJjLS4xOC0uMzUtLjQtLjg0LS42Ni0xLjQ4LS4yNi0uNjMtLjU0LTEuMy0uODItMi4wMS0uMjgtLjctLjU2LTEuMzktLjgyLTIuMDYtLjI2LS42Ny0uNDgtMS4yMy0uNjYtMS42OWgtLjQyYy0uMjguNzQtLjYyLDEuNTctMSwyLjUxcy0uNzYsMS44Mi0xLjExLDIuNjZjLS4zNS44NC0uNjMsMS41My0uODQsMi4wNmwtNC45MSwxMS4wMloiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTM2Ni4yLDIxMC4wMXYtMzYuMTloNS4zOHYzMS40OWgyMC4zNnY0LjdoLTI1Ljc0WiIvPgogICAgPHBhdGggY2xhc3M9ImNscy0yIiBkPSJNNDEyLjYyLDIxMC4wMXYtMzYuMTloMzEuNzZ2NC41OWgtMjYuMzh2MTAuNzZoMjMuNzR2NC41OWgtMjMuNzR2MTEuNjZoMjYuNzV2NC41OWgtMzIuMTNaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik00NjguNTksMjEwLjY0Yy0yLjI5LDAtNC40Ny0uMTgtNi41NC0uNTNzLTMuOS0uOTQtNS40OS0xLjc3Yy0xLjU4LS44My0yLjg0LTEuOTUtMy43Ny0zLjM4LS45My0xLjQyLTEuNC0zLjIxLTEuNC01LjM1LDAtLjIxLDAtLjQuMDMtLjU2LjAyLS4xNi4wMy0uMjkuMDMtLjRoNS4zOGMwLC4xNCwwLC4zMy0uMDMuNTUtLjAyLjIzLS4wMy40Ny0uMDMuNzEsMCwxLjM0LjQ4LDIuNDcsMS40MiwzLjQuOTUuOTMsMi4zMSwxLjYzLDQuMDksMi4wOCwxLjc3LjQ2LDMuODIuNjksNi4xNS42OSwxLjA2LDAsMi4xMy0uMDYsMy4yMi0uMTgsMS4wOS0uMTIsMi4xMi0uMzIsMy4wOS0uNTguOTctLjI2LDEuODMtLjYxLDIuNTgtMS4wNi43Ni0uNDQsMS4zNS0uOTgsMS43OS0xLjYzLjQ0LS42NS42Ni0xLjQxLjY2LTIuMywwLTEuMTktLjM4LTIuMTctMS4xMy0yLjkzLS43Ni0uNzYtMS43OS0xLjM3LTMuMDktMS44NS0xLjMtLjQ3LTIuNzctLjg5LTQuNC0xLjI0LTEuNjQtLjM1LTMuMzItLjctNS4wNC0xLjA2LTEuNzItLjM1LTMuNC0uNzctNS4wNC0xLjI2LTEuNjQtLjQ5LTMuMS0xLjExLTQuNC0xLjg1LTEuMy0uNzQtMi4zMy0xLjctMy4wOS0yLjg4LS43Ni0xLjE4LTEuMTMtMi42My0xLjEzLTQuMzUsMC0xLjQ4LjMzLTIuODEuOTgtNC4wMXMxLjY0LTIuMjIsMi45OC0zLjA5YzEuMzQtLjg2LDMuMDItMS41Miw1LjA0LTEuOTgsMi4wMi0uNDYsNC40Mi0uNjksNy4yLS42OSwyLjUzLDAsNC43Ni4yNCw2LjY3LjcxLDEuOTIuNDcsMy41MywxLjE1LDQuODMsMi4wMywxLjMuODgsMi4yOCwxLjkzLDIuOTMsMy4xN3MuOTgsMi42Ljk4LDQuMTF2Ljg0aC01LjMzdi0uOWMwLTEuMDYtLjQxLTEuOTktMS4yMS0yLjgtLjgxLS44MS0xLjk0LTEuNDUtMy40LTEuOTMtMS40Ni0uNDctMy4xOS0uNzEtNS4yLS43MS0yLjQ2LDAtNC41LjItNi4xMi42MS0xLjYyLjQxLTIuODMuOTgtMy42NCwxLjcyLS44MS43NC0xLjIxLDEuNi0xLjIxLDIuNTgsMCwxLjA5LjM4LDEuOTgsMS4xMywyLjY2Ljc1LjY5LDEuNzgsMS4yNSwzLjA4LDEuNjksMS4zLjQ0LDIuNzcuODMsNC40LDEuMTYsMS42NC4zNCwzLjMyLjY4LDUuMDQsMS4wM3MzLjQuNzcsNS4wNCwxLjI3YzEuNjQuNDksMy4xLDEuMTIsNC40LDEuOSwxLjMuNzcsMi4zNCwxLjc1LDMuMTEsMi45My43NywxLjE4LDEuMTYsMi42MywxLjE2LDQuMzUsMCwyLjY3LS43MSw0LjgyLTIuMTQsNi40NC0xLjQyLDEuNjItMy4zOSwyLjc5LTUuOTEsMy41MS0yLjUyLjcyLTUuNDEsMS4wOC04LjY4LDEuMDhaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik01MDMuOTksMjEwLjAxdi0zMS40OWgtMTQuNHYtNC43aDM0LjI0djQuN2gtMTQuNDV2MzEuNDloLTUuMzhaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik01MjAuMjksMjEwLjAxbDE2LjM1LTM2LjE5aDYuNjVsMTYuMzUsMzYuMTloLTUuODVsLTMuOS04Ljc2aC0yMC4xNWwtMy44NSw4Ljc2aC01LjU5Wk01MzEuNzMsMTk2LjcyaDE2LjA5bC00Ljg1LTExLjAyYy0uMTgtLjM1LS40LS44NC0uNjYtMS40OC0uMjYtLjYzLS41NC0xLjMtLjgyLTIuMDEtLjI4LS43LS41NS0xLjM5LS44Mi0yLjA2LS4yNi0uNjctLjQ4LTEuMjMtLjY2LTEuNjloLS40MmMtLjI4Ljc0LS42MSwxLjU3LTEsMi41MXMtLjc2LDEuODItMS4xMSwyLjY2LS42MywxLjUzLS44NCwyLjA2bC00LjkxLDExLjAyWiIvPgogICAgPHBhdGggY2xhc3M9ImNscy0yIiBkPSJNNTcwLjQ1LDIxMC4wMXYtMzEuNDloLTE0LjR2LTQuN2gzNC4yNHY0LjdoLTE0LjQ1djMxLjQ5aC01LjM4WiIvPgogICAgPHBhdGggY2xhc3M9ImNscy0yIiBkPSJNNTk2LjY3LDIxMC4wMXYtMzYuMTloMzEuNzZ2NC41OWgtMjYuMzh2MTAuNzZoMjMuNzR2NC41OWgtMjMuNzR2MTEuNjZoMjYuNzR2NC41OWgtMzIuMTJaIi8+CiAgPC9nPgogIDxnPgogICAgPHBhdGggY2xhc3M9ImNscy0xIiBkPSJNODUuNDIsMTMyLjNIMzAuMzVMMS42NSwxNjAuODdxLS42NS42NS0uNjUsMTUuNTR2ODAuODFzMjcuODctMjcuODYsMjcuODctMjcuODZ2LTY5LjJoMzMuMDZjMjIuMywwLDQyLjgtMTIuMTgsNTMuNS0zMS43OGwzLjU2LTYuNTItNi41MiwzLjU2Yy04LjI1LDQuNS0xNy42LDYuODgtMjcuMDUsNi44OFoiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMSIgZD0iTTk4LjgzLjc4SDMwLjY2TDEuMjgsMzAuMTZ2NzIuMDVsMjcuODYtMjcuODZWMjguNjRoNDYuMTljMzEuMTgsMCw1Ni41NSwyNS4zNyw1Ni41NSw1Ni41NSwwLDkuNDEtMi4zNiwxOC43My02Ljg3LDI3LjAybC0zLjY1LDYuNjEsNi43LTMuNjdjMTkuNTUtMTAuNzEsMzEuNjktMzEuMTksMzEuNjktNTMuNDZDMTU5Ljc0LDI4LjExLDEzMi40Mi43OCw5OC44My43OFoiLz4KICA8L2c+Cjwvc3ZnPg==" class="foot-logo" alt="Primora Real Estate">
+        <img src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyBpZD0iTGl2ZWxsb18xIiBkYXRhLW5hbWU9IkxpdmVsbG8gMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2aWV3Qm94PSIwIDAgMTAwMCAyNTgiPgogIDxkZWZzPgogICAgPHN0eWxlPgogICAgICAuY2xzLTEgewogICAgICAgIGZpbGw6ICNhYjE4MzI7CiAgICAgIH0KCiAgICAgIC5jbHMtMiB7CiAgICAgICAgZmlsbDogI2ZmZjsKICAgICAgfQogICAgPC9zdHlsZT4KICA8L2RlZnM+CiAgPGc+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0yNDAuMjMsMTMzLjE0VjQxLjQ1aDYzLjk3YzUuODYsMCwxMS4wNiwxLjMzLDE1LjU5LDQsNC41MywyLjY3LDguMDYsNi4zNSwxMC42LDExLjA2LDIuNTMsNC43MSwzLjgsMTAuMTgsMy44LDE2LjM5cy0xLjI5LDExLjk5LTMuODcsMTYuNzktNi4xMyw4LjUxLTEwLjY2LDExLjEzYy00LjUzLDIuNjItOS42OSwzLjkzLTE1LjQ2LDMuOTNoLTMyLjc5djI4LjM5aC0zMS4xOVpNMjcxLjQyLDgyLjYzaDIzLjE5YzMuMjksMCw1LjczLS44LDcuMzMtMi40czIuNC0zLjk1LDIuNC03LjA2YzAtMi4xMy0uMzgtMy44OS0xLjEzLTUuMjYtLjc2LTEuMzgtMS44Mi0yLjQyLTMuMi0zLjEzLTEuMzgtLjcxLTMuMTgtMS4wNy01LjQtMS4wN2gtMjMuMTl2MTguOTJaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0zNDYuMDUsMTMzLjE0VjQxLjQ1aDY4LjVjNi44NCwwLDEyLjU1LDEuNCwxNy4xMiw0LjIsNC41NywyLjgsOC4wMiw2LjQ2LDEwLjMzLDExLDIuMzEsNC41MywzLjQ2LDkuNDIsMy40NiwxNC42NiwwLDUuOTUtMS4zOCwxMS4yNi00LjEzLDE1LjkzLTIuNzUsNC42Ni02LjYyLDguNDItMTEuNiwxMS4yNmwxOC4xMywzNC42NWgtMzUuMTlsLTEzLjg2LTI5LjcyaC0yMS41OXYyOS43MmgtMzEuMTlaTTM3Ny4yNCw4MS44M2gyNy44NWMyLjQsMCw0LjQyLS44NCw2LjA2LTIuNTMsMS42NC0xLjY5LDIuNDctNCwyLjQ3LTYuOTMsMC0xLjg3LS4zOC0zLjQ2LTEuMTMtNC44LS43Ni0xLjMzLTEuNzgtMi4zOC0zLjA2LTMuMTMtMS4yOS0uNzUtMi43My0xLjEzLTQuMzMtMS4xM2gtMjcuODV2MTguNTJaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik00NjAuOCwxMzMuMTRWNDEuNDVoMzEuMTl2OTEuNjloLTMxLjE5WiIvPgogICAgPHBhdGggY2xhc3M9ImNscy0yIiBkPSJNNTExLjcxLDEzMy4xNFY0MS40NWg0Ni4zOGw5Ljg2LDMyLjkyYy41MywxLjUxLDEuMTUsMy41MywxLjg3LDYuMDYuNzEsMi41MywxLjQyLDUuMiwyLjEzLDgsLjcxLDIuOCwxLjMzLDUuMzEsMS44Nyw3LjUzaC45M2MuNDQtMS44NywxLTQuMDQsMS42Ny02LjUzLjY3LTIuNDksMS4zOC01LjA5LDIuMTMtNy44Ljc2LTIuNzEsMS40NC01LjEzLDIuMDctNy4yNmw5Ljg2LTMyLjkyaDQ0Ljc4djkxLjY5aC0zMC41MnYtMzYuNTJjMC0yLjkzLjAyLTYsLjA3LTkuMi4wNC0zLjIuMTEtNi4yOC4yLTkuMjYuMDktMi45OC4xMy01LjQ4LjEzLTcuNTNoLTEuMDdjLS40NSwxLjg3LTEsNC4wOS0xLjY2LDYuNjYtLjY3LDIuNTgtMS4zNiw1LjExLTIuMDcsNy42LS43MSwyLjQ5LTEuMzgsNC42Mi0yLDYuNGwtMTMuMDYsNDEuODVoLTI1LjU5bC0xMy4xOS00MS44NWMtLjcxLTIuMzEtMS40NC00Ljc1LTIuMi03LjMzLS43Ni0yLjU4LTEuNDItNS4wNC0yLTcuNC0uNTgtMi4zNS0xLjA5LTQuMzMtMS41My01LjkzaC0xLjA2Yy4wOSwxLjg3LjE4LDQuMjIuMjcsNy4wNi4wOSwyLjg0LjE1LDUuOTEuMiw5LjIuMDQsMy4yOS4wNyw2LjUzLjA3LDkuNzN2MzYuNTJoLTI4LjUyWiIvPgogICAgPHBhdGggY2xhc3M9ImNscy0yIiBkPSJNNzA2LjQyLDEzNC43NGMtMTEuNDYsMC0yMS4zMi0xLjg0LTI5LjU5LTUuNTMtOC4yNi0zLjY5LTE0LjYyLTkuMDYtMTkuMDYtMTYuMTNzLTYuNjYtMTUuNjYtNi42Ni0yNS43OSwyLjIyLTE4Ljg2LDYuNjYtMjUuOTIsMTAuOC0xMi40MiwxOS4wNi0xNi4wNmM4LjI2LTMuNjQsMTguMTItNS40NiwyOS41OS01LjQ2czIxLjQ2LDEuODIsMjkuNzIsNS40NmM4LjI2LDMuNjQsMTQuNjEsOSwxOS4wNiwxNi4wNnM2LjY3LDE1LjcxLDYuNjcsMjUuOTItMi4yMiwxOC43Mi02LjY3LDI1Ljc5LTEwLjc5LDEyLjQ0LTE5LjA2LDE2LjEzYy04LjI2LDMuNjktMTguMTcsNS41My0yOS43Miw1LjUzWk03MDYuNDIsMTEyLjM1YzMuNzMsMCw3LjA0LS41Myw5LjkzLTEuNiwyLjg4LTEuMDcsNS4zNS0yLjYsNy40LTQuNiwyLjA0LTIsMy41OC00LjM1LDQuNi03LjA2LDEuMDItMi43MSwxLjUzLTUuNzEsMS41My05di01Ljg2YzAtMy4yLS41MS02LjE1LTEuNTMtOC44Ni0xLjAyLTIuNzEtMi41Ni01LjA0LTQuNi03LTIuMDQtMS45NS00LjUxLTMuNDYtNy40LTQuNTMtMi44OS0xLjA3LTYuMi0xLjYtOS45My0xLjZzLTYuOTMuNTMtOS44NiwxLjZjLTIuOTMsMS4wNy01LjQsMi41OC03LjM5LDQuNTMtMiwxLjk2LTMuNTEsNC4yOS00LjUzLDctMS4wMiwyLjcxLTEuNTMsNS42Ni0xLjUzLDguODZ2NS44NmMwLDMuMjkuNTEsNi4yOSwxLjUzLDksMS4wMiwyLjcxLDIuNTMsNS4wNiw0LjUzLDcuMDYsMiwyLDQuNDYsMy41Myw3LjM5LDQuNiwyLjkzLDEuMDcsNi4yMiwxLjYsOS44NiwxLjZaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik03NzcuNzEsMTMzLjE0VjQxLjQ1aDY4LjVjNi44NCwwLDEyLjU1LDEuNCwxNy4xMyw0LjIsNC41NywyLjgsOC4wMiw2LjQ2LDEwLjMzLDExLDIuMzEsNC41MywzLjQ2LDkuNDIsMy40NiwxNC42NiwwLDUuOTUtMS4zOCwxMS4yNi00LjEzLDE1LjkzLTIuNzUsNC42Ni02LjYyLDguNDItMTEuNiwxMS4yNmwxOC4xMiwzNC42NWgtMzUuMThsLTEzLjg2LTI5LjcyaC0yMS41OXYyOS43MmgtMzEuMTlaTTgwOC45LDgxLjgzaDI3Ljg1YzIuNCwwLDQuNDItLjg0LDYuMDYtMi41MywxLjY0LTEuNjksMi40Ni00LDIuNDYtNi45MywwLTEuODctLjM4LTMuNDYtMS4xMy00LjgtLjc2LTEuMzMtMS43OC0yLjM4LTMuMDctMy4xMy0xLjI5LS43NS0yLjczLTEuMTMtNC4zMy0xLjEzaC0yNy44NXYxOC41MloiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTg4My44LDEzMy4xNGwzOC45Mi05MS42OWgzNS4zMmwzOC45MSw5MS42OWgtMzMuMzJsLTQuNjYtMTIuNTNoLTM4LjUybC00LjUzLDEyLjUzaC0zMi4xMlpNOTI4LjU4LDk4Ljg5aDIyLjM5bC01LjMzLTE1LjA2Yy0uMzUtLjg5LS43Ni0yLTEuMi0zLjMzLS40NS0xLjMzLS45MS0yLjgtMS40LTQuNC0uNDktMS42LS45NS0zLjItMS40LTQuOC0uNDUtMS42LS44OS0zLjAyLTEuMzMtNC4yNmgtLjkzYy0uNDUsMS42LTEsMy40LTEuNjcsNS40LS42NywyLTEuMzEsNC0xLjkzLDYtLjYyLDItMS4yNCwzLjgtMS44Nyw1LjRsLTUuMzMsMTUuMDZaIi8+CiAgPC9nPgogIDxnPgogICAgPHBhdGggY2xhc3M9ImNscy0yIiBkPSJNMjQwLjU4LDIwOS43MXYtMzYuMTFoMjEuNzRjMi4zOSwwLDQuNC40Nyw2LjA1LDEuNDIsMS42NS45NSwyLjksMi4yNiwzLjc2LDMuOTIuODYsMS42NywxLjI5LDMuNTksMS4yOSw1Ljc2cy0uNDYsNC4xNy0xLjM3LDUuODdjLS45MSwxLjctMi4yLDMuMDMtMy44NywzLjk3LTEuNjcuOTUtMy42NiwxLjQyLTUuOTcsMS40MmgtMTYuMjZ2MTMuNzRoLTUuMzdaTTI0NS45NiwxOTEuMzloMTUuNDJjMi4xLDAsMy43My0uNiw0Ljg5LTEuNzksMS4xNi0xLjE5LDEuNzQtMi44MSwxLjc0LTQuODQsMC0xLjM3LS4yNS0yLjU0LS43Ni0zLjUzLS41MS0uOTgtMS4yNS0xLjc0LTIuMjQtMi4yNi0uOTgtLjUzLTIuMTktLjc5LTMuNjMtLjc5aC0xNS40MnYxMy4yMVoiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTI4MC4yOCwyMDkuNzF2LTM2LjExaDIzLjA2YzIuNDYsMCw0LjQ5LjQ3LDYuMTEsMS40LDEuNjIuOTMsMi44MywyLjIsMy42MywzLjgyLjgxLDEuNjIsMS4yMSwzLjQ0LDEuMjEsNS40OCwwLDIuMzktLjU3LDQuNDgtMS43MSw2LjI5LTEuMTQsMS44MS0yLjc4LDMuMTEtNC45MiwzLjkybDcuNzQsMTUuMjFoLTUuOTVsLTcuMTEtMTQuMjdoLTE2LjY5djE0LjI3aC01LjM3Wk0yODUuNjUsMTkwLjkxaDE2Ljc5YzIuMDQsMCwzLjYxLS42LDQuNzQtMS43OXMxLjY4LTIuNzksMS42OC00Ljc5YzAtMS4zLS4yNC0yLjQtLjc0LTMuMzItLjQ5LS45MS0xLjIyLTEuNjEtMi4xOC0yLjExLS45Ni0uNDktMi4xMy0uNzQtMy41LS43NGgtMTYuNzl2MTIuNzRaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik0zNDEuNTUsMjEwLjM0Yy00LjIxLDAtNy44NS0uNy0xMC45Mi0yLjExLTMuMDctMS40LTUuNDItMy40OS03LjA2LTYuMjYtMS42My0yLjc3LTIuNDUtNi4yMS0yLjQ1LTEwLjMycy44Mi03LjU5LDIuNDUtMTAuMzRjMS42My0yLjc1LDMuOTgtNC44Myw3LjA2LTYuMjQsMy4wNy0xLjQsNi43MS0yLjExLDEwLjkyLTIuMTFzNy45LjcsMTAuOTUsMi4xMWMzLjA1LDEuNDEsNS40LDMuNDgsNy4wMyw2LjI0LDEuNjMsMi43NiwyLjQ1LDYuMiwyLjQ1LDEwLjM0cy0uODEsNy41NS0yLjQ1LDEwLjMyYy0xLjYzLDIuNzctMy45Nyw0Ljg2LTcuMDMsNi4yNi0zLjA1LDEuNC02LjcsMi4xMS0xMC45NSwyLjExWk0zNDEuNTUsMjA1Ljc2YzIuMjEsMCw0LjIyLS4yNiw2LjAzLS43OSwxLjgxLS41MywzLjM4LTEuMzQsNC43MS0yLjQ1czIuMzYtMi41MSwzLjA4LTQuMjFjLjcyLTEuNywxLjA4LTMuNzMsMS4wOC02LjA4di0xLjE2YzAtMi4zNS0uMzYtNC4zOS0xLjA4LTYuMTEtLjcyLTEuNzItMS43NS0zLjEyLTMuMDgtNC4yMXMtMi45LTEuOS00LjcxLTIuNDJjLTEuODEtLjUzLTMuODItLjc5LTYuMDMtLjc5cy00LjIyLjI2LTYuMDMuNzljLTEuODEuNTMtMy4zOCwxLjMzLTQuNzEsMi40Mi0xLjMzLDEuMDktMi4zNiwyLjQ5LTMuMDgsNC4yMXMtMS4wOCwzLjc2LTEuMDgsNi4xMXYxLjE2YzAsMi4zNS4zNiw0LjM4LDEuMDgsNi4wOC43MiwxLjcsMS43NSwzLjExLDMuMDgsNC4yMSwxLjM0LDEuMTEsMi45LDEuOTIsNC43MSwyLjQ1LDEuODEuNTMsMy44Mi43OSw2LjAzLjc5WiIvPgogICAgPHBhdGggY2xhc3M9ImNscy0yIiBkPSJNMzcwLjUxLDIwOS43MXYtMzYuMTFoMjEuNzRjMi4zOSwwLDQuNDEuNDcsNi4wNSwxLjQyczIuOSwyLjI2LDMuNzYsMy45MmMuODYsMS42NywxLjI5LDMuNTksMS4yOSw1Ljc2cy0uNDYsNC4xNy0xLjM3LDUuODdjLS45MSwxLjctMi4yLDMuMDMtMy44NywzLjk3cy0zLjY2LDEuNDItNS45NywxLjQyaC0xNi4yN3YxMy43NGgtNS4zN1pNMzc1Ljg4LDE5MS4zOWgxNS40MmMyLjExLDAsMy43NC0uNiw0Ljg5LTEuNzksMS4xNi0xLjE5LDEuNzQtMi44MSwxLjc0LTQuODQsMC0xLjM3LS4yNi0yLjU0LS43Ny0zLjUzLS41MS0uOTgtMS4yNS0xLjc0LTIuMjQtMi4yNi0uOTgtLjUzLTIuMTktLjc5LTMuNjMtLjc5aC0xNS40MnYxMy4yMVoiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTQxMC4yLDIwOS43MXYtMzYuMTFoMzEuNjl2NC41OGgtMjYuMzJ2MTAuNzRoMjMuNjl2NC41OGgtMjMuNjl2MTEuNjNoMjYuNjl2NC41OGgtMzIuMDZaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik00NTAuODksMjA5Ljcxdi0zNi4xMWgyMy4wNmMyLjQ2LDAsNC40OS40Nyw2LjExLDEuNCwxLjYyLjkzLDIuODMsMi4yLDMuNjMsMy44Mi44MSwxLjYyLDEuMjEsMy40NCwxLjIxLDUuNDgsMCwyLjM5LS41Nyw0LjQ4LTEuNzEsNi4yOS0xLjE0LDEuODEtMi43OCwzLjExLTQuOTIsMy45Mmw3Ljc0LDE1LjIxaC01Ljk1bC03LjExLTE0LjI3aC0xNi42OXYxNC4yN2gtNS4zN1pNNDU2LjI2LDE5MC45MWgxNi43OWMyLjA0LDAsMy42MS0uNiw0Ljc0LTEuNzksMS4xMi0xLjE5LDEuNjgtMi43OSwxLjY4LTQuNzksMC0xLjMtLjI1LTIuNC0uNzQtMy4zMi0uNDktLjkxLTEuMjItMS42MS0yLjE4LTIuMTEtLjk3LS40OS0yLjEzLS43NC0zLjUtLjc0aC0xNi43OXYxMi43NFoiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTUwMy4zNywyMDkuNzF2LTMxLjQzaC0xNC4zN3YtNC42OWgzNC4xN3Y0LjY5aC0xNC40MnYzMS40M2gtNS4zN1oiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTU0MC4xNywyMDkuNzF2LTE0Ljk1bC0xNi4xMS0yMS4xNmg2LjM3bDEyLjM3LDE2LjU4aC40MmwxMi4zNy0xNi41OGg2LjA1bC0xNi4xMSwyMS4xNnYxNC45NWgtNS4zN1oiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTU3OC42NSwyMDkuNzF2LTM2LjExaDUuMzd2MzYuMTFoLTUuMzdaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik01OTQuMjMsMjA5Ljcxdi0zNi4xMWg1LjIxbDIwLjA2LDIzLjM3Yy4zMi4yOC42OC42NywxLjA4LDEuMTYuNC40OS44MS45OCwxLjIxLDEuNDcuNC40OS43NS45MywxLjAzLDEuMzJoLjMyYzAtLjYzLDAtMS4zMy0uMDMtMi4xMS0uMDItLjc3LS4wMy0xLjQ3LS4wMy0yLjExdi0yMy4xMWg1LjIxdjM2LjExaC00LjlsLTIwLjI3LTIzLjY5Yy0uNTYtLjYtMS4xOC0xLjMxLTEuODQtMi4xM3MtMS4xOS0xLjQ4LTEuNTgtMS45N2gtLjMyYzAsLjU2LDAsMS4yNi4wMywyLjA4LjAyLjgzLjAzLDEuNjguMDMsMi41NXYyMy4xNmgtNS4yMVoiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTY0OS42MSwyMDkuNzFsLTE1LjQ4LTM2LjExaDUuOTVsMTAuMDUsMjQuMjdjLjI4LjYuNTgsMS4yOS45LDIuMDhzLjYzLDEuNTYuOTUsMi4zMmMuMzIuNzYuNiwxLjQzLjg0LDIuMDNoLjQyYy4yMS0uNTYuNDYtMS4yMi43Ni0xLjk3LjMtLjc1LjYxLTEuNTIuOTUtMi4yOS4zNC0uNzcuNjQtMS40Ny45Mi0yLjExbDEwLTI0LjMyaDUuNjlsLTE1LjQ4LDM2LjExaC02LjQ3WiIvPgogICAgPHBhdGggY2xhc3M9ImNscy0yIiBkPSJNNjc3LjQxLDIwOS43MXYtMzYuMTFoMzEuNjl2NC41OGgtMjYuMzJ2MTAuNzRoMjMuNjl2NC41OGgtMjMuNjl2MTEuNjNoMjYuNjl2NC41OGgtMzIuMDZaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik03MzMuMjYsMjEwLjM0Yy0yLjI4LDAtNC40Ni0uMTgtNi41My0uNTMtMi4wNy0uMzUtMy45LS45NC01LjQ4LTEuNzYtMS41OC0uODItMi44My0xLjk1LTMuNzYtMy4zNy0uOTMtMS40Mi0xLjM5LTMuMi0xLjM5LTUuMzQsMC0uMjEsMC0uNC4wMy0uNTVzLjAzLS4yOS4wMy0uMzloNS4zN2MwLC4xNCwwLC4zMi0uMDIuNTUtLjAyLjIzLS4wMy40Ny0uMDMuNzEsMCwxLjMzLjQ3LDIuNDcsMS40MiwzLjQuOTUuOTMsMi4zMSwxLjYyLDQuMDgsMi4wOCwxLjc3LjQ2LDMuODIuNjgsNi4xMy42OCwxLjA1LDAsMi4xMi0uMDYsMy4yMS0uMTgsMS4wOS0uMTIsMi4xMS0uMzIsMy4wOC0uNTguOTYtLjI2LDEuODItLjYxLDIuNTgtMS4wNS43NS0uNDQsMS4zNS0uOTgsMS43OS0xLjYzLjQ0LS42NS42Ni0xLjQxLjY2LTIuMjksMC0xLjE5LS4zOC0yLjE3LTEuMTMtMi45Mi0uNzYtLjc1LTEuNzgtMS4zNy0zLjA4LTEuODQtMS4zLS40Ny0yLjc2LS44OS00LjQtMS4yNC0xLjYzLS4zNS0zLjMxLS43LTUuMDMtMS4wNS0xLjcyLS4zNS0zLjM5LS43Ny01LjAzLTEuMjYtMS42My0uNDktMy4xLTEuMTEtNC40LTEuODQtMS4zLS43NC0yLjMyLTEuNjktMy4wOC0yLjg3LS43Ni0xLjE4LTEuMTMtMi42Mi0xLjEzLTQuMzQsMC0xLjQ3LjMzLTIuODEuOTctNCwuNjUtMS4xOSwxLjY0LTIuMjIsMi45Ny0zLjA4LDEuMzQtLjg2LDMuMDEtMS41Miw1LjAzLTEuOTcsMi4wMi0uNDYsNC40MS0uNjgsNy4xOS0uNjgsMi41MywwLDQuNzUuMjQsNi42Ni43MSwxLjkxLjQ3LDMuNTIsMS4xNSw0LjgyLDIuMDMsMS4zLjg4LDIuMjcsMS45MywyLjkyLDMuMTYuNjUsMS4yMy45NywyLjYuOTcsNC4xMXYuODRoLTUuMzJ2LS44OWMwLTEuMDUtLjQxLTEuOTgtMS4yMS0yLjc5LS44MS0uODEtMS45NC0xLjQ1LTMuNC0xLjkyLTEuNDYtLjQ3LTMuMTktLjcxLTUuMTktLjcxLTIuNDYsMC00LjQ5LjItNi4xMS42MS0xLjYyLjQtMi44My45Ny0zLjYzLDEuNzEtLjgxLjc0LTEuMjEsMS42LTEuMjEsMi41OCwwLDEuMDkuMzcsMS45NywxLjEzLDIuNjYuNzUuNjgsMS43OCwxLjI1LDMuMDgsMS42OSwxLjMuNDQsMi43Ni44Miw0LjQsMS4xNiwxLjYzLjMzLDMuMzEuNjgsNS4wMywxLjAzLDEuNzIuMzUsMy40Ljc3LDUuMDMsMS4yNiwxLjYzLjQ5LDMuMSwxLjEyLDQuNCwxLjlzMi4zMywxLjc1LDMuMTEsMi45MmMuNzcsMS4xOCwxLjE2LDIuNjIsMS4xNiw0LjM0LDAsMi42Ny0uNzEsNC44MS0yLjEzLDYuNDJzLTMuMzksMi43OC01Ljg5LDMuNWMtMi41MS43Mi01LjQsMS4wOC04LjY2LDEuMDhaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik03NjguNTgsMjA5Ljcxdi0zMS40M2gtMTQuMzd2LTQuNjloMzQuMTd2NC42OWgtMTQuNDJ2MzEuNDNoLTUuMzdaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik03OTQuNzUsMjA5Ljcxdi0zNi4xMWg4LjIxbDkuNTgsMjMuMDFjLjI0LjU2LjUxLDEuMjUuNzksMi4wNXMuNTcsMS42MS44NywyLjM5Yy4zLjc5LjU1LDEuNDguNzcsMi4wOGguMzJjLjIxLS41Ni40NS0xLjIzLjcxLTIsLjI2LS43Ny41NC0xLjU2Ljg0LTIuMzcuMy0uODEuNTUtMS41MS43Ni0yLjExbDkuNTgtMjMuMDZoOC4xNnYzNi4xMWgtNS4zN3YtMjIuMjFjMC0uODQsMC0xLjc5LjAzLTIuODQuMDItMS4wNS4wNC0yLjA0LjA4LTIuOTcuMDMtLjkzLjA1LTEuNjYuMDUtMi4xOGgtLjQyYy0uMTQuNDYtLjM0LDEuMDYtLjYsMS44Mi0uMjYuNzYtLjUzLDEuNTMtLjc5LDIuMzItLjI2Ljc5LS41MiwxLjQ4LS43NiwyLjA4bC0xMC4xMSwyNGgtNC45NWwtMTAuMTEtMjRjLS4yOC0uNjMtLjU1LTEuMzItLjgyLTIuMDUtLjI2LS43NC0uNTItMS40Ny0uNzctMi4yMS0uMjQtLjc0LS40Ni0xLjM5LS42My0xLjk1aC0uNDJjLjA0LjY3LjA2LDEuNDcuMDgsMi40Mi4wMi45NS4wNCwxLjkxLjA2LDIuOS4wMi45OC4wMiwxLjg4LjAyLDIuNjh2MjIuMjFoLTUuMTZaIi8+CiAgICA8cGF0aCBjbGFzcz0iY2xzLTIiIGQ9Ik04NDUuNTUsMjA5Ljcxdi0zNi4xMWgzMS42OXY0LjU4aC0yNi4zMnYxMC43NGgyMy42OXY0LjU4aC0yMy42OXYxMS42M2gyNi42OXY0LjU4aC0zMi4wNloiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMiIgZD0iTTg4Ni4yNCwyMDkuNzF2LTM2LjExaDUuMjFsMjAuMDYsMjMuMzdjLjMyLjI4LjY4LjY3LDEuMDgsMS4xNi40LjQ5LjgxLjk4LDEuMjEsMS40Ny40LjQ5Ljc1LjkzLDEuMDMsMS4zMmguMzJjMC0uNjMsMC0xLjMzLS4wMy0yLjExLS4wMi0uNzctLjAzLTEuNDctLjAzLTIuMTF2LTIzLjExaDUuMjF2MzYuMTFoLTQuOWwtMjAuMjctMjMuNjljLS41Ni0uNi0xLjE4LTEuMzEtMS44NC0yLjEzcy0xLjE5LTEuNDgtMS41OC0xLjk3aC0uMzJjMCwuNTYsMCwxLjI2LjAzLDIuMDguMDIuODMuMDMsMS42OC4wMywyLjU1djIzLjE2aC01LjIxWiIvPgogICAgPHBhdGggY2xhc3M9ImNscy0yIiBkPSJNOTQwLjk5LDIwOS43MXYtMzEuNDNoLTE0LjM3di00LjY5aDM0LjE3djQuNjloLTE0LjQydjMxLjQzaC01LjM3WiIvPgogICAgPHBhdGggY2xhc3M9ImNscy0yIiBkPSJNOTgyLjMxLDIxMC4zNGMtMi4yOCwwLTQuNDYtLjE4LTYuNTMtLjUzLTIuMDctLjM1LTMuOS0uOTQtNS40Ny0xLjc2LTEuNTgtLjgyLTIuODQtMS45NS0zLjc2LTMuMzctLjkzLTEuNDItMS4zOS0zLjItMS4zOS01LjM0LDAtLjIxLDAtLjQuMDMtLjU1cy4wMy0uMjkuMDMtLjM5aDUuMzdjMCwuMTQsMCwuMzItLjAzLjU1LS4wMi4yMy0uMDMuNDctLjAzLjcxLDAsMS4zMy40OCwyLjQ3LDEuNDIsMy40Ljk1LjkzLDIuMzEsMS42Miw0LjA4LDIuMDgsMS43Ny40NiwzLjgyLjY4LDYuMTMuNjgsMS4wNSwwLDIuMTItLjA2LDMuMjEtLjE4LDEuMDktLjEyLDIuMTEtLjMyLDMuMDgtLjU4czEuODMtLjYxLDIuNTgtMS4wNWMuNzYtLjQ0LDEuMzUtLjk4LDEuNzktMS42My40NC0uNjUuNjYtMS40MS42Ni0yLjI5LDAtMS4xOS0uMzgtMi4xNy0xLjEzLTIuOTItLjc2LS43NS0xLjc4LTEuMzctMy4wOC0xLjg0LTEuMy0uNDctMi43Ni0uODktNC40LTEuMjRzLTMuMzEtLjctNS4wMy0xLjA1Yy0xLjcyLS4zNS0zLjQtLjc3LTUuMDMtMS4yNi0xLjYzLS40OS0zLjEtMS4xMS00LjQtMS44NC0xLjMtLjc0LTIuMzItMS42OS0zLjA4LTIuODctLjc2LTEuMTgtMS4xMy0yLjYyLTEuMTMtNC4zNCwwLTEuNDcuMzItMi44MS45Ny00LC42NS0xLjE5LDEuNjQtMi4yMiwyLjk3LTMuMDgsMS4zMy0uODYsMy4wMS0xLjUyLDUuMDMtMS45NywyLjAyLS40Niw0LjQxLS42OCw3LjE5LS42OCwyLjUzLDAsNC43NS4yNCw2LjY2LjcxLDEuOTEuNDcsMy41MiwxLjE1LDQuODIsMi4wMywxLjMuODgsMi4yNywxLjkzLDIuOTIsMy4xNi42NSwxLjIzLjk3LDIuNi45Nyw0LjExdi44NGgtNS4zMnYtLjg5YzAtMS4wNS0uNC0xLjk4LTEuMjEtMi43OS0uODEtLjgxLTEuOTQtMS40NS0zLjQtMS45Mi0xLjQ2LS40Ny0zLjE4LS43MS01LjE5LS43MS0yLjQ2LDAtNC40OS4yLTYuMTEuNjEtMS42Mi40LTIuODMuOTctMy42MywxLjcxLS44MS43NC0xLjIxLDEuNi0xLjIxLDIuNTgsMCwxLjA5LjM4LDEuOTcsMS4xMywyLjY2Ljc1LjY4LDEuNzgsMS4yNSwzLjA4LDEuNjksMS4zLjQ0LDIuNzYuODIsNC4zOSwxLjE2LDEuNjMuMzMsMy4zMS42OCw1LjAzLDEuMDMsMS43Mi4zNSwzLjQuNzcsNS4wMywxLjI2LDEuNjMuNDksMy4xLDEuMTIsNC4zOSwxLjlzMi4zMywxLjc1LDMuMTEsMi45MmMuNzcsMS4xOCwxLjE2LDIuNjIsMS4xNiw0LjM0LDAsMi42Ny0uNzEsNC44MS0yLjEzLDYuNDItMS40MiwxLjYxLTMuMzksMi43OC01LjksMy41LTIuNTEuNzItNS40LDEuMDgtOC42NiwxLjA4WiIvPgogIDwvZz4KICA8Zz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMSIgZD0iTTg1LjI1LDEzMi4yOUgzMC4yOUwxLjY1LDE2MC44MXEtLjY1LjY1LS42NSwxNS41MXY4MC42NHMyNy44MS0yNy44LDI3LjgxLTI3Ljh2LTY5LjA2aDMyLjk5YzIyLjI2LDAsNDIuNzItMTIuMTUsNTMuMzktMzEuNzFsMy41NS02LjUxLTYuNTEsMy41NWMtOC4yMyw0LjQ5LTE3LjU2LDYuODctMjYuOTksNi44N1oiLz4KICAgIDxwYXRoIGNsYXNzPSJjbHMtMSIgZD0iTTk4LjYyLDEuMDRIMzAuNkwxLjI4LDMwLjM2djcxLjkxbDI3LjgtMjcuOFYyOC44NWg0Ni4wOWMzMS4xMiwwLDU2LjQzLDI1LjMyLDU2LjQzLDU2LjQzLDAsOS4zOS0yLjM2LDE4LjctNi44NSwyNi45N2wtMy42NSw2LjYsNi42OC0zLjY2YzE5LjUxLTEwLjY5LDMxLjYyLTMxLjEzLDMxLjYyLTUzLjM1LDAtMzMuNTItMjcuMjctNjAuNzktNjAuNzktNjAuNzlaIi8+CiAgPC9nPgo8L3N2Zz4=" class="foot-logo foot-logo-2" alt="Primora Property Investments">
+        <p><span data-i18n="foot.desc">Gruppo immobiliare: promozione, sviluppo, vendita e locazione di immobili residenziali in Svizzera.</span><br><a href="mailto:info@primoragroup.ch" style="color:var(--sand)">info@primoragroup.ch</a> · 091 646 08 04</p>
+      </div>
+      <div class="foot-cols">
+        <div>
+          <h5 data-i18n="foot.nav">Naviga</h5>
+          <a onclick="go('home')" data-i18n="nav.home">Home</a>
+          <a onclick="go('oggetti')" data-i18n="nav.listings">Vendita & Locazione</a>
+          <a onclick="go('team')" data-i18n="nav.team">Team</a>
+          <a onclick="go('contatti')" data-i18n="nav.contact">Contatti</a>
+        </div>
+        <div>
+          <h5 data-i18n="foot.group">Gruppo</h5>
+          <a onclick="go('contatti')">Primora Real Estate</a>
+          <a onclick="go('contatti')">Primora Property Investments</a>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <span data-i18n="foot.rights">2026 Primora. Tutti i diritti riservati.</span>
+      <span>Real Estate · Property Investments</span>
+    </div>
+  </div>
+</footer>
+
+
+
+<script>
+/* ================= I18N: interfaccia e testi statici ================= */
+const T={
+ it:{
+  "nav.home":"Home","nav.listings":"Vendita & Locazione","nav.team":"Team","nav.contact":"Contatti",
+  "hero.h1":"Immobili che nascono <em>e si realizzano</em><br>all'interno di un unico gruppo.",
+  "hero.p":"Dalla promozione immobiliare alla vendita: Primora segue ogni oggetto dall'idea progettuale al cantiere, fino alla consegna delle chiavi al cliente, con un'attenzione costante alla qualità e al dettaglio.",
+  "hero.cta1":"Scopri gli oggetti →","hero.cta2":"Il gruppo",
+  "group.eyebrow":"Chi siamo","group.h2":"Un gruppo, due competenze complementari.",
+  "group.p":"Primora riunisce due società che lavorano in continuità: chi realizza gli immobili e chi li porta sul mercato. Due ruoli distinti, un'unica visione.",
+  "soc1.tag":"La regia immobiliare","soc1.name":"Promozione &amp; Sviluppo",
+  "soc1.p":"Si occupa di sviluppare promozioni immobiliari seguendo ogni progetto dalla concezione alla consegna delle chiavi, garantendo qualità, professionalità e cura dei dettagli in ogni fase della realizzazione.",
+  "soc1.li1":"Sviluppo di promozioni immobiliari proprie","soc1.li2":"Partecipazione a promozioni immobiliari","soc1.li3":"Sviluppo e realizzazione dei progetti",
+  "soc2.tag":"Il vostro partner immobiliare","soc2.name":"Gestione Vendita &amp; Locazione",
+  "soc2.p":"Si occupa della vendita e della locazione degli immobili del gruppo, offrendo un servizio professionale, personalizzato e orientato alle esigenze di ogni cliente.",
+  "soc2.li1":"Vendita e locazione di appartamenti, case o stabili plurifamiliari","soc2.li2":"Commercializzazione degli oggetti del gruppo","soc2.li3":"Relazione diretta con il cliente finale",
+  "flow.a":"realizza","flow.b":"vende · affitta","flow.client":"Cliente",
+  "proj.eyebrow":"Realizzazioni","proj.h2":"Oggetti realizzati e cantieri in corso","proj.p":"Una selezione delle operazioni realizzate dal gruppo, tra progetti consegnati e cantieri attivi",
+  "board.eyebrow":"Bacheca","board.h2":"Le novità del gruppo, sempre aggiornate.","board.p":"Avanzamento cantieri, nuove operazioni e oggetti in arrivo: qui raccontiamo cosa stiamo facendo.",
+  "list.h2":"Vendita & Locazione","list.p":"Tutti gli oggetti proposti sono realizzati o di proprietà del gruppo. Una selezione curata, seguita direttamente da Primora Real Estate.",
+  "team.eyebrow":"Il team","team.h2":"Le persone dietro Primora","team.p":"Un gruppo affiatato di professionisti del settore immobiliare, coordinato da chi segue in prima persona ogni cliente e ogni trattativa.",
+  "team.roleTop":"Responsabile","team.roleBottom":"Vendite &amp; Affitti","team.role":"Responsabile Vendite e Affitti · Real Estate Risk Analyst",
+  "team.bio1":"Con una consolidata esperienza maturata nei settori immobiliare e assicurativo, Alessandra Gotti coordina l'area commerciale e supervisiona le attività di vendita e locazione, garantendo un servizio attento, competente e orientato al cliente. La sua capacità di analisi, unita a una profonda conoscenza del mercato e alla gestione del rischio, rappresenta un valore aggiunto in ogni trattativa.",
+  "team.bio2":"Grazie alla perfetta padronanza dell'italiano, del tedesco e dell'inglese, è il punto di riferimento per una clientela locale e internazionale, coordinando il lavoro del team con professionalità, precisione e una visione strategica.",
+  "team.noteH":"Un team competente al vostro fianco","team.noteP":"Dietro Alessandra opera una squadra di specialisti che segue ogni fase del percorso immobiliare — dalla valutazione alla commercializzazione, fino alla consegna — per offrirvi un servizio completo e affidabile.",
+  "contact.eyebrow":"Contatti","contact.h2":"Parliamo del tuo prossimo immobile.","contact.p":"Le società del gruppo Primora hanno sede a Mendrisio, nello stesso indirizzo. Scrivici o passa a trovarci.",
+  "contact.lab1":"Contatto generale","contact.re":"Vendita e locazione degli immobili del gruppo, con un servizio personalizzato e diretto.","contact.pi":"Sviluppo e realizzazione delle promozioni immobiliari, dalla concezione alla consegna.",
+  "contact.lab2":"Sede","contact.country":"Svizzera","contact.lab3":"Lingue","contact.langH":"Consulenza in 3 lingue","contact.langP":"Vi seguiamo in italiano, tedesco e inglese.",
+  "contact.lab4":"Orari","contact.hours":"Lun – Ven · 08:30 – 18:00<br>Su appuntamento il sabato",
+  "foot.desc":"Gruppo immobiliare: promozione, sviluppo, vendita e locazione di immobili residenziali in Svizzera.","foot.nav":"Naviga","foot.group":"Gruppo","foot.rights":"2026 Primora. Tutti i diritti riservati.",
+  "m.info":"Informazioni principali","m.feats":"Caratteristiche","m.cta":"Richiedi informazioni →",
+  "m.category":"Categoria","m.npa":"NPA","m.rooms":"Locali","m.surf":"M² superficie","m.avail":"Disponibile da","m.year":"Anno di costruzione","m.price":"Prezzo","m.floor":"Piano","m.grossRent":"Pigione lorda","m.charges":"Spese","m.netRent":"Pigione netta",
+  "card.rooms":"locali","card.surf":"m² superficie","card.open":"Vedi dettagli →","card.readmore":"Leggi tutto →",
+  "m.posti":"Posteggi","news.cta":"Contattaci →",
+  "home.eyebrow":"In vendita","home.h2":"Oggetti in vendita","home.p":"Una selezione degli immobili proposti dal gruppo, tutti realizzati o di proprietà di Primora.","home.cta":"Vedi tutti gli oggetti →",
+  "form.title":"Scrivici un messaggio","form.name":"Nome","form.surname":"Cognome","form.email":"Email","form.phone":"Telefono","form.message":"Messaggio","form.send":"Invia messaggio →","form.ok":"Grazie! Messaggio inviato, ti risponderemo al più presto.","form.err":"Invio non riuscito. Riprova o scrivici a info@primoragroup.ch.","form.object":"Oggetto di interesse","form.prefill":"Sono interessato/a all'oggetto: ","filter.all":"Tutti","filter.sale":"Vendita","filter.rent":"Affitto"
+ },
+ de:{
+  "nav.home":"Home","nav.listings":"Verkauf & Vermietung","nav.team":"Team","nav.contact":"Kontakt",
+  "hero.h1":"Immobilien, die <em>entstehen und realisiert werden</em><br>innerhalb einer einzigen Gruppe.",
+  "hero.p":"Von der Immobilienentwicklung bis zum Verkauf: Primora begleitet jedes Objekt von der Projektidee über die Baustelle bis zur Schlüsselübergabe an den Kunden – mit konstanter Aufmerksamkeit für Qualität und Detail.",
+  "hero.cta1":"Objekte entdecken →","hero.cta2":"Die Gruppe",
+  "group.eyebrow":"Über uns","group.h2":"Eine Gruppe, zwei sich ergänzende Kompetenzen.",
+  "group.p":"Primora vereint zwei Gesellschaften, die Hand in Hand arbeiten: Die einen realisieren die Immobilien, die anderen bringen sie auf den Markt. Zwei getrennte Rollen, eine gemeinsame Vision.",
+  "soc1.tag":"Die Immobilienregie","soc1.name":"Entwicklung &amp; Realisierung",
+  "soc1.p":"Entwickelt Immobilienprojekte und begleitet jedes Vorhaben von der Konzeption bis zur Schlüsselübergabe – mit Qualität, Professionalität und Liebe zum Detail in jeder Phase der Realisierung.",
+  "soc1.li1":"Entwicklung eigener Immobilienprojekte","soc1.li2":"Beteiligung an Immobilienprojekten","soc1.li3":"Planung und Realisierung der Projekte",
+  "soc2.tag":"Ihr Immobilienpartner","soc2.name":"Verkauf &amp; Vermietung",
+  "soc2.p":"Verantwortlich für Verkauf und Vermietung der Immobilien der Gruppe – mit einem professionellen, persönlichen und auf die Bedürfnisse jedes Kunden ausgerichteten Service.",
+  "soc2.li1":"Verkauf und Vermietung von Wohnungen, Häusern oder Mehrfamilienhäusern","soc2.li2":"Vermarktung der Objekte der Gruppe","soc2.li3":"Direkter Kontakt zum Endkunden",
+  "flow.a":"realisiert","flow.b":"verkauft · vermietet","flow.client":"Kunde",
+  "proj.eyebrow":"Realisierungen","proj.h2":"Realisierte Objekte und laufende Baustellen","proj.p":"Eine Auswahl der von der Gruppe realisierten Projekte, zwischen fertiggestellten Objekten und aktiven Baustellen",
+  "board.eyebrow":"Aktuelles","board.h2":"Die Neuigkeiten der Gruppe, immer aktuell.","board.p":"Baufortschritte, neue Projekte und kommende Objekte: Hier erzählen wir, woran wir arbeiten.",
+  "list.h2":"Verkauf & Vermietung","list.p":"Alle angebotenen Objekte werden von der Gruppe realisiert oder befinden sich in deren Eigentum. Eine sorgfältige Auswahl, direkt betreut von Primora Real Estate.",
+  "team.eyebrow":"Das Team","team.h2":"Die Menschen hinter Primora","team.p":"Ein eingespieltes Team von Immobilienfachleuten, koordiniert von jemandem, der jeden Kunden und jede Verhandlung persönlich betreut.",
+  "team.roleTop":"Leiterin","team.roleBottom":"Verkauf &amp; Vermietung","team.role":"Leiterin Verkauf und Vermietung · Real Estate Risk Analyst",
+  "team.bio1":"Mit fundierter Erfahrung in der Immobilien- und Versicherungsbranche koordiniert Alessandra Gotti den kommerziellen Bereich und überwacht die Verkaufs- und Vermietungsaktivitäten – für einen aufmerksamen, kompetenten und kundenorientierten Service. Ihre analytische Kompetenz, gepaart mit fundierter Marktkenntnis und Risikomanagement, ist ein Mehrwert in jeder Verhandlung.",
+  "team.bio2":"Dank ihrer perfekten Beherrschung von Italienisch, Deutsch und Englisch ist sie die Ansprechpartnerin für eine lokale und internationale Kundschaft und koordiniert die Arbeit des Teams mit Professionalität, Präzision und strategischem Weitblick.",
+  "team.noteH":"Ein kompetentes Team an Ihrer Seite","team.noteP":"Hinter Alessandra steht ein Team von Spezialisten, das jede Phase des Immobilienwegs begleitet – von der Bewertung über die Vermarktung bis zur Übergabe – für einen umfassenden und zuverlässigen Service.",
+  "contact.eyebrow":"Kontakt","contact.h2":"Sprechen wir über Ihre nächste Immobilie.","contact.p":"Die Gesellschaften der Gruppe Primora haben ihren Sitz in Mendrisio, unter derselben Adresse. Schreiben Sie uns oder besuchen Sie uns.",
+  "contact.lab1":"Allgemeiner Kontakt","contact.re":"Verkauf und Vermietung der Immobilien der Gruppe, mit einem persönlichen und direkten Service.","contact.pi":"Entwicklung und Realisierung der Immobilienprojekte, von der Konzeption bis zur Übergabe.",
+  "contact.lab2":"Sitz","contact.country":"Schweiz","contact.lab3":"Sprachen","contact.langH":"Beratung in 3 Sprachen","contact.langP":"Wir betreuen Sie auf Italienisch, Deutsch und Englisch.",
+  "contact.lab4":"Öffnungszeiten","contact.hours":"Mo – Fr · 08:30 – 18:00<br>Samstags nach Vereinbarung",
+  "foot.desc":"Immobiliengruppe: Entwicklung, Realisierung, Verkauf und Vermietung von Wohnimmobilien in der Schweiz.","foot.nav":"Navigation","foot.group":"Gruppe","foot.rights":"2026 Primora. Alle Rechte vorbehalten.",
+  "m.info":"Wichtigste Informationen","m.feats":"Merkmale","m.cta":"Informationen anfragen →",
+  "m.category":"Kategorie","m.npa":"PLZ","m.rooms":"Zimmer","m.surf":"m² Fläche","m.avail":"Verfügbar ab","m.year":"Baujahr","m.price":"Preis","m.floor":"Stockwerk","m.grossRent":"Bruttomiete","m.charges":"Nebenkosten","m.netRent":"Nettomiete",
+  "card.rooms":"Zimmer","card.surf":"m² Fläche","card.open":"Details ansehen →","card.readmore":"Weiterlesen →",
+  "m.posti":"Parkplätze","news.cta":"Kontaktieren Sie uns →",
+  "home.eyebrow":"Zum Verkauf","home.h2":"Objekte zum Verkauf","home.p":"Eine Auswahl der von der Gruppe angebotenen Immobilien, alle von Primora realisiert oder in deren Eigentum.","home.cta":"Alle Objekte ansehen →",
+  "form.title":"Schreiben Sie uns","form.name":"Vorname","form.surname":"Nachname","form.email":"E-Mail","form.phone":"Telefon","form.message":"Nachricht","form.send":"Nachricht senden →","form.ok":"Danke! Ihre Nachricht wurde gesendet, wir melden uns in Kürze.","form.err":"Senden fehlgeschlagen. Bitte erneut versuchen oder an info@primoragroup.ch schreiben.","form.object":"Objekt von Interesse","form.prefill":"Ich interessiere mich für das Objekt: ","filter.all":"Alle","filter.sale":"Kauf","filter.rent":"Miete"
+ },
+ en:{
+  "nav.home":"Home","nav.listings":"Sales & Rentals","nav.team":"Team","nav.contact":"Contact",
+  "hero.h1":"Real estate that is <em>created and delivered</em><br>within a single group.",
+  "hero.p":"From property development to sale: Primora follows every project from the initial concept to the construction site, through to handing over the keys to the client, with constant attention to quality and detail.",
+  "hero.cta1":"Discover our properties →","hero.cta2":"The group",
+  "group.eyebrow":"About us","group.h2":"One group, two complementary areas of expertise.",
+  "group.p":"Primora brings together two companies working in continuity: one builds the properties, the other brings them to market. Two distinct roles, a single vision.",
+  "soc1.tag":"The property direction","soc1.name":"Development &amp; Construction",
+  "soc1.p":"Develops real estate projects, following each one from concept to handover of the keys, ensuring quality, professionalism and attention to detail at every stage of construction.",
+  "soc1.li1":"Development of its own real estate projects","soc1.li2":"Participation in real estate projects","soc1.li3":"Design and construction of projects",
+  "soc2.tag":"Your real estate partner","soc2.name":"Sales &amp; Rentals",
+  "soc2.p":"Handles the sale and rental of the group's properties, offering a professional, personalised service focused on each client's needs.",
+  "soc2.li1":"Sale and rental of apartments, houses or multi-family buildings","soc2.li2":"Marketing of the group's properties","soc2.li3":"Direct relationship with the end client",
+  "flow.a":"builds","flow.b":"sells · rents","flow.client":"Client",
+  "proj.eyebrow":"Projects","proj.h2":"Completed properties and ongoing sites","proj.p":"A selection of the group's projects, from completed developments to active construction sites",
+  "board.eyebrow":"Updates","board.h2":"The group's latest news, always up to date.","board.p":"Construction progress, new projects and upcoming properties: here we share what we're working on.",
+  "list.h2":"Sales & Rentals","list.p":"All properties offered are built or owned by the group. A curated selection, managed directly by Primora Real Estate.",
+  "team.eyebrow":"The team","team.h2":"The people behind Primora","team.p":"A close-knit team of real estate professionals, led by someone who personally follows every client and every negotiation.",
+  "team.roleTop":"Head of","team.roleBottom":"Sales &amp; Rentals","team.role":"Head of Sales and Rentals · Real Estate Risk Analyst",
+  "team.bio1":"With extensive experience in the real estate and insurance sectors, Alessandra Gotti coordinates the commercial area and oversees sales and rental activities, ensuring an attentive, competent and client-focused service. Her analytical skills, combined with a deep knowledge of the market and risk management, are a real asset in every negotiation.",
+  "team.bio2":"Thanks to her perfect command of Italian, German and English, she is the point of reference for a local and international clientele, coordinating the team's work with professionalism, precision and strategic vision.",
+  "team.noteH":"A competent team at your side","team.noteP":"Behind Alessandra works a team of specialists following every stage of the real estate journey — from valuation to marketing, through to handover — to offer you a complete and reliable service.",
+  "contact.eyebrow":"Contact","contact.h2":"Let's talk about your next property.","contact.p":"The companies of the Primora group are based in Mendrisio, at the same address. Write to us or come and visit.",
+  "contact.lab1":"General contact","contact.re":"Sale and rental of the group's properties, with a personalised and direct service.","contact.pi":"Development and construction of real estate projects, from concept to handover.",
+  "contact.lab2":"Office","contact.country":"Switzerland","contact.lab3":"Languages","contact.langH":"Advice in 3 languages","contact.langP":"We assist you in Italian, German and English.",
+  "contact.lab4":"Opening hours","contact.hours":"Mon – Fri · 08:30 – 18:00<br>Saturday by appointment",
+  "foot.desc":"Real estate group: development, construction, sale and rental of residential properties in Switzerland.","foot.nav":"Navigate","foot.group":"Group","foot.rights":"2026 Primora. All rights reserved.",
+  "m.info":"Key information","m.feats":"Features","m.cta":"Request information →",
+  "m.category":"Category","m.npa":"Postal code","m.rooms":"Rooms","m.surf":"m² area","m.avail":"Available from","m.year":"Year built","m.price":"Price","m.floor":"Floor","m.grossRent":"Gross rent","m.charges":"Service charges","m.netRent":"Net rent",
+  "card.rooms":"rooms","card.surf":"m² area","card.open":"View details →","card.readmore":"Read more →",
+  "m.posti":"Parking","news.cta":"Contact us →",
+  "home.eyebrow":"For sale","home.h2":"Properties for sale","home.p":"A selection of the properties offered by the group, all built or owned by Primora.","home.cta":"View all properties →",
+  "form.title":"Write us a message","form.name":"First name","form.surname":"Last name","form.email":"Email","form.phone":"Phone","form.message":"Message","form.send":"Send message →","form.ok":"Thank you! Your message has been sent, we'll get back to you soon.","form.err":"Sending failed. Please try again or write to info@primoragroup.ch.","form.object":"Property of interest","form.prefill":"I am interested in the property: ","filter.all":"All","filter.sale":"Sale","filter.rent":"Rent"
+ }
+};
+
+/* ================= DATI (multilingua) ================= */
+const news=__NEWS__;
+const objects=__OBJECTS__;
+
+/* ================= STATO LINGUA ================= */
+let LANG='it';
+function t(k){return (T[LANG]&&T[LANG][k])!==undefined?T[LANG][k]:(T.it[k]||'')}
+
+/* ================= RENDER DINAMICO ================= */
+function pick(v){return v==null?'':(typeof v==='object'?(v[LANG]??v.it??''):v)}
+function objCard(o,i){
+  const rooms=o.rooms?`<div><b>${o.rooms}</b>${t('card.rooms')}</div>`:'';
+  const surf=o.surf?`<div><b>${o.surf}</b>${t('card.surf')}</div>`:'';
+  return `<article class="obj reveal" onclick="openObj(${i})">
+     <div class="obj-img"><img src="${o.gallery[0]}" loading="lazy" alt="${pick(o.t)} – ${o.loc}"><span class="obj-state ${o.cls}">${pick(o.state)}</span></div>
+     <div class="obj-body">
+       <div class="loc">${o.loc}</div>
+       <h3>${pick(o.t)}</h3>
+       <p>${pick(o.x)}</p>
+       <div class="obj-meta">${rooms}${surf}</div>
+       <div class="obj-foot"><div class="price">${pick(o.price)}</div><span class="obj-open">${t('card.open')}</span></div>
+     </div>
+   </article>`;
+}
+let objFilter='all';
+function renderObjects(){
+  const html=objects.map((o,i)=>({o,i})).filter(({o})=>objFilter==='all'||(o.deal||'sale')===objFilter).map(({o,i})=>objCard(o,i)).join('');
+  document.getElementById('objGrid').innerHTML=html;
+}
+function filterObj(f,btn){
+  objFilter=f;
+  document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('active'));
+  if(btn)btn.classList.add('active');
+  renderObjects();initReveal();
+}
+function renderHomeObjects(){document.getElementById('homeObj').innerHTML=objects.slice(0,3).map((o,i)=>objCard(o,i)).join('')}
+function renderNews(){
+  const card=(n,i)=>`<div class="news" style="cursor:pointer" onclick="openNews(${i})"><span class="date">${pick(n.date)}</span><span class="badge">${pick(n.badge)}</span><h4>${pick(n.t)}</h4><p>${pick(n.x)}</p><span class="obj-open" style="margin-top:16px">${t('card.readmore')}</span></div>`;
+  document.getElementById('marquee').innerHTML=[...news.keys(),...news.keys()].map(i=>card(news[i],i)).join('');
+}
+
+/* ================= MODAL OGGETTO ================= */
+function openObj(i){
+  const o=objects[i];
+  curGallery=o.gallery;
+  const priceRows = o.deal==='rent'
+    ? [['m.netRent',pick(o.netRent)],['m.charges',pick(o.charges)],['m.grossRent',pick(o.gross)||pick(o.price)]]
+    : [['m.price',pick(o.price)]];
+  const rows=[['m.category',pick(o.category)],['m.npa',o.npa],['m.rooms',o.rooms],['m.floor',pick(o.floor)],['m.surf',o.surf?o.surf+' m²':''],['m.posti',pick(o.posti)],['m.avail',pick(o.avail)],['m.year',o.year],...priceRows].filter(r=>r[1]);
+  document.getElementById('modalContent').innerHTML=`
+    <div class="m-gallery">${o.gallery.map((g,gi)=>`<img src="${g}" loading="lazy" onclick="openLightbox(${gi})" alt="${pick(o.t)} – ${o.loc} (${gi+1})">`).join('')}</div>
+    <div class="m-body">
+      <div class="m-loc">${o.loc}</div>
+      <h2 class="m-title">${pick(o.t)}</h2>
+      <span class="m-state">${pick(o.state)}</span>
+      <div class="m-price">${pick(o.price)}</div>
+      <p class="m-desc" style="white-space:pre-line">${pick(o.long)}</p>
+      <div class="m-h">${t('m.info')}</div>
+      <div class="m-info">${rows.map(r=>`<div class="row"><span>${t(r[0])}</span><b>${r[1]}</b></div>`).join('')}</div>
+      <div class="m-h">${t('m.feats')}</div>
+      <div class="m-feats">${(o.features[LANG]||o.features.it).map(f=>`<div class="f">${f}</div>`).join('')}</div>
+      <div class="m-cta"><button class="btn" onclick="requestInfo(${i})">${t('m.cta')}</button></div>
+    </div>`;
+  document.getElementById('modalBox').scrollTop=0;
+  document.getElementById('modal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+/* ================= MODAL ANNUNCIO ================= */
+function openNews(i){
+  const n=news[i];
+  document.getElementById('modalContent').innerHTML=`
+    <div class="m-body" style="padding-top:82px">
+      <div class="m-loc">${pick(n.date)} · ${pick(n.badge)}</div>
+      <h2 class="m-title" style="margin-bottom:20px">${pick(n.t)}</h2>
+      <div class="m-desc" style="white-space:pre-line">${pick(n.body)}</div>
+      <div class="m-cta"><button class="btn" onclick="closeObj();go('contatti')">${t('news.cta')}</button></div>
+    </div>`;
+  document.getElementById('modalBox').scrollTop=0;
+  document.getElementById('modal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function requestInfo(i){
+  const o=objects[i];
+  const ref='Rif. '+o.ref+' – '+pick(o.t)+' ('+o.loc+')';
+  closeObj();
+  go('contatti');
+  document.getElementById('cfOggetto').value=ref;
+  document.getElementById('cfOggettoWrap').style.display='block';
+  const ta=document.querySelector('#contactForm textarea');
+  if(ta) ta.value=t('form.prefill')+ref+'\n\n';
+  setTimeout(()=>{const f=document.getElementById('contactForm');if(f)f.scrollIntoView({behavior:'smooth',block:'center'});},350);
+}
+function closeObj(){document.getElementById('modal').classList.remove('open');document.body.style.overflow=''}
+
+/* ================= LIGHTBOX GALLERIA ================= */
+let curGallery=[],lbIndex=0;
+function lbShow(){document.getElementById('lbImg').src=curGallery[lbIndex];document.getElementById('lbCount').textContent=(lbIndex+1)+' / '+curGallery.length}
+function openLightbox(i){lbIndex=i;lbShow();document.getElementById('lightbox').classList.add('open')}
+function lbNav(d){lbIndex=(lbIndex+d+curGallery.length)%curGallery.length;lbShow()}
+function closeLightbox(){document.getElementById('lightbox').classList.remove('open')}
+document.getElementById('lightbox').addEventListener('click',e=>{if(e.target.id==='lightbox')closeLightbox()});
+// swipe su mobile
+let tx=0;
+const lb=document.getElementById('lightbox');
+lb.addEventListener('touchstart',e=>tx=e.changedTouches[0].clientX,{passive:true});
+lb.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>45)lbNav(dx<0?1:-1)},{passive:true});
+
+document.addEventListener('keydown',e=>{
+  if(document.getElementById('lightbox').classList.contains('open')){
+    if(e.key==='Escape')closeLightbox();
+    else if(e.key==='ArrowRight')lbNav(1);
+    else if(e.key==='ArrowLeft')lbNav(-1);
+    return;
+  }
+  if(e.key==='Escape')closeObj();
+});
+
+/* ================= I18N APPLY + SWITCH ================= */
+function applyI18n(){
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const k=el.getAttribute('data-i18n');
+    if(T[LANG][k]!==undefined) el.innerHTML=T[LANG][k];
+  });
+  document.querySelectorAll('[data-i18n-ph]').forEach(el=>{
+    const k=el.getAttribute('data-i18n-ph');
+    if(T[LANG][k]!==undefined) el.setAttribute('placeholder',T[LANG][k]);
+  });
+}
+function setLang(lang){
+  LANG=lang;
+  document.documentElement.lang=lang;
+  document.querySelectorAll('.lang-switch a').forEach(a=>a.classList.toggle('active',a.textContent.toLowerCase()===lang));
+  applyI18n();
+  renderHomeObjects();renderObjects();renderNews();
+  initReveal();
+}
+
+/* ================= ROUTING ================= */
+let mapReady=false,map;
+function go(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-link').forEach(a=>a.classList.remove('active'));
+  const idx={home:0,oggetti:1,team:2,contatti:3}[id];
+  document.querySelectorAll('.nav-link')[idx]?.classList.add('active');
+  toggleNav(false);
+  window.scrollTo({top:0,behavior:'instant'});
+  document.getElementById('hdr').classList.toggle('light',id==='home');
+  document.getElementById('hdr').classList.toggle('home',id==='home');
+  onScroll();setTimeout(initReveal,60);
+  if(id==='contatti') setTimeout(initMap,250);
+}
+function scrollToId(id){document.getElementById(id).scrollIntoView({behavior:'smooth'})}
+
+/* ================= MAPPA ================= */
+function initMap(){
+  if(mapReady){map.invalidateSize();return}
+  const POS=[45.873390,8.987199];
+  map=L.map('map',{scrollWheelZoom:false}).setView(POS,17);
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{attribution:'© OpenStreetMap, © CARTO',maxZoom:19}).addTo(map);
+  const ic=L.divIcon({className:'',html:'<div style="width:18px;height:18px;background:#9c7b4e;border:3px solid #fff;border-radius:50%;box-shadow:0 4px 12px rgba(0,0,0,.4)"></div>',iconSize:[18,18],iconAnchor:[9,9]});
+  L.marker(POS,{icon:ic}).addTo(map).bindPopup('<b>PRIMORA SA</b><br>Real Estate · Property Investments<br>Via Carlo Pasta 5, 6850 Mendrisio<br><a href="https://www.google.com/maps/search/?api=1&query=Via+Carlo+Pasta+5+6850+Mendrisio" target="_blank">Apri in Google Maps →</a>');
+  mapReady=true;
+}
+
+/* ================= HEADER / SLIDESHOW / REVEAL ================= */
+function onScroll(){
+  const hdr=document.getElementById('hdr');
+  hdr.classList.toggle('scrolled',window.scrollY>40);
+  const b=document.getElementById('burger');
+  if(b) b.classList.toggle('on-dark',hdr.classList.contains('home')&&!hdr.classList.contains('scrolled'));
+}
+window.addEventListener('scroll',onScroll);
+let hs=0;const slides=document.querySelectorAll('.hero-slide');
+setInterval(()=>{slides[hs].classList.remove('show');hs=(hs+1)%slides.length;slides[hs].classList.add('show')},5000);
+function initReveal(){
+  const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
+  document.querySelectorAll('.reveal:not(.in)').forEach(el=>io.observe(el));
+}
+function toggleNav(force){
+  const n=document.getElementById('mobileNav'),o=document.getElementById('mobileNavOv'),b=document.getElementById('burger');
+  const open=force!==undefined?force:!n.classList.contains('open');
+  n.classList.toggle('open',open);o.classList.toggle('open',open);b.classList.toggle('open',open);
+  document.body.style.overflow=open?'hidden':'';
+}
+
+/* ================= FORM CONTATTI (Netlify Forms via AJAX) ================= */
+(function(){
+  const f=document.getElementById('contactForm'); if(!f) return;
+  f.addEventListener('submit',e=>{
+    e.preventDefault();
+    const msg=document.getElementById('cfMsg');
+    const body=new URLSearchParams(new FormData(f)).toString();
+    fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body})
+      .then(r=>{if(!r.ok)throw 0;msg.className='cf-msg show ok';msg.textContent=t('form.ok');f.reset();document.getElementById('cfOggettoWrap').style.display='none';})
+      .catch(()=>{msg.className='cf-msg show err';msg.textContent=t('form.err');});
+  });
+})();
+
+/* ================= INIT ================= */
+applyI18n();renderHomeObjects();renderObjects();renderNews();initReveal();onScroll();
+</script>
+</body>
+</html>
