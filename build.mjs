@@ -144,14 +144,15 @@ async function run() {
     const stato = f.Stato || (deal === 'rent' ? 'In affitto' : 'In vendita');
     const st = STATE_MAP[stato] || {};
     // foto
+    const slug = String(f.Riferimento || 'obj').replace(/[^A-Za-z0-9_-]/g, '') || 'obj';
     const urls = attUrls(f.Foto);
     const gallery = [];
     for (let i = 0; i < urls.length; i++) {
-      try { gallery.push(await saveImg(urls[i], `${(f.Riferimento||'obj')}-${i+1}.jpg`)); }
-      catch (e) { console.warn('foto skip', f.Riferimento, i, e.message); }
+      try { gallery.push(await saveImg(urls[i], `${slug}-${i+1}.jpg`)); }
+      catch (e) { console.warn('foto skip', slug, i, e.message); }
     }
     const o = {
-      ref: f.Riferimento || '', deal, cls: clsFor(deal, stato),
+      ref: String(f.Riferimento || '').trim(), deal, cls: clsFor(deal, stato),
       loc: f.Localita || '', npa: f.NPA || '', rooms: f.Locali || '', surf: f.Superficie_m2 || '',
       state: { it: stato, de: st.de || stato, en: st.en || stato },
       category: await ml(f.Categoria_IT, f.Categoria_DE, f.Categoria_EN),
